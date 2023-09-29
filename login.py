@@ -1,34 +1,26 @@
 from tkinter import *
 from tkinter import messagebox
-import sqlite3
+from user_database import connect_database, close_database, insert_user, fetch_user 
 import subprocess
 
 
-conn = sqlite3.connect('user_database.db')
-c = conn.cursor()
-
-c.execute('''CREATE TABLE IF NOT EXISTS users
-             (username TEXT, password TEXT)''')
-conn.commit()
-
 def signIn():
-    username = user.get()
+    email = emailuser.get()
     password = passcode.get()
 
-    c.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
-    result = c.fetchone()
+    conn, c = connect_database()
+
+    result = fetch_user(conn, c, email, password)
+
+    close_database(conn)
 
     if result:
-        messagebox.showinfo("Login Successful", "Welcome, " + username)
+        messagebox.showinfo("Login Successful", "Welcome, " + email)
     else:
-        messagebox.showerror("Login Failed", "Invalid username or password")
-
+        messagebox.showerror("Login Failed", "Invalid email or password")
 
 def signUp():
     subprocess.run(['python', '.\signup.py'])
-
-def close_database():
-    conn.close()
 
 root=Tk()
 root.title('Login')
@@ -48,17 +40,17 @@ heading.place(x=100, y=5)
 
 #username box
 def on_enter(e):
-    user.delete(0, 'end')
+    emailuser.delete(0, 'end')
 def on_leave(e):
-    name = user.get()
+    name = emailuser.get()
     if name=='':
-        user.insert(0,'Email/ Name')
+        emailuser.insert(0,'Email')
 
-user = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
-user.place(x=30, y=80)
-user.insert(0,"Email/ Name")
-user.bind('<FocusIn>', on_enter)
-user.bind('<FocusOut>', on_leave)
+emailuser = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+emailuser.place(x=30, y=80)
+emailuser.insert(0,"Email")
+emailuser.bind('<FocusIn>', on_enter)
+emailuser.bind('<FocusOut>', on_leave)
 Frame(frame, width=295, height=2, bg="black").place(x=25,y=107)
 
 #password box
@@ -82,5 +74,5 @@ Button(frame,command=signIn,width=39,pady=7,text="Log in",bg="#CD3333", fg="whit
 sign_up = Button(frame,command=signUp,width=6,text="SignUp",border=0,bg="white",fg="#732222")
 sign_up.place(x=145, y=270)
 
-root.protocol("WM_DELETE_WINDOW", close_database)
+
 root.mainloop()
