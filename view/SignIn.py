@@ -9,7 +9,7 @@ class SignIn(tk.Frame):
         self.configure(bg='white')
         
         logo_path = os.path.join(os.path.join(os.getcwd(),'assets'),'carrent1.png')
-        img = ttk.PhotoImage(file=logo_path, master=self)
+        img = PhotoImage(file=logo_path, master=self)
         ttk.Label(self,image=img).place(x=50,y=50)
         
         #ttk.Label(self,text='Image here').place(x=50,y=50)
@@ -72,6 +72,6 @@ if __name__=='__main__':
     controller = None
 
     pg = SignIn(container, controller)
-    pg.place(x=0,y=0)
+    pg.grid(row = 0, column = 0, sticky ="nsew")
 
     root.mainloop()
