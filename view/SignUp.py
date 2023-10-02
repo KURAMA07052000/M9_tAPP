@@ -3,8 +3,6 @@ from tkinter import ttk
 from tkinter import *
 import os
 
-from controller.routes import *
-
 class SignUp(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
