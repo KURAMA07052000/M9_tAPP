@@ -3,12 +3,16 @@ from tkinter import ttk
 from tkinter import *
 import os
 
+from controller.routes import *
+
 class SignUp(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.configure(bg='white')
         
-        frame=Frame(root,width=350,height=650,bg='white')
+        self.CONTROLLER = controller
+
+        frame=Frame(self,width=350,height=650,bg='white')
         frame.pack(pady=70)
 
         heading=Label(frame,text="SIGN UP", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",23,"bold"))
@@ -50,6 +54,8 @@ class SignUp(tk.Frame):
 
     def signUp(self):
         print(self.user.get(),self.emailuser.get(),self.phonenum.get(),self.passcode.get())
+        self.CONTROLLER.toSignIn()
+
 
 
 if __name__=='__main__':

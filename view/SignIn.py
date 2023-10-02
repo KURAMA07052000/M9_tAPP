@@ -1,13 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
+
 import os
+import sys
+sys.path.append(os.getcwd())
 
 class SignIn(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.configure(bg='white')
         
+        self.CONTROLLER = controller
+
         logo_path = os.path.join(os.path.join(os.getcwd(),'assets'),'carrent1.png')
         img = PhotoImage(file=logo_path, master=self)
         ttk.Label(self,image=img).place(x=50,y=50)
@@ -51,7 +56,7 @@ class SignIn(tk.Frame):
         
         Button(frame,command=self.signIn,width=39,pady=7,text="Log in",bg="#CD3333", fg="white", border=0).place(x=35, y=204)
 
-        sign_up = Button(frame,command=lambda : controller.show_frame(Page2),width=6,text="SignUp",border=0,bg="white",fg="#732222")
+        sign_up = Button(frame,command=lambda : controller.toSignUp(),width=6,text="SignUp",border=0,bg="white",fg="#732222")
         sign_up.place(x=145, y=270)
         
     def signIn():
