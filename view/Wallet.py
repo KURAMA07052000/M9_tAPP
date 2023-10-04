@@ -183,6 +183,7 @@ class Wallet(tk.Frame):
     def GButton_651_command(self):
         print("command")
 
+
     def GButton_721_command(self):
         print("command")
 
