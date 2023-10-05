@@ -9,7 +9,7 @@ LARGEFONT =("Verdana", 35)
 class tkinterApp(tk.Tk):
     def __init__(self, controller, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        self.geometry('925x500+300+200')
+        self.geometry('925x500')
         self.configure(bg='white')
         self.resizable(False,False)
         
