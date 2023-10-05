@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 
+from PIL import ImageTk, Image
+
 import os
 import sys
 sys.path.append(os.getcwd())
@@ -13,16 +15,13 @@ class SignIn(tk.Frame):
         
         self.CONTROLLER = controller
 
-        logo_path = os.path.join(os.path.join(os.getcwd(),'assets'),'carrent1.png')
-        img = PhotoImage(file=logo_path, master=self)
-        ttk.Label(self,image=img).place(x=50,y=50)
+        label = Label(self, image = self.CONTROLLER.ASSETS['logo'], border=0)
+        label.place(x=50,y=50)
         
-        #ttk.Label(self,text='Image here').place(x=50,y=50)
-        
-        frame=ttk.Frame(self,width=350,height=350)
+        frame=tk.Frame(self,width=350,height=350, bg='white')
         frame.place(x=480, y=70)
         
-        heading=ttk.Label(frame,text="E-VEHICLE", font=("Microsft YaHei UI Light",23,"bold"))
+        heading=tk.Label(frame,text="E-VEHICLE", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
         heading.place(x=100, y=5)
         
         #username box
@@ -38,7 +37,7 @@ class SignIn(tk.Frame):
         emailuser.insert(0,"Email")
         emailuser.bind('<FocusIn>', on_enter)
         emailuser.bind('<FocusOut>', on_leave)
-        #Frame(frame, width=295, height=2, bg="black").place(x=25,y=107)
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=107)
         
         #password box
         def on_enter(e):
@@ -53,15 +52,16 @@ class SignIn(tk.Frame):
         passcode.insert(0,"Password")
         passcode.bind('<FocusIn>', on_enter)
         passcode.bind('<FocusOut>', on_leave)
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=177)
         
         Button(frame,command=self.signIn,width=39,pady=7,text="Log in",bg="#CD3333", fg="white", border=0).place(x=35, y=204)
 
         sign_up = Button(frame,command=lambda : controller.toSignUp(),width=6,text="SignUp",border=0,bg="white",fg="#732222")
         sign_up.place(x=145, y=270)
         
-    def signIn():
+    def signIn(self):
         print('yayy')
-
+        self.CONTROLLER.toUserHome()
 
 if __name__=='__main__':
     root = tk.Tk()

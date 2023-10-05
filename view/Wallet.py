@@ -14,7 +14,7 @@ class Wallet(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.configure(bg='white')
         self.CONTROLLER = controller
-        GLineEdit_515 = tk.Entry(root)
+        GLineEdit_515 = tk.Entry(self)
         GLineEdit_515["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_515["font"] = ft
@@ -23,9 +23,9 @@ class Wallet(tk.Frame):
         GLineEdit_515["justify"] = "left"
         # GLineEdit_515["text"] = "Payment amount"
         GLineEdit_515.place(x=80, y=80, width=340, height=40)
-        Frame(width=340, height=2, bg="black").place(x=80, y=120)
+        Frame(self,width=340, height=2, bg="black").place(x=80, y=120)
 
-        GLineEdit_762 = tk.Entry(root)
+        GLineEdit_762 = tk.Entry(self)
         GLineEdit_762["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_762["font"] = ft
@@ -34,9 +34,9 @@ class Wallet(tk.Frame):
         GLineEdit_762["justify"] = "left"
         # GLineEdit_762["text"] = "Entry"
         GLineEdit_762.place(x=80, y=210, width=340, height=40)
-        Frame(width=340, height=2, bg="black").place(x=80, y=250)
+        Frame(self,width=340, height=2, bg="black").place(x=80, y=250)
 
-        GLineEdit_48 = tk.Entry(root)
+        GLineEdit_48 = tk.Entry(self)
         GLineEdit_48["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_48["font"] = ft
@@ -44,9 +44,9 @@ class Wallet(tk.Frame):
         GLineEdit_48["justify"] = "left"
         # GLineEdit_48["text"] = "Entry"
         GLineEdit_48.place(x=80, y=390, width=70, height=40)
-        Frame(width=70, height=2, bg="black").place(x=80, y=430)
+        Frame(self,width=70, height=2, bg="black").place(x=80, y=430)
 
-        GLineEdit_346 = tk.Entry(root)
+        GLineEdit_346 = tk.Entry(self)
         GLineEdit_346["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_346["font"] = ft
@@ -54,9 +54,9 @@ class Wallet(tk.Frame):
         GLineEdit_346["justify"] = "left"
         # GLineEdit_346["text"] = "Entry"
         GLineEdit_346.place(x=80, y=300, width=340, height=40)
-        Frame(width=340, height=2, bg="black").place(x=80, y=340)
+        Frame(self,width=340, height=2, bg="black").place(x=80, y=340)
 
-        GLineEdit_24 = tk.Entry(root)
+        GLineEdit_24 = tk.Entry(self)
         GLineEdit_24["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_24["font"] = ft
@@ -64,9 +64,9 @@ class Wallet(tk.Frame):
         GLineEdit_24["justify"] = "left"
         # GLineEdit_24["text"] = "Entry"
         GLineEdit_24.place(x=180, y=390, width=70, height=40)
-        Frame(width=70, height=2, bg="black").place(x=180, y=430)
+        Frame(self,width=70, height=2, bg="black").place(x=180, y=430)
 
-        GLineEdit_248 = tk.Entry(root)
+        GLineEdit_248 = tk.Entry(self)
         GLineEdit_248["borderwidth"] = "0px"
         ft = tkFont.Font(family='Arial', size=13)
         GLineEdit_248["font"] = ft
@@ -74,9 +74,9 @@ class Wallet(tk.Frame):
         GLineEdit_248["justify"] = "left"
         # GLineEdit_248["text"] = "Entry"
         GLineEdit_248.place(x=310, y=390, width=110, height=40)
-        Frame(width=110, height=2, bg="black").place(x=310, y=430)
+        Frame(self,width=110, height=2, bg="black").place(x=310, y=430)
 
-        GLabel_211 = tk.Label(root)
+        GLabel_211 = tk.Label(self)
         # GLabel_211["anchor"] = "w"
         ft = tkFont.Font(family='Arial', size=18)
         GLabel_211["font"] = ft
@@ -87,7 +87,7 @@ class Wallet(tk.Frame):
         GLabel_211["relief"] = "ridge"
         GLabel_211.place(x=550, y=80, width=306, height=225)
 
-        GButton_651 = tk.Button(root)
+        GButton_651 = tk.Button(self)
         GButton_651["bg"] = "#f0f0f0"
         ft = tkFont.Font(family='Arial', size=13)
         GButton_651["font"] = ft
@@ -99,7 +99,7 @@ class Wallet(tk.Frame):
         GButton_651.place(x=550, y=350, width=135, height=40)
         GButton_651["command"] = self.GButton_651_command
 
-        GButton_721 = tk.Button(root)
+        GButton_721 = tk.Button(self)
         GButton_721["bg"] = "#f0f0f0"
         ft = tkFont.Font(family='Arial', size=13)
         GButton_721["font"] = ft
@@ -111,7 +111,7 @@ class Wallet(tk.Frame):
         GButton_721.place(x=720, y=350, width=135, height=40)
         GButton_721["command"] = self.GButton_721_command
 
-        GLabel_922 = tk.Label(root)
+        GLabel_922 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=18)
         GLabel_922["font"] = ft
         GLabel_922["fg"] = "#333333"
@@ -121,7 +121,7 @@ class Wallet(tk.Frame):
         GLabel_922["text"] = "Payment Amount: "
         GLabel_922.place(x=80, y=40, width=250, height=30)
 
-        GLabel_801 = tk.Label(root)
+        GLabel_801 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=16)
         GLabel_801["font"] = ft
         GLabel_801["fg"] = "#333333"
@@ -131,7 +131,7 @@ class Wallet(tk.Frame):
         GLabel_801["text"] = "Bank Details: "
         GLabel_801.place(x=80, y=140, width=146, height=30)
 
-        GLabel_28 = tk.Label(root)
+        GLabel_28 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=13)
         GLabel_28["font"] = ft
         GLabel_28["fg"] = "#333333"
@@ -141,7 +141,7 @@ class Wallet(tk.Frame):
         GLabel_28["text"] = "Card Holder's Name: "
         GLabel_28.place(x=80, y=170, width=154, height=32)
 
-        GLabel_704 = tk.Label(root)
+        GLabel_704 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=13)
         GLabel_704["font"] = ft
         GLabel_704["fg"] = "#333333"
@@ -151,7 +151,7 @@ class Wallet(tk.Frame):
         GLabel_704["text"] = "Card Number: "
         GLabel_704.place(x=80, y=260, width=132, height=40)
 
-        GLabel_date = tk.Label(root)
+        GLabel_date = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=13)
         GLabel_date["font"] = ft
         GLabel_date["fg"] = "#333333"
@@ -162,7 +162,7 @@ class Wallet(tk.Frame):
         GLabel_date.place(x=80, y=360, width=132, height=40)
 
 
-        GLabel_761 = tk.Label(root)
+        GLabel_761 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=28)
         GLabel_761["font"] = ft
         GLabel_761["fg"] = "#333333"
@@ -171,7 +171,7 @@ class Wallet(tk.Frame):
         GLabel_761["text"] = "/"
         GLabel_761.place(x=150, y=390, width=32, height=40)
 
-        GLabel_622 = tk.Label(root)
+        GLabel_622 = tk.Label(self)
         ft = tkFont.Font(family='Arial', size=13)
         GLabel_622["font"] = ft
         GLabel_622["fg"] = "#333333"

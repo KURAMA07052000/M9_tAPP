@@ -21,24 +21,28 @@ class SignUp(tk.Frame):
         self.emailuser.insert(0,"Email")
         self.emailuser.bind('<FocusIn>', lambda x: self.on_enter(element=self.emailuser))
         self.emailuser.bind('<FocusOut>', lambda x: self.on_leave('Email', self.emailuser))
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=107)
 
         self.user = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
         self.user.place(x=30, y=155)
         self.user.insert(0,"Full Name")
         self.user.bind('<FocusIn>', lambda x: self.on_enter(self.user))
         self.user.bind('<FocusOut>', lambda x: self.on_leave('Full Name', self.user))
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=177)
 
         self.phonenum = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
         self.phonenum.place(x=30, y=225)
         self.phonenum.insert(0,"Phone Number")
         self.phonenum.bind('<FocusIn>', lambda x: self.on_enter(element=self.phonenum))
         self.phonenum.bind('<FocusOut>', lambda x: self.on_leave('Phone No.', self.phonenum))
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=247)
 
         self.passcode = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
         self.passcode.place(x=30, y=290)
         self.passcode.insert(0,"Password")
         self.passcode.bind('<FocusIn>', lambda x: self.on_enter(element=self.passcode))
         self.passcode.bind('<FocusOut>', lambda x: self.on_leave('Password', self.passcode))
+        Frame(frame, width=295, height=2, bg="black").place(x=25,y=317)
 
         Button(frame,command=self.signUp,width=39,pady=7,text="Sign",bg="#CD3333", fg="white", border=0).place(x=35, y=334)
 
