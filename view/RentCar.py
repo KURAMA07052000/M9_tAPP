@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
-import os
 
 class RentCar(tk.Frame):
     def __init__(self, parent, controller):
@@ -14,10 +13,10 @@ class RentCar(tk.Frame):
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
         style.map('Red.TCombobox', background=[('readonly', 'red')])
 
-        heading=Label(text="Rent Your Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
+        heading=Label(self, text="Rent Your Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
         heading.place(x=362, y=16)
 
-        type=Label(text="Vehicle Type:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
+        type=Label(self, text="Vehicle Type:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         type.place(x=100, y=100)
 
         self.selected = tk.StringVar()
@@ -27,27 +26,27 @@ class RentCar(tk.Frame):
         self.radio_button1.place(x=100, y=140)
         self.radio_button2.place(x=100, y=180)
 
-        date=Label(text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
+        date=Label(self,text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         date.place(x=100, y=260)
        
-        self.pickupd = Entry( width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+        self.pickupd = Entry(self, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
         self.pickupd.place(x=150, y=300)
         self.pickupd.insert(0,"             DD/MM/YYYY")
         self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
         self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
-        Frame(width=195, height=2, bg="black").place(x=150,y=330)
+        Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
 
         
-        self.drop_off_loc = ttk.Combobox(values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=510, y=100, width=285, height=30)
         self.drop_off_loc.set("Drop-Off Location")
 
-        self.vehicle = ttk.Combobox(values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.vehicle = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
         self.vehicle.place(x=510, y=200, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
 
-        Button(width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0).place(x=140, y=400)
-        Button(width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
+        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
+        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
     def on_enter(self,element):
         element.delete(0, 'end')
     

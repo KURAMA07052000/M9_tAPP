@@ -2,13 +2,14 @@ from view.SignUp import SignUp
 from view.SignIn import SignIn
 from view.UserHome import UserHome
 from view.Wallet import Wallet
+from view.RentCar import RentCar
 
 from tkinter import PhotoImage
 import os
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet]
+        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar]
         self.VIEW = None
 
     def init_assets(self):
@@ -31,3 +32,6 @@ class Controller():
 
     def toWallet(self):
         self.VIEW.show_frame(Wallet)
+
+    def toRentCar(self):
+        self.VIEW.show_frame(RentCar)
