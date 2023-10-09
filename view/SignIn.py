@@ -1,8 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import *
-
-from PIL import ImageTk, Image
 
 import os
 import sys
@@ -64,6 +61,8 @@ class SignIn(tk.Frame):
         self.CONTROLLER.toUserHome()
 
 if __name__=='__main__':
+    from controller.Controller import Controller
+
     root = tk.Tk()
     root.geometry('925x500+300+200')
     root.configure(bg='white')
@@ -74,7 +73,8 @@ if __name__=='__main__':
     container.grid_rowconfigure(0, weight = 1)
     container.grid_columnconfigure(0, weight = 1)
 
-    controller = None
+    controller = Controller()
+    controller.setView(root)
 
     pg = SignIn(container, controller)
     pg.grid(row = 0, column = 0, sticky ="nsew")
