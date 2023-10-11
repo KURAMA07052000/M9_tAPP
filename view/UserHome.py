@@ -1,7 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import *
-import tkinter.font as tkFont
 
 import os
 import sys
@@ -24,8 +22,7 @@ class UserHome(tk.Frame):
 
         # Home btn
         def rentACar():
-            print("rent a car page")
-            self.CONTROLLER.toWallet()
+            self.CONTROLLER.toRentCar()
 
         rentACar = Button(frame, text="Rent a Car", fg="white", border=0, bg="#CD3333", command=rentACar, width=30,
                           height=2)
@@ -47,6 +44,7 @@ class UserHome(tk.Frame):
 
         def showOrderHistory():
             print("show order history page")
+            self.CONTROLLER.toWallet()
 
         showOrderHistory = Button(frame, text="Show Order History", fg="white", border=0, bg="#CD3333",
                                   command=showOrderHistory, width=30, height=2)
