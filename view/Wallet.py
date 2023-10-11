@@ -181,7 +181,7 @@ class Wallet(tk.Frame):
         GLabel_622.place(x=250, y=390, width=59, height=40)
 
     def GButton_651_command(self):
-        print("command")
+        self.CONTROLLER.toUserHome()
 
 
     def GButton_721_command(self):
