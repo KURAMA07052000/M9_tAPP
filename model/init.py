@@ -11,6 +11,7 @@ def conn():
 
 def close_conn():
     if CON != None:
+        CON.commit()
         CON.close()
 
 def curr():
@@ -28,11 +29,11 @@ if __name__ == '__main__':
     _c = conn()
     c = curr()
 
-    c.execute('''DROP TABLE test''')
+    c.execute('''DROP TABLE IF EXISTS test''')
 
     c.execute('''CREATE TABLE IF NOT EXISTS test(
-              user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-              wallet_id INTEGER UNIQUE,
+              user_id text PRIMARY KEY,
+              wallet_id text UNIQUE,
               name text,
               email text,
               phone_num text,
