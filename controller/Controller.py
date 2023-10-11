@@ -4,10 +4,11 @@ from view.UserHome import UserHome
 from view.Wallet import Wallet
 from view.RentCar import RentCar
 from view.ReturnCar import ReturnCar
+from view.Payment import Payment
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar]
+        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment]
         self.VIEW = None
 
     def setView(self,controller):
@@ -35,3 +36,6 @@ class Controller():
 
     def toReturnCar(self):
         self.VIEW.show_frame(ReturnCar)
+
+    def toPayment(self):
+        self.VIEW.show_frame(Payment)

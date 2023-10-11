@@ -43,6 +43,7 @@ class UserHome(tk.Frame):
         reportACar["justify"] = "center"
 
         def showOrderHistory():
+            self.CONTROLLER.toPayment()
             print("show order history page")
 
         showOrderHistory = Button(frame, text="Show Order History", fg="white", border=0, bg="#CD3333",
