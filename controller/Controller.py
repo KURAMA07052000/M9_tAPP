@@ -4,22 +4,18 @@ from view.UserHome import UserHome
 from view.Wallet import Wallet
 from view.RentCar import RentCar
 
-from tkinter import PhotoImage
-import os
-
 class Controller():
     def __init__(self):
         self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar]
         self.VIEW = None
 
-    def init_assets(self):
-        self.ASSETS = {
-            'logo': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'carrent1.png'))
-            }
-
     def setView(self,controller):
         self.VIEW = controller
-        self.init_assets()
+        self.MODEL.init_assets()
+        self.ASSETS = self.MODEL.ASSETS
+
+    def setModel(self, model):
+        self.MODEL = model
 
     def toSignUp(self):
         self.VIEW.show_frame(SignUp)
