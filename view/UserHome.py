@@ -29,7 +29,7 @@ class UserHome(tk.Frame):
         rentACar["justify"] = "center"
 
         def returnACar():
-            print("return a car page")
+            self.CONTROLLER.toReturnCar()
 
         returnACar = Button(frame, text="Return a Car", fg="white", border=0, bg="#CD3333", command=returnACar,
                             width=30, height=2)
@@ -44,7 +44,6 @@ class UserHome(tk.Frame):
 
         def showOrderHistory():
             print("show order history page")
-            self.CONTROLLER.toWallet()
 
         showOrderHistory = Button(frame, text="Show Order History", fg="white", border=0, bg="#CD3333",
                                   command=showOrderHistory, width=30, height=2)

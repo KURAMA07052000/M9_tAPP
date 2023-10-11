@@ -46,7 +46,7 @@ class RentCar(tk.Frame):
         self.vehicle.set("Chose your vehicle")
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
+        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toWallet).place(x=520, y=400)
     def on_enter(self,element):
         element.delete(0, 'end')
     
