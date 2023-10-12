@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
-from ttkbootstrap import Style
-from ttkbootstrap import ttk as bttk
+#from ttkbootstrap import Style
+#from ttkbootstrap import ttk as bttk
 from tkinter import ttk
 from controller.Controller import *
 import os
@@ -29,7 +29,7 @@ class Payment(tk.Frame):
         image_label = tk.Label(frame1, image = self.CONTROLLER.ASSETS['map'])
         image_label.place(x=0, y=0)
 
-        trip_success_label = tk.Label(frame1, text="The trip has ended successfully", font=("Inter", 26, "bold"),
+        trip_success_label = tk.Label(frame1, text="The trip has ended successfully", font=("Inter", 20, "bold"),
                                       fg="black", bg="white")
         trip_success_label.place(x=411, y=34)
 
@@ -63,14 +63,14 @@ class Payment(tk.Frame):
                                        bg="white")
         duration_info_label.place(x=439, y=213)
 
-        rectangle1 = tk.Button(frame1, width=30, text="PAY", height=3, bg="black", relief="solid", bd=1)
-        rectangle1.place(x=476, y=399)
+        rectangle1 = tk.Button(frame1, width=30, text="PAY", height=3, fg="white", bg="#CD3333", relief="solid", bd=0, )
+        rectangle1.place(x=480, y=399)
 
 
 
 if __name__ == '__main__':
     root = tk.Tk()
-    style = Style(theme='yeti')
+    #style = Style(theme='yeti')
     root.geometry('925x500+300+200')
     root.configure(bg='white')
     root.resizable(False, False)
