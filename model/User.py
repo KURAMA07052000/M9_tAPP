@@ -25,14 +25,14 @@ class User:
                 user_id text PRIMARY KEY,
                 wallet_id text UNIQUE NOT NULL,
                 name text,
-                email text,
+                email text UNIQUE,
                 phone_num text,
                 password text,
                 user_kind text
                 );''')
         self.con.commit()
 
-    def create_new(self, data:{}):
+    def create_new(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
         '''
         create user_id
         create wallet_id
@@ -43,18 +43,28 @@ class User:
         user_id = str(uuid.uuid4())
         wallet_id = str(uuid.uuid4())
 
-        w = Wallet()
-        w.create_new(wallet_id, user_id)
-
         self.cur.execute("""INSERT INTO User (user_id, wallet_id, name, email, phone_num, password, user_kind) VALUES(
             ?,
             ?,
-            "Harsh Raj Verma",
-            "noneofyourbznz@fo.com",
-            "8333844575",
-            "Not password",
-            "Admin"
-            );""", (user_id, wallet_id))
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            );""", [user_id, wallet_id, name, email, phone_num, password, user_kind])
+        
+        w = Wallet()
+        w.create_new(wallet_id, user_id)
+
+        self.con.commit()
+        
+    
+    def login(self, email:str, password:str):
+        self.cur.execute("""SELECT COUNT(*) FROM User WHERE email=? AND password=?""", (email, password))
+        if list(self.cur.fetchall()).copy()[0][0] == 1:
+            return True
+        else:
+            return False
 
 
     def print_all(self):
@@ -64,5 +74,4 @@ class User:
 
 if __name__ == '__main__':
     u = User()
-    u.create_new()
-    u.print_all()
+    u.CREATE_TABLE('off')

@@ -50,5 +50,4 @@ class Wallet:
 
 if __name__ == '__main__':
     u = Wallet()
-    u.CREATE_TABLE()
-    u.print_all()
+    u.CREATE_TABLE('off')
