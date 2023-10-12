@@ -5,10 +5,11 @@ from view.Wallet import Wallet
 from view.RentCar import RentCar
 from view.ReturnCar import ReturnCar
 from view.Payment import Payment
+from view.OrderHistory import OrderHistory
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment]
+        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
@@ -42,6 +43,9 @@ class Controller():
 
     def toPayment(self):
         self.VIEW.show_frame(Payment)
+    
+    def toOrderHistory(self):
+        self.VIEW.show_frame(OrderHistory)
 
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)

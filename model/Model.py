@@ -16,3 +16,6 @@ class Model:
             'logoutbutton': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'logout.png')),
             'wallet': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'wallet.png')),
             }
+        
+    def init_data(self):
+        pass
