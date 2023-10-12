@@ -43,3 +43,5 @@ class Controller():
     def login(self, email:str, password:str):
         if self.MODEL.User.login(email,password):
             self.toUserHome()
+        else:
+            print('Wrong ui and pass')
