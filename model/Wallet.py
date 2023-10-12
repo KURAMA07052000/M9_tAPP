@@ -1,25 +1,28 @@
+import sys 
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
 from model.init import conn, curr
 
 class Wallet:
     def __init__(self):
-        pass
+        self.cur = curr()
+        self.con = conn()
     
     def CREATE_TABLE(self, saftey='on'):
         '''
         Create a user table
         '''
-        con = conn()
-        cur = curr()
 
         if saftey == 'off':
-            cur.execute('''DROP TABLE IF EXISTS Wallet''')
+            self.cur.execute('''DROP TABLE IF EXISTS Wallet''')
 
-        cur.execute('''CREATE TABLE IF NOT EXISTS Wallet(
+        self.cur.execute('''CREATE TABLE IF NOT EXISTS Wallet(
                 wallet_id text PRIMARY KEY,
                 user_id text UNIQUE NOT NULL,
                 balance INTEGER NOT NULL
                 );''')
-        con.commit()
+        self.con.commit()
 
     def create_new(self, wallet_id, user_id):
         '''
@@ -28,19 +31,24 @@ class Wallet:
         populate wallet table
         populate wallet table
         '''
-        con, cur = [conn(), curr()]
         
-        cur.execute("""INSERT INTO Wallet (wallet_id, user_id, balance) VALUES(
+        self.cur.execute("""INSERT INTO Wallet (wallet_id, user_id, balance) VALUES(
             ?,
             ?,
             0
             );""", [wallet_id, user_id])
         
-        con.commit()
+        self.con.commit()
+
+    def print_all(self):
+        self.cur.execute('SELECT * FROM Wallet')
+        for i in self.cur.fetchall():
+            print(i)
 
 
 
 
 if __name__ == '__main__':
-    u = User()
-    u.create_new()
+    u = Wallet()
+    u.CREATE_TABLE()
+    u.print_all()
