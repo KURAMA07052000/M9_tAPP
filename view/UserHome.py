@@ -55,10 +55,10 @@ class UserHome(tk.Frame):
         reportACar.place(x=70, y=280)
         showOrderHistory.place(x=70, y=380)
 
-        logout = Button(self, image = self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white")
+        logout = Button(self, image = self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white", command=self.CONTROLLER.logout)
         logout.place(x=850,y=10)
 
-        wallet = Button(self, image = self.CONTROLLER.ASSETS['wallet'], border=0, bg="white")
+        wallet = Button(self, image = self.CONTROLLER.ASSETS['wallet'], border=0, bg="white", command=self.CONTROLLER.toWallet)
         wallet.place(x=780,y=10)
 
 

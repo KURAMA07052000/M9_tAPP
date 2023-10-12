@@ -53,3 +53,7 @@ class Controller():
     def signup(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
         self.MODEL.User.create_new(name, email, phone_num, password, user_kind)
         self.toSignIn()
+
+    def logout(self):
+        self.UserID, self.WalletID, self.UserType = [None]*3
+        self.toSignIn()
