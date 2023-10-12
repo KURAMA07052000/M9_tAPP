@@ -60,11 +60,14 @@ class User:
         
     
     def login(self, email:str, password:str):
-        self.cur.execute("""SELECT COUNT(*) FROM User WHERE email=? AND password=?""", (email, password))
-        if list(self.cur.fetchall()).copy()[0][0] == 1:
-            return True
-        else:
-            return False
+        self.cur.execute("""SELECT user_id, wallet_id, user_kind FROM User WHERE email=? AND password=?""", (email, password))
+        try:
+            ret = list(self.cur.fetchall()).copy()[0]
+            return ret
+        except Exception as e:
+            print('Login failed')
+        
+        return [None]*3
 
 
     def print_all(self):

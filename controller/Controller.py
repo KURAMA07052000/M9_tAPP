@@ -10,6 +10,9 @@ class Controller():
     def __init__(self):
         self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment]
         self.VIEW = None
+        self.UserID = None
+        self.WalletID = None
+        self.UserType = None
 
     def setView(self,controller):
         self.VIEW = controller
@@ -41,7 +44,8 @@ class Controller():
         self.VIEW.show_frame(Payment)
 
     def login(self, email:str, password:str):
-        if self.MODEL.User.login(email,password):
+        self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)
+        if self.UserID!=None and self.WalletID!=None and self.UserType!=None:
             self.toUserHome()
         else:
             print('Wrong ui and pass')
