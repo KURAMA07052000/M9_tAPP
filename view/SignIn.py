@@ -23,32 +23,32 @@ class SignIn(tk.Frame):
         
         #username box
         def on_enter(e):
-            emailuser.delete(0, 'end')
+            self.emailuser.delete(0, 'end')
         def on_leave(e):
-            name = emailuser.get()
+            name = self.emailuser.get()
             if name=='':
-                emailuser.insert(0,'Email')
+                self.emailuser.insert(0,'Email')
 
-        emailuser = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
-        emailuser.place(x=30, y=80)
-        emailuser.insert(0,"Email")
-        emailuser.bind('<FocusIn>', on_enter)
-        emailuser.bind('<FocusOut>', on_leave)
+        self.emailuser = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+        self.emailuser.place(x=30, y=80)
+        self.emailuser.insert(0,"Email")
+        self.emailuser.bind('<FocusIn>', on_enter)
+        self.emailuser.bind('<FocusOut>', on_leave)
         Frame(frame, width=295, height=2, bg="black").place(x=25,y=107)
         
         #password box
         def on_enter(e):
-            passcode.delete(0, 'end')
+            self.passcode.delete(0, 'end')
         def on_leave(e):
-            name = passcode.get()
+            name = self.passcode.get()
             if name=='':
-                passcode.insert(0,'Password')
+                self.passcode.insert(0,'Password')
 
-        passcode = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
-        passcode.place(x=30, y=150)
-        passcode.insert(0,"Password")
-        passcode.bind('<FocusIn>', on_enter)
-        passcode.bind('<FocusOut>', on_leave)
+        self.passcode = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+        self.passcode.place(x=30, y=150)
+        self.passcode.insert(0,"Password")
+        self.passcode.bind('<FocusIn>', on_enter)
+        self.passcode.bind('<FocusOut>', on_leave)
         Frame(frame, width=295, height=2, bg="black").place(x=25,y=177)
         
         Button(frame,command=self.signIn,width=39,pady=7,text="Log in",bg="#CD3333", fg="white", border=0).place(x=35, y=204)
@@ -57,8 +57,7 @@ class SignIn(tk.Frame):
         sign_up.place(x=145, y=270)
         
     def signIn(self):
-        print('yayy')
-        self.CONTROLLER.toUserHome()
+        self.CONTROLLER.login(self.emailuser.get(), self.passcode.get())
 
 if __name__=='__main__':
     from controller.Controller import Controller

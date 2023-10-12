@@ -39,3 +39,7 @@ class Controller():
 
     def toPayment(self):
         self.VIEW.show_frame(Payment)
+
+    def login(self, email:str, password:str):
+        if self.MODEL.User.login(email,password):
+            self.toUserHome()

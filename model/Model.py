@@ -1,9 +1,13 @@
 from tkinter import PhotoImage
 import os
 
+from model.User import User
+from model.Wallet import Wallet
+
 class Model:
     def __init__(self):
-        pass
+        self.User = User()
+        self.Wallet = Wallet()
     
     def init_assets(self):
         self.ASSETS = {
