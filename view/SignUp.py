@@ -59,8 +59,8 @@ class SignUp(tk.Frame):
             element.insert(0,text)
 
     def signUp(self):
-        print(self.user.get(),self.emailuser.get(),self.phonenum.get(),self.passcode.get(), self.user_type.get())
-        self.CONTROLLER.toSignIn()
+        print(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
+        self.CONTROLLER.signup(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
 
 if __name__=='__main__':
     root = tk.Tk()
