@@ -43,10 +43,10 @@ class Controller():
 
     def toPayment(self):
         self.VIEW.show_frame(Payment)
-    
+
     def toOrderHistory(self):
         self.VIEW.show_frame(OrderHistory)
-
+    
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)
         if self.UserID!=None and self.WalletID!=None and self.UserType!=None:
