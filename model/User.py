@@ -12,6 +12,9 @@ class User:
     def __init__(self):
         self.con = conn()
         self.cur = curr()
+        # self.cur.execute("""SELECT user_id, wallet_id, user_kind FROM User WHERE email='1' AND password='1'""")
+        # self.ret = list(self.cur.fetchall()).copy()[0]
+        # print(self.ret)
     
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -30,6 +33,9 @@ class User:
                 password text,
                 user_kind text
                 );''')
+
+
+
         self.con.commit()
 
     def create_new(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
@@ -57,12 +63,19 @@ class User:
         w.create_new(wallet_id, user_id)
 
         self.con.commit()
+
         
     
     def login(self, email:str, password:str):
+        email = str(email)
+        password = str(password)
+        print(email)
+        print(password)
         self.cur.execute("""SELECT user_id, wallet_id, user_kind FROM User WHERE email=? AND password=?""", (email, password))
+        self.con.commit()
         try:
             ret = list(self.cur.fetchall()).copy()[0]
+            print(ret)
             return ret
         except Exception as e:
             print('Login failed')
@@ -77,4 +90,6 @@ class User:
 
 if __name__ == '__main__':
     u = User()
-    u.CREATE_TABLE('off')
+    # u.CREATE_TABLE('on')
+    u.login('1','1')
+    # u.create_new('1', '1', '1','1', 'user')
