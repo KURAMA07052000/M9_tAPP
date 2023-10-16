@@ -76,16 +76,16 @@ class Wallet(tk.Frame):
         GLineEdit_248.place(x=310, y=390, width=110, height=40)
         Frame(self,width=110, height=2, bg="black").place(x=310, y=430)
 
-        GLabel_211 = tk.Label(self)
+        self.GLabel_211 = tk.Label(self)
         # GLabel_211["anchor"] = "w"
         ft = tkFont.Font(family='Arial', size=18)
-        GLabel_211["font"] = ft
-        GLabel_211["fg"] = "black"
-        GLabel_211["bg"] = "white"
-        GLabel_211["justify"] = "center"
-        GLabel_211["text"] = "Current BALANCE: \n $ 3000000"
-        GLabel_211["relief"] = "ridge"
-        GLabel_211.place(x=550, y=80, width=306, height=225)
+        self.GLabel_211["font"] = ft
+        self.GLabel_211["fg"] = "black"
+        self.GLabel_211["bg"] = "white"
+        self.GLabel_211["justify"] = "center"
+        self.GLabel_211["text"] = f"Current BALANCE: \n $ {self.CONTROLLER.MODEL.DATA['wallet'].balance}"
+        self.GLabel_211["relief"] = "ridge"
+        self.GLabel_211.place(x=550, y=80, width=306, height=225)
 
         GButton_651 = tk.Button(self)
         GButton_651["bg"] = "#f0f0f0"
@@ -187,6 +187,9 @@ class Wallet(tk.Frame):
     def GButton_721_command(self):
         print("command")
 
+    def refresh(self):
+        self.GLabel_211["text"] = f"Current BALANCE: \n $ {self.CONTROLLER.MODEL.DATA['wallet'].balance}"
+        self.GLabel_211.place(x=550, y=80, width=306, height=225)
 
 
 if __name__ == '__main__':

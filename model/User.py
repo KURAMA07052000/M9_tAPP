@@ -12,9 +12,8 @@ class User:
     def __init__(self):
         self.con = conn()
         self.cur = curr()
-        # self.cur.execute("""SELECT user_id, wallet_id, user_kind FROM User WHERE email='1' AND password='1'""")
-        # self.ret = list(self.cur.fetchall()).copy()[0]
-        # print(self.ret)
+        self.UserID = None
+        self.UserType = None
     
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -87,6 +86,10 @@ class User:
         self.cur.execute('SELECT * FROM User')
         for i in self.cur.fetchall():
             print(i)
+
+    def set_id(self, id:str, type:str):
+        self.UserID = id
+        self.UserType = type
 
 if __name__ == '__main__':
     u = User()

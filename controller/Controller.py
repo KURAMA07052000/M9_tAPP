@@ -1,15 +1,15 @@
-from view.SignUp import SignUp
-from view.SignIn import SignIn
-from view.UserHome import UserHome
-from view.Wallet import Wallet
-from view.RentCar import RentCar
-from view.ReturnCar import ReturnCar
-from view.Payment import Payment
-from view.OrderHistory import OrderHistory
+from view.User.SignUp import SignUp
+from view.User.SignIn import SignIn
+from view.User.UserHome import UserHome
+from view.User.Wallet import Wallet
+from view.User.RentCar import RentCar
+from view.User.ReturnCar import ReturnCar
+from view.User.Payment import Payment
+from view.User.OrderHistory import OrderHistory
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignIn ,SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
@@ -33,6 +33,7 @@ class Controller():
         self.VIEW.show_frame(UserHome)
 
     def toWallet(self):
+        self.MODEL.DATA['wallet'].refresh()
         self.VIEW.show_frame(Wallet)
 
     def toRentCar(self):
@@ -50,6 +51,7 @@ class Controller():
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)
         if self.UserID!=None and self.WalletID!=None and self.UserType!=None:
+            self.MODEL.set_ids(self.UserID, self.WalletID, self.UserType)
             self.toUserHome()
         else:
             print('Wrong ui and pass')
