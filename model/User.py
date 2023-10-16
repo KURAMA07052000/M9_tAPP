@@ -91,5 +91,5 @@ class User:
 if __name__ == '__main__':
     u = User()
     # u.CREATE_TABLE('on')
-    u.login('1','1')
+    u.print_all()
     # u.create_new('1', '1', '1','1', 'user')
