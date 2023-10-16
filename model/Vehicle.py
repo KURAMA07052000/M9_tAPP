@@ -11,6 +11,8 @@ import uuid
 
 class Vehicle:
     def __init__(self):
+        self.con = conn()
+        self.cur = curr()
         pass
 
     def CREATE_TABLE(self, saftey='on'):
@@ -32,20 +34,32 @@ class Vehicle:
                 );''')
         con.commit()
 
-    def create_new(self):
-        '''
-        create vehicle_id
-        '''
-        con, cur = [conn(), curr()]
+
+    def create_new(self, vehicle_type: str, current_location: str, is_damaged: bool, battery_percentage: int):
 
         vehicle_id = uuid.uuid4()
 
         vehicle_id = str(vehicle_id)
+        self.cur.execute("""INSERT INTO Vehicle (vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage) VALUES(
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            );""", [vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage])
+
+
+
+    def create_new_test(self):
+        '''
+        create vehicle_id
+        '''
+        vehicle_id = str(uuid.uuid4())
 
         # w = Wallet()
         # w.create_new(wallet_id, user_id)
 
-        cur.execute("""INSERT INTO Vehicle (vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage) VALUES(
+        self.cur.execute("""INSERT INTO Vehicle (vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage) VALUES(
             ?,
             'SUV',
             'University of Glasgow',
@@ -53,7 +67,7 @@ class Vehicle:
             100
             );""", [vehicle_id])
 
-        con.commit()
+        self.con.commit()
 
 
 if __name__ == '__main__':

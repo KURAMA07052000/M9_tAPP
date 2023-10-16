@@ -1,19 +1,28 @@
 from tkinter import PhotoImage
 import os
 
+from model.OrderHistory import OrderHistory
+from model.Orders import Orders
 from model.User import User
+from model.Vehicle import Vehicle
 from model.Wallet import Wallet
 
 class Model:
     def __init__(self):
         self.User = User()
         self.Wallet = Wallet()
+        self.Orders = Orders()
+        self.Vehicle = Vehicle()
+        self.OrderHistory = OrderHistory()
         self.DATA = {
             'wallet': self.Wallet,
             
         }
         self.User.CREATE_TABLE()
         self.Wallet.CREATE_TABLE()
+        self.Orders.CREATE_TABLE()
+        self.Vehicle.CREATE_TABLE()
+
     
     def init_assets(self):
         self.ASSETS = {
