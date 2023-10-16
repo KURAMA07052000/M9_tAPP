@@ -36,7 +36,7 @@ class UserHome(tk.Frame):
         returnACar["justify"] = "center"
 
         def reportACar():
-            print("report a car page")
+            self.CONTROLLER.toReportCar()
 
         reportACar = Button(frame, text="Report a Car", fg="white", border=0, bg="#CD3333", command=reportACar,
                             width=30, height=2)
