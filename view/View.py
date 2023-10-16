@@ -13,18 +13,20 @@ class tkinterApp(tk.Tk):
         self.configure(bg='white')
         self.resizable(False,False)
         
-        container = tk.Frame(self)
-        container.pack(side = "top", fill = "both", expand = True)
+        self.container = tk.Frame(self)
+        self.container.pack(side = "top", fill = "both", expand = True)
         
-        container.grid_rowconfigure(0, weight = 1)
-        container.grid_columnconfigure(0, weight = 1)
+        self.container.grid_rowconfigure(0, weight = 1)
+        self.container.grid_columnconfigure(0, weight = 1)
 
         controller.setView(self)
+
+        self.CONTROLER = controller
 
         self.frames = {}
         
         for F in controller.ALL_PAGES:
-            frame = F(container, controller)
+            frame = F(self.container, controller)
             
             self.frames[F] = frame
             
@@ -34,6 +36,10 @@ class tkinterApp(tk.Tk):
         
     def show_frame(self, cont):
         frame = self.frames[cont]
+        try:
+            frame.refresh()
+        except Exception as ex:
+            print('o' + str(ex))
         frame.tkraise()
 
 if __name__=='__main__':

@@ -8,6 +8,10 @@ class Model:
     def __init__(self):
         self.User = User()
         self.Wallet = Wallet()
+        self.DATA = {
+            'wallet': self.Wallet,
+            
+        }
     
     def init_assets(self):
         self.ASSETS = {
@@ -17,5 +21,6 @@ class Model:
             'wallet': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'wallet.png')),
             }
         
-    def init_data(self):
-        pass
+    def set_ids(self, UserID:str, WalletID:str, UserType:str):
+        self.Wallet.set_id(WalletID)
+        self.User.set_id(UserID, UserType)

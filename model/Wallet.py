@@ -8,6 +8,8 @@ class Wallet:
     def __init__(self):
         self.cur = curr()
         self.con = conn()
+        self.WalletID = None
+        self.balance = 0
     
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -45,9 +47,23 @@ class Wallet:
         for i in self.cur.fetchall():
             print(i)
 
+    def set_id(self, id):
+        self.WalletID = id
 
+    def refresh(self):
+        self.cur.execute('''SELECT balance FROM Wallet WHERE wallet_id=? LIMIT 1''', [self.WalletID])
+        self.balance = self.cur.fetchall().copy()[0][0]
+
+    def update_balance(self, val:int):
+        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [int(val),self.WalletID])
+        self.con.commit()
+        self.refresh()
 
 
 if __name__ == '__main__':
     u = Wallet()
-    u.CREATE_TABLE('off')
+    u.print_all()
+    u.set_id('0f8dc118-60ef-4115-ad03-71986f099464')
+    u.update_balance('10')
+    print(u.balance)
+
