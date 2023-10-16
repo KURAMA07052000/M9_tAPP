@@ -6,10 +6,12 @@ from view.User.RentCar import RentCar
 from view.User.ReturnCar import ReturnCar
 from view.User.Payment import Payment
 from view.User.OrderHistory import OrderHistory
+from view.Operator.OperatorHome import OperatorHome
+from view.Manager.ManagerHome import ManagerHome
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, OperatorHome, ManagerHome]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
