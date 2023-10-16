@@ -52,7 +52,7 @@ class Controller():
         self.VIEW.show_frame(Payment)
 
     def toOrderHistory(self):
-        self.VIEW.show_frame(OrderHistory)
+        self.VIEW.init_and_show_frame(OrderHistory)
 
 
     def toManagerHome(self):

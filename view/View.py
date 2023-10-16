@@ -42,6 +42,17 @@ class tkinterApp(tk.Tk):
             print('o' + str(ex))
         frame.tkraise()
 
+    def init_and_show_frame(self, cont):
+        if cont in self.frames:
+            # Destroy the old frame
+            self.frames[cont].destroy()
+
+        # Create a new frame instance
+        frame = cont(self.container, self.CONTROLER)
+        self.frames[cont] = frame
+        frame.grid(row=0, column=0, sticky="nsew")
+        frame.tkraise()
+
 if __name__=='__main__':
     app = tkinterApp()
     app.mainloop()
