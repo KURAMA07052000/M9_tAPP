@@ -62,6 +62,18 @@ class SignUp(tk.Frame):
         print(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
         self.CONTROLLER.signup(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
 
+    def refresh(self):
+        self.emailuser.delete(0,END)
+        self.user.delete(0,END)
+        self.phonenum.delete(0,END)
+        self.passcode.delete(0,END)
+
+        self.emailuser.insert(0,"Email")
+        self.user.insert(0,"Full Name")
+        self.phonenum.insert(0,"Phone Number")
+        self.passcode.insert(0,"Password")
+        self.user_type.set("Select User Type")
+
 if __name__=='__main__':
     root = tk.Tk()
     root.geometry('925x500+300+200')

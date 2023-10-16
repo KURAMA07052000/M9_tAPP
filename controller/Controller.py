@@ -7,14 +7,12 @@ from view.User.ReturnCar import ReturnCar
 from view.User.Payment import Payment
 from view.User.OrderHistory import OrderHistory
 from view.User.ReportCar import ReportCar
-
 from view.Manager.ManagerHome import ManagerHome
-
 from view.Operator.OperatorHome import OperatorHome
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignIn, SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, ManagerHome, OperatorHome, ReportCar]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
@@ -37,6 +35,9 @@ class Controller():
     def toUserHome(self):
         self.VIEW.show_frame(UserHome)
 
+    def toReportCar(self):
+        self.VIEW.show_frame(ReportCar)
+
     def toWallet(self):
         self.MODEL.DATA['wallet'].refresh()
         self.VIEW.show_frame(Wallet)
@@ -53,8 +54,6 @@ class Controller():
     def toOrderHistory(self):
         self.VIEW.show_frame(OrderHistory)
 
-    def toReportCar(self):
-        self.VIEW.show_frame(ReportCar)
 
     def toManagerHome(self):
         self.VIEW.show_frame(ManagerHome)
@@ -72,8 +71,10 @@ class Controller():
                 self.toOperatorHome()
             elif self.UserType=='manager':
                 self.toManagerHome()
+            else:
+                print('Wrong usertype')
         else:
-            print('Wrong ui and pass')
+            print('Wrong ui or pass')
 
     def signup(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
         self.MODEL.User.create_new(name, email, phone_num, password, user_kind)

@@ -37,6 +37,7 @@ class UserHome(tk.Frame):
 
         def reportACar():
             self.CONTROLLER.toReportCar()
+            print("show report car page")
 
         reportACar = Button(frame, text="Report a Car", fg="white", border=0, bg="#CD3333", command=reportACar,
                             width=30, height=2)

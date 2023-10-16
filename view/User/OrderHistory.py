@@ -35,7 +35,6 @@ class OrderHistory(tk.Frame):
         
         #when implementing the for loop delete this body of code, purly for show
         card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
-        #card.grid(row=0, column=0, columnspan=3, pady=(80, 0))
         card.pack(pady=50)
         entry_label = Label(card, fg="white", bg="#CD3333", text=f"Order")
         entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
@@ -46,7 +45,7 @@ class OrderHistory(tk.Frame):
         card.grid_columnconfigure(1, weight=1)
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toWallet).place(x=520, y=400)
+        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
 
 
 
