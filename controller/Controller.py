@@ -7,15 +7,12 @@ from view.User.ReturnCar import ReturnCar
 from view.User.Payment import Payment
 from view.User.OrderHistory import OrderHistory
 from view.User.ReportCar import ReportCar
-from view.User.ReportCar import ReportCar
-
 from view.Manager.ManagerHome import ManagerHome
-
 from view.Operator.OperatorHome import OperatorHome
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
@@ -57,8 +54,6 @@ class Controller():
     def toOrderHistory(self):
         self.VIEW.show_frame(OrderHistory)
 
-    def toReportCar(self):
-        self.VIEW.show_frame(ReportCar)
 
     def toManagerHome(self):
         self.VIEW.show_frame(ManagerHome)
