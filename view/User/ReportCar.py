@@ -44,7 +44,7 @@ class ReportCar(tk.Frame):
         self.drop_off_loc.set("Chose from your ordered vehicles")
 
     def GButton_485_command(self):
-        print("command")
+        self.CONTROLLER.toUserHome()
 
 
     def GButton_901_command(self):
