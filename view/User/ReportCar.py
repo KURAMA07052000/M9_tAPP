@@ -7,11 +7,8 @@ class ReportCar(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.CONTROLLER = controller
-        #setting title
-        root.title("Report a car")
-        frame = Frame(self, width=350, height=650, bg='white')
 
-        GButton_485 = tk.Button(root)
+        GButton_485 = tk.Button(self)
         GButton_485["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=11)
         GButton_485["font"] = ft
@@ -21,7 +18,7 @@ class ReportCar(tk.Frame):
         GButton_485.place(x=290, y=370, width=131, height=36)
         GButton_485["command"] = self.GButton_485_command
 
-        GButton_901 = tk.Button(root)
+        GButton_901 = tk.Button(self)
         GButton_901["bg"] = "#efefef"
         ft = tkFont.Font(family='Times', size=11)
         GButton_901["font"] = ft
@@ -31,7 +28,7 @@ class ReportCar(tk.Frame):
         GButton_901.place(x=500, y=370, width=132, height=36)
         GButton_901["command"] = self.GButton_901_command
 
-        GLineEdit_821 = tk.Entry(root)
+        GLineEdit_821 = tk.Entry(self)
         GLineEdit_821["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times', size=10)
         GLineEdit_821["font"] = ft

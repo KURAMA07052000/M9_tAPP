@@ -12,6 +12,8 @@ class Model:
             'wallet': self.Wallet,
             
         }
+        self.User.CREATE_TABLE()
+        self.Wallet.CREATE_TABLE()
     
     def init_assets(self):
         self.ASSETS = {
