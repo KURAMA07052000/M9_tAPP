@@ -71,8 +71,10 @@ class Controller():
                 self.toOperatorHome()
             elif self.UserType=='manager':
                 self.toManagerHome()
+            else:
+                print('Wrong usertype')
         else:
-            print('Wrong ui and pass')
+            print('Wrong ui or pass')
 
     def signup(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
         self.MODEL.User.create_new(name, email, phone_num, password, user_kind)
