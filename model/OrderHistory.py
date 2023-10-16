@@ -29,6 +29,8 @@ class OrderHistory:
 
         self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
         row = self.cur.fetchall()
+        for ro in row:
+            print(ro)
         return row
 
 

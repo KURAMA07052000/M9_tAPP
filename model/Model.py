@@ -16,6 +16,8 @@ class Model:
         self.OrderHistory = OrderHistory()
         self.DATA = {
             'wallet': self.Wallet,
+            'orderHistory': self.OrderHistory,
+            'user': self.User,
             
         }
         self.User.CREATE_TABLE()
