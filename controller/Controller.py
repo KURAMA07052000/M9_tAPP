@@ -1,11 +1,11 @@
-from view.SignUp import SignUp
-from view.SignIn import SignIn
-from view.UserHome import UserHome
-from view.Wallet import Wallet
-from view.RentCar import RentCar
-from view.ReturnCar import ReturnCar
-from view.Payment import Payment
-from view.OrderHistory import OrderHistory
+from view.User.SignUp import SignUp
+from view.User.SignIn import SignIn
+from view.User.UserHome import UserHome
+from view.User.Wallet import Wallet
+from view.User.RentCar import RentCar
+from view.User.ReturnCar import ReturnCar
+from view.User.Payment import Payment
+from view.User.OrderHistory import OrderHistory
 
 class Controller():
     def __init__(self):
