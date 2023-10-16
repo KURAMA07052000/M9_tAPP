@@ -59,6 +59,13 @@ class SignIn(tk.Frame):
     def signIn(self):
         self.CONTROLLER.login(self.emailuser.get(), self.passcode.get())
 
+    def refresh(self):
+        self.emailuser.delete(0,END)
+        self.emailuser.insert(0,"Email")
+
+        self.passcode.delete(0,END)
+        self.passcode.insert(0,'Password')
+
 if __name__=='__main__':
     from controller.Controller import Controller
 
