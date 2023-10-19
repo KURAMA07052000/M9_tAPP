@@ -21,9 +21,9 @@ class RentCar(tk.Frame):
 
         self.selected = tk.StringVar()
         # DO NOT CHANGE THE RADIO BUTTON TEXT, VALUE OR COMMAND: IT WILL BREAK THE ENTIRE SYSTEM
-        self.radio_button1 = tk.Radiobutton(self, text="Type 1", variable=self.selected, value="Option 1", bg="white", highlightthickness=0, font=("Microsft YaHei UI Light",12), command=lambda: self.choose_type('1'))
-        self.radio_button2 = tk.Radiobutton(self, text="Type 2", variable=self.selected, value="Option 2", bg="white", highlightthickness=0, font=("Microsft YaHei UI Light",12), command=lambda: self.choose_type('2'))
-        self.selected.set("Option 1")
+        self.radio_button1 = tk.Radiobutton(self, text="Type 1", variable=self.selected, value="1", bg="white", highlightthickness=0, font=("Microsft YaHei UI Light",12), command=lambda: self.choose_type('1'))
+        self.radio_button2 = tk.Radiobutton(self, text="Type 2", variable=self.selected, value="2", bg="white", highlightthickness=0, font=("Microsft YaHei UI Light",12), command=lambda: self.choose_type('2'))
+        self.selected.set(self.CONTROLLER.MODEL.DATA['vehicle'].Type)
         self.radio_button1.place(x=100, y=140)
         self.radio_button2.place(x=100, y=180)
 
@@ -38,7 +38,7 @@ class RentCar(tk.Frame):
         Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
 
         
-        self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=510, y=100, width=285, height=30)
         self.drop_off_loc.set("Drop-Off Location")
 
@@ -50,7 +50,8 @@ class RentCar(tk.Frame):
         Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toWallet).place(x=520, y=400)
 
     def choose_type(self, type):
-        print(self.CONTROLLER.MODEL.DATA['vehicle'].get_available_vehicle_by_type(type))
+        self.CONTROLLER.MODEL.DATA['vehicle'].Type = type
+        self.CONTROLLER.hardRefreshRentCar()
         
     def on_enter(self,element):
         element.delete(0, 'end')

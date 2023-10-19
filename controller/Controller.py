@@ -48,6 +48,8 @@ class Controller():
 
     def toRentCar(self):
         self.VIEW.show_frame(RentCar)
+    def hardRefreshRentCar(self):
+        self.VIEW.init_and_show_frame(RentCar)
 
     def toReturnCar(self):
         self.VIEW.show_frame(ReturnCar)
