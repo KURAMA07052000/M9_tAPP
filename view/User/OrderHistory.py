@@ -20,29 +20,23 @@ class OrderHistory(tk.Frame):
         #Implement the for loop below passing the order data as an argument when ready yall, added it for now
         for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_user(self.CONTROLLER.MODEL.DATA['user'].UserID)):
             card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
-            card.pack(pady=50)
+            card.pack(pady=10)
 
-            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: {entry}")
+            order_name = entry[1]  
+            start_time = entry[4]  
+            end_time = entry[3]    
+
+            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: s{order_name}")
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
 
-            modify = tk.Button(card, bg="white", fg="#CD3333", justify="center", text="MODIFY", border=0)
+            modify = tk.Label(card, fg="white", bg="#CD3333", text=f"End Time - {end_time}")
             modify.grid(row=0, column=2, sticky='e', padx=(0, 160))
 
-            activity = tk.Label(card, bg="#CD3333", fg="white", justify="center", text="ACTIVE/NON-ACTIVE", border="0")
+            activity = tk.Label(card, fg="white", bg="#CD3333", text=f"Start Time - {start_time}")
             activity.grid(row=0, column=1, padx=(160,160))
 
             card.grid_columnconfigure(1, weight=1)
-        
-        #when implementing the for loop delete this body of code, purly for show
-        card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
-        card.pack(pady=50)
-        entry_label = Label(card, fg="white", bg="#CD3333", text=f"Order")
-        entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
-        modify = Button(card, bg="white", fg="#CD3333", justify="center", text="MODIFY", border=0)
-        modify.grid(row=0, column=2, sticky='e', padx=(0, 160))
-        activity = Label(card, bg="#CD3333", fg="white", justify="center", text="ACTIVE/NON-ACTIVE", border="0")
-        activity.grid(row=0, column=1, padx=(160,160))
-        card.grid_columnconfigure(1, weight=1)
+    
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
         Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)

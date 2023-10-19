@@ -9,10 +9,11 @@ from view.User.OrderHistory import OrderHistory
 from view.User.ReportCar import ReportCar
 from view.Manager.ManagerHome import ManagerHome
 from view.Operator.OperatorHome import OperatorHome
+from view.Operator.ChangeLocation import ChangeLocation
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar, ChangeLocation]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
@@ -31,6 +32,9 @@ class Controller():
 
     def toSignIn(self):
         self.VIEW.show_frame(SignIn)
+
+    def toChangeLocation(self):
+        self.VIEW.show_frame(ChangeLocation)
 
     def toUserHome(self):
         self.VIEW.show_frame(UserHome)
