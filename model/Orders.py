@@ -1,6 +1,9 @@
 import sys
 import os
 import datetime
+
+from model.Order import Order
+
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from model.init import conn, curr
@@ -70,6 +73,22 @@ class Orders:
         );""", [order_id, vehicle_id, user_id, end_time, start_time, pickup_location, dropoff_location, charge, damage_id])
         self.con.commit()
 
+    def create_new_order(self, order : Order):
+        self.cur.execute("""INSERT INTO Orders (order_id, vehicle_id, user_id, end_time, start_time,
+        pickup_location, dropoff_location, charge, damage_id) values (
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
+        );""", [order.order_id, order.vehicle_id, order.user_id, order.end_time, order.start_time, order.pickup_location, order.dropoff_location, order.charge, order.damage_id])
+        self.con.commit()
+        return True
+
 
     def order_history_user(self, user_id: int):
 
@@ -88,6 +107,7 @@ class Orders:
 
         order_id = str(order_id)
         st = datetime.datetime.now()
+        et = datetime.datetime.now() + datetime.timedelta(days=1)
 
         # w = Wallet()
         # w.create_new(wallet_id, user_id)
@@ -97,13 +117,13 @@ class Orders:
         ?, 
         ?, 
         'd830eb0f-9b9f-4b0d-8d4f-01175ec9300e', 
-        null, 
+        ?, 
         ?, 
         'University of Glasgow',
         'Glasgow Queen street', 
         99.12,
         null
-        );""", [order_id, vehicle_id, st])
+        );""", [order_id, vehicle_id, et, st])
 
         self.con.commit()
 
@@ -124,22 +144,75 @@ class Orders:
         ?,
         ?,
         ?,
-        -1, 
+        0, 
         ?
         );""", [order_id, vehicle_id, user_id, end_time, start_time, pickup_location, dropoff_location, None])
         self.con.commit()
-        # charge = -1 means the order is not completed
-        # charge = -2 means the order is completed but not paid
+        # charge = 0 means the order is not completed
+        # charge = negative value means the order is completed but not paid
         return order_id
+
+    '''
+        method: get_order_by_id
+        input: order_id
+        return: boolean
+    '''
+    def get_order_by_id(self, order_id: str):
+        self.cur.execute("""SELECT * FROM Orders WHERE order_id = ?;""", [order_id])
+        return self.cur.fetchone()
+        if self.cur.fetchone() == None:
+            return False
+        else:
+            # store data in self
+            self.order_id = self.cur.fetchone()[0]
+            self.vehicle_id = self.cur.fetchone()[1]
+            self.user_id = self.cur.fetchone()[2]
+            self.end_time = self.cur.fetchone()[3]
+            self.start_time = self.cur.fetchone()[4]
+            self.pickup_location = self.cur.fetchone()[5]
+            self.dropoff_location = self.cur.fetchone()[6]
+            self.charge = self.cur.fetchone()[7]
+            self.damage_id = self.cur.fetchone()[8]
+            return True
+
+    '''
+        method: get_order_by_vehicle_id
+        input: vehicle_id
+        return: list of orders
+    '''
+    def get_order_by_vehicle_id(self, vehicle_id: str):
+        self.cur.execute("""SELECT * FROM Orders WHERE vehicle_id = ?;""", [vehicle_id])
+        return self.cur.fetchall()
+
+    '''
+        method: get_order_by_user_id
+        input: user_id
+        return: boolean
+    '''
+    def get_order_by_user_id(self, user_id: str):
+        self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
+
 
     '''
         method: complete_order
         input: order_id, dropoff_location = None, end_time = None, damage_id = None
-        return: order_id
+        return: boolean
     '''
-    # TODO:
-    # def complete_order(self, order_id: str, dropoff_location: str = None, end_time: datetime = None, damage_id: str = None):
-        # get Order first
+    def complete_order(self, order_id: str, dropoff_location: str = None, end_time: datetime = None, damage_id: str = None):
+        if self.get_order_by_id(order_id) == False:
+            return False
+        if dropoff_location != None:
+            self.dropoff_location = dropoff_location
+        if end_time != None:
+            self.end_time = end_time
+        if damage_id != None:
+            self.damage_id = damage_id
+        #TODO: calculate charge
+        self.charge = -1
+        self.cur.execute("""UPDATE Orders SET end_time = ?, dropoff_location = ?, charge = ?, damage_id = ? WHERE order_id = ?;""", [self.end_time, self.dropoff_location, self.charge, self.damage_id, self.order_id])
+        self.con.commit()
+        return True
+
 
 
 if __name__ == '__main__':
