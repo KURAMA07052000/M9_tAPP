@@ -144,5 +144,6 @@ class Orders:
 
 if __name__ == '__main__':
     u = Orders()
-    u.CREATE_TABLE()
-    u.create_new()
+    # u.CREATE_TABLE()
+    # u.create_new()
+

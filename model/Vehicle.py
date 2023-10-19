@@ -171,6 +171,15 @@ class Vehicle:
 
 
 
+    def vehicle_type(self):
+        self.cur.execute("""SELECT vehicle_type FROM Vehicle;""")
+        return self.cur.fetchall()
+
+    def current_location(self):
+        self.cur.execute("""SELECT current_location FROM Vehicle;""")
+        return self.cur.fetchall()
+
+
 
 if __name__ == '__main__':
     u = Vehicle()
