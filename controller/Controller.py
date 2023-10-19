@@ -13,7 +13,7 @@ from view.Operator.ChangeLocation import ChangeLocation
 
 class Controller():
     def __init__(self):
-        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar, ChangeLocation]
+        self.ALL_PAGES = [SignUp, UserHome, Wallet, RentCar, ReturnCar, Payment, OrderHistory, SignIn, ReportCar, ChangeLocation, OperatorHome, ManagerHome]
         self.VIEW = None
         self.UserID = None
         self.WalletID = None
