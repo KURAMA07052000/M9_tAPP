@@ -25,7 +25,8 @@ class Model:
         self.User.CREATE_TABLE()
         self.Wallet.CREATE_TABLE()
         self.Orders.CREATE_TABLE()
-        self.Vehicle.CREATE_TABLE()
+        # Should be off, because we are initializing values each time.
+        self.Vehicle.CREATE_TABLE('off')
 
     
     def init_assets(self):

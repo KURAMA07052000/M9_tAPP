@@ -13,7 +13,7 @@ class Vehicle:
     def __init__(self):
         self.con = conn()
         self.cur = curr()
-        pass
+        self.Type = None
 
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -27,28 +27,39 @@ class Vehicle:
 
         cur.execute('''CREATE TABLE IF NOT EXISTS Vehicle(
                 vehicle_id text PRIMARY KEY, 
+                vehicle_plate_num text,
                 vehicle_type text,
                 current_location text,
                 is_damaged boolean,
                 is_in_use boolean,
                 battery_percentage integer
                 );''')
+
         con.commit()
 
+        self.create_new('1', 'veh1_1', 'loc1', False, 100, False)
+        self.create_new('1', 'veh2_1', 'loc2', False, 100, False)
+        self.create_new('2', 'veh1_1', 'loc3', False, 100, False)
+        self.create_new('2', 'veh2_1', 'loc4', False, 100, False)
+        
 
-    def create_new(self, vehicle_type: str, current_location: str, is_damaged: bool, battery_percentage: int, is_in_use: bool):
+
+    def create_new(self, vehicle_type: str, vehicle_plate_num:str, current_location: str, is_damaged: bool, battery_percentage: int, is_in_use: bool):
 
         vehicle_id = uuid.uuid4()
 
         vehicle_id = str(vehicle_id)
-        self.cur.execute("""INSERT INTO Vehicle (vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage, is_in_use) VALUES(
+        self.cur.execute("""INSERT INTO Vehicle (vehicle_id, vehicle_plate_num, vehicle_type, current_location, is_damaged, battery_percentage, is_in_use) VALUES(
+            ?,
             ?,
             ?,
             ?,
             ?,
             ?, 
             ?
-            );""", [vehicle_id, vehicle_type, current_location, is_damaged, battery_percentage, is_in_use])
+            );""", [vehicle_id, vehicle_plate_num, vehicle_type, current_location, is_damaged, battery_percentage, is_in_use])
+        
+        self.con.commit()
 
 
 
@@ -101,8 +112,12 @@ class Vehicle:
         return: List of available vehicle in certain type
     '''
     def get_available_vehicle_by_type(self, vehicle_type: str):
-        self.cur.execute("""SELECT vehicle_id FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [vehicle_type])
-        return self.cur.fetchall()
+        print(vehicle_type)
+        self.cur.execute("""SELECT * FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [vehicle_type])
+        data = self.cur.fetchall().copy()
+        for i in data:
+            print(i)
+        return data
 
     '''
         method: get_available_vehicle_by_type_and_location
@@ -153,4 +168,3 @@ class Vehicle:
 if __name__ == '__main__':
     u = Vehicle()
     u.CREATE_TABLE()
-    u.create_new()
