@@ -19,6 +19,7 @@ def curr():
     if CUR == None:
         conn()
         CUR = CON.cursor()
+
     return CUR
 
 def close_curr():

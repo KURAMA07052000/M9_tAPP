@@ -22,9 +22,15 @@ class OrderHistory(tk.Frame):
             card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
             card.pack(pady=10)
 
-            order_name = entry[1]  
-            start_time = entry[4]  
-            end_time = entry[3]    
+            order_name = entry[0][-5:]
+            # convert string to datetime object
+            # start_time = str(datetime(entry[2].strptime("%d/%m/%Y, %H:%M:%S")))
+            print(entry[2])
+            start_time = entry[2]
+            if entry[3] != None:
+                end_time = entry[3]
+            else:
+                end_time = "Not yet completed"
 
             entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: s{order_name}")
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
