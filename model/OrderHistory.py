@@ -60,6 +60,16 @@ class OrderHistory:
 
         return row
 
+    def add_order_end_time(self, orders: list):
+        '''
+        Add end time to orders
+        '''
+        for order in orders:
+            if order[3] == None:
+                order[3] = datetime.datetime.now()
+            self.cur.execute("""UPDATE Orders SET end_time = ? WHERE order_id = ?;""", [order[3], order[0]])
+            self.con.commit()
+
 
 
 
@@ -68,5 +78,9 @@ class OrderHistory:
 
 if __name__ == '__main__':
     u = OrderHistory()
-    u.order_history_user('f4e020a0-3874-4dc0-9c65-2f010fc94005')
+    row = u.order_history_user('f4e020a0-3874-4dc0-9c65-2f010fc94005')
+    #to list
+    row = [list(item) for item in row]
+    # add_order_end_time(row)
+
 

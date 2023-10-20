@@ -21,10 +21,10 @@ class OrderHistory(tk.Frame):
         for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_user(self.CONTROLLER.MODEL.DATA['user'].UserID)):
             card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
             card.pack(pady=10)
-
-            order_name = entry[1]  
-            start_time = entry[4]  
-            end_time = entry[3]    
+            print(entry)
+            order_name = entry[0][-5:]
+            start_time = entry[2]
+            end_time = entry[3]
 
             entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: s{order_name}")
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
