@@ -16,6 +16,7 @@ class Vehicle:
         self.Type = '1'
         self.Location = None
         self.Vehicle = None
+        self.VehicleID = None
 
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -103,11 +104,13 @@ class Vehicle:
     '''
     def get_available_vehicle_by_location(self):
         if self.Location==None:
-            self.cur.execute("""SELECT vehicle_plate_num FROM Vehicle WHERE is_damaged = false AND is_in_use = false""")
+            self.cur.execute("""SELECT vehicle_plate_num || " - " ||  vehicle_id as VehicleUUID FROM Vehicle WHERE is_damaged = false AND is_in_use = false""")
             data = self.cur.fetchall().copy()
+            data = [i[0] for i in data]
             return data
-        self.cur.execute("""SELECT vehicle_plate_num FROM Vehicle WHERE current_location = ? AND vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [self.Location, self.Type])
+        self.cur.execute("""SELECT vehicle_plate_num || " - " ||  vehicle_id as VehicleUUID FROM Vehicle WHERE current_location = ? AND vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [self.Location, self.Type])
         data = self.cur.fetchall().copy()
+        data = [i[0] for i in data]
         return data
 
     '''

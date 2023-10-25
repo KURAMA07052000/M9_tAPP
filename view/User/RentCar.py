@@ -56,6 +56,7 @@ class RentCar(tk.Frame):
         def choose_vehicle(event):
             vehicle = self.vehicle.get()
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = vehicle
+            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = "-".join(vehicle.split('-')[1:]).strip()
             self.CONTROLLER.hardRefreshRentCar()
             
         self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
