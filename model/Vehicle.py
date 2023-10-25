@@ -14,6 +14,8 @@ class Vehicle:
         self.con = conn()
         self.cur = curr()
         self.Type = '1'
+        self.Location = None
+        self.Vehicle = None
 
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -37,10 +39,14 @@ class Vehicle:
 
         con.commit()
 
-        self.create_new('1', 'veh1_1', 'loc1', False, 100, False)
-        self.create_new('1', 'veh2_1', 'loc2', False, 100, False)
-        self.create_new('2', 'veh1_1', 'loc3', False, 100, False)
-        self.create_new('2', 'veh2_1', 'loc4', False, 100, False)
+        self.create_new('1', 'veh_T1_L1', 'loc1', False, 100, False)
+        self.create_new('1', 'veh_T1_L2', 'loc2', False, 100, False)
+        self.create_new('1', 'veh_T1_L3', 'loc3', False, 100, False)
+        self.create_new('1', 'veh_T1_L4', 'loc4', False, 100, False)
+        self.create_new('2', 'veh_T2_L1', 'loc1', False, 100, False)
+        self.create_new('2', 'veh_T2_L2', 'loc2', False, 100, False)
+        self.create_new('2', 'veh_T2_L3', 'loc3', False, 100, False)
+        self.create_new('2', 'veh_T2_L4', 'loc4', False, 100, False)
         
 
 
@@ -95,16 +101,21 @@ class Vehicle:
         method: get_available_vehicle_by_location
         return: List of available vehicle in certain location 
     '''
-    def get_available_vehicle_by_location(self, location: str):
-        self.cur.execute("""SELECT vehicle_id FROM Vehicle WHERE current_location = ? AND is_damaged = false AND is_in_use = false""", [location])
-        return self.cur.fetchall()
+    def get_available_vehicle_by_location(self):
+        if self.Location==None:
+            self.cur.execute("""SELECT vehicle_plate_num FROM Vehicle WHERE is_damaged = false AND is_in_use = false""")
+            data = self.cur.fetchall().copy()
+            return data
+        self.cur.execute("""SELECT vehicle_plate_num FROM Vehicle WHERE current_location = ? AND vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [self.Location, self.Type])
+        data = self.cur.fetchall().copy()
+        return data
 
     '''
         method get_available_vehicle_type_by_location
         return: List of available vehicle type in certain location
     '''
-    def get_available_vehicle_type_by_location(self, location: str):
-        self.cur.execute("""SELECT vehicle_type FROM Vehicle WHERE current_location = ? AND is_damaged = false AND is_in_use = false""", [location])
+    def get_available_vehicle_type_by_location(self):
+        self.cur.execute("""SELECT vehicle_type FROM Vehicle WHERE current_location = ? AND is_damaged = false AND is_in_use = false""", [self.Location])
         return self.cur.fetchall()
 
     '''

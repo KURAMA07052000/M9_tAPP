@@ -40,17 +40,35 @@ class RentCar(tk.Frame):
         
         self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=510, y=100, width=285, height=30)
-        self.drop_off_loc.set("Drop-Off Location")
+        self.drop_off_loc.set("-- Drop-Off Location --" if self.CONTROLLER.MODEL.DATA['vehicle'].Location==None else self.CONTROLLER.MODEL.DATA['vehicle'].Location)
 
-        self.vehicle = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        def choose_location(event):
+            location = self.drop_off_loc.get()
+            self.CONTROLLER.MODEL.DATA['vehicle'].Location = location
+            self.CONTROLLER.hardRefreshRentCar()
+
+        self.drop_off_loc.bind("<<ComboboxSelected>>", choose_location)
+
+        self.vehicle = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_available_vehicle_by_location(), style='Red.TCombobox', justify='center')
         self.vehicle.place(x=510, y=200, width=285, height=30)
-        self.vehicle.set("Chose your vehicle")
+        self.vehicle.set("-- Chose your vehicle --" if self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle==None else self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle)
+
+        def choose_vehicle(event):
+            vehicle = self.vehicle.get()
+            self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = vehicle
+            self.CONTROLLER.hardRefreshRentCar()
+            
+        self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
         Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toWallet).place(x=520, y=400)
 
     def choose_type(self, type):
         self.CONTROLLER.MODEL.DATA['vehicle'].Type = type
+        self.CONTROLLER.hardRefreshRentCar()
+
+    def choose_location(self, location):
+        self.CONTROLLER.MODEL.DATA['vehicle'].Location = location
         self.CONTROLLER.hardRefreshRentCar()
         
     def on_enter(self,element):
