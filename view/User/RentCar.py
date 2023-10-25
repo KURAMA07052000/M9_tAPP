@@ -61,8 +61,8 @@ class RentCar(tk.Frame):
             
         self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
 
-        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toWallet).place(x=520, y=400)
+        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome()).place(x=140, y=400)
+        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.on_submit).place(x=520, y=400)
 
     def choose_type(self, type):
         self.CONTROLLER.MODEL.DATA['vehicle'].Type = type
@@ -80,6 +80,15 @@ class RentCar(tk.Frame):
         if name=='':
             element.insert(0,text)
 
+    def on_submit(self):
+        import datetime
+        vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID 
+        userID = self.CONTROLLER.MODEL.DATA['user'].UserID
+        pickuploc = self.CONTROLLER.MODEL.DATA['vehicle'].Location
+        if vehicleID!=None and userID!=None and pickuploc!=None:
+            self.CONTROLLER.MODEL.DATA['orders'].create_new_order(vehicleID, userID, datetime.datetime.now(), None, pickuploc, None) 
+        self.CONTROLLER.toWallet()
+        
    
 
     
