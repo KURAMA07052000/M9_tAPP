@@ -12,6 +12,9 @@ class ManagerHome(tk.Frame):
         self.CONTROLLER = controller      
         heading=tk.Label(self,text="Manager Home", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
         heading.pack(pady=10)
+
+        logout = Button(self, image = self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white", command=self.CONTROLLER.logout)
+        logout.place(x=850,y=10)
         
 if __name__=='__main__':
     from controller.Controller import Controller
