@@ -68,11 +68,18 @@ class Order:
         self.pickup_location = pickup_location
         self.dropoff_location = dropoff_location
         self.end_time = end_time
+        self.end_time_string = datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
+        self.end_time_string = str(self.end_time_string.strftime("%d/%m/%Y, %H:%M:%S"))
         self.charge = 0.0
         self.damage_id = None
 
     def __init__(self):
         pass
+
+    def to_string_orderId_and_listId(self):
+        return str(self.order_id[-5:]) + ' ' + str(self.vehicle_id[-5:]) + ' ' +  self.end_time_string
+
+
 
 
 if __name__ == '__main__':

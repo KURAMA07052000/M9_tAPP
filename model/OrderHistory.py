@@ -1,6 +1,9 @@
 import sys
 import os
 import datetime
+
+from model.Order import Order
+
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from model.init import conn, curr
@@ -60,6 +63,18 @@ class OrderHistory:
 
         return row
 
+    def order_history_user_entity(self, user_id : str = None):
+        # TODO: implement
+        # if user_id != None:
+        #     self.user_id = user_id
+        # self.cur.execute("""SELECT order_id, vehicle_id, start_time, end_time FROM Orders WHERE user_id = ?;""", [user_id])
+        # row1 = self.cur.fetchall()
+        # orders = []
+        # for ro in row:
+        #     orders.append(Order(ro))
+        return
+
+
     def add_order_end_time(self, orders: list):
         '''
         Add end time to orders
@@ -69,6 +84,16 @@ class OrderHistory:
                 order[3] = datetime.datetime.now()
             self.cur.execute("""UPDATE Orders SET end_time = ? WHERE order_id = ?;""", [order[3], order[0]])
             self.con.commit()
+
+
+    def to_list_orderId_vehicleId(self, orders: list):
+        '''
+        Convert list of orders to list of (order_id, vehicle_id)
+        '''
+        ret = []
+        for order in orders:
+            ret.append((order[0], order[1]))
+        return ret
 
 
 

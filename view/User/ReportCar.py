@@ -21,8 +21,14 @@ class ReportCar(tk.Frame):
         GLineEdit_821.place(x=510, y=80, width=369, height=234)
         GLineEdit_821["show"] = "Type damage report here....."
 
+        self.orders = self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_user_entity(self.CONTROLLER.MODEL.DATA['user'].UserID)
+        # edit data
+        # TODO: get the order history from the database
 
-        self.drop_off_loc = ttk.Combobox(self, values=["Vehicle 1", "Vehicle 2", "Vehicle 3"], style='Red.TCombobox', justify='center')
+
+
+
+        self.drop_off_loc = ttk.Combobox(self, values=self.orders, style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=120, y=80, width=260, height=30)
         self.drop_off_loc.set("Chose from your ordered vehicles")
 

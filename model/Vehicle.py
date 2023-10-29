@@ -185,6 +185,7 @@ class Vehicle:
 
 
 
+
     def vehicle_type(self):
         self.cur.execute("""SELECT vehicle_type FROM Vehicle;""")
         return self.cur.fetchall()

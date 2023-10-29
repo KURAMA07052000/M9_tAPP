@@ -73,7 +73,7 @@ class Orders:
         );""", [order_id, vehicle_id, user_id, end_time, start_time, pickup_location, dropoff_location, charge, damage_id])
         self.con.commit()
 
-    def create_new_order(self, order : Order):
+    def create_from_database(self, order : Order):
         self.cur.execute("""INSERT INTO Orders (order_id, vehicle_id, user_id, end_time, start_time,
         pickup_location, dropoff_location, charge, damage_id) values (
         ?,
