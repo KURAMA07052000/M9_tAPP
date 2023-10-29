@@ -96,6 +96,13 @@ class OrderHistory:
             ret.append((order[0], order[1]))
         return ret
 
+    def order_history_all(self):
+        '''
+        Get order history for all users
+        '''
+        self.cur.execute("""SELECT * FROM Orders;""")
+        row = self.cur.fetchall()
+        return row
 
 
 
