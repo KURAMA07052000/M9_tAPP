@@ -64,15 +64,16 @@ class OrderHistory:
         return row
 
     def order_history_user_entity(self, user_id : str = None):
-        # TODO: implement
-        # if user_id != None:
-        #     self.user_id = user_id
-        # self.cur.execute("""SELECT order_id, vehicle_id, start_time, end_time FROM Orders WHERE user_id = ?;""", [user_id])
-        # row1 = self.cur.fetchall()
-        # orders = []
-        # for ro in row:
-        #     orders.append(Order(ro))
-        return
+        if user_id == None:
+            self.user_id = user_id
+        self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
+        print("order_history_user_entity: user_id = ", str(user_id))
+        row1 = self.cur.fetchall()
+        # print(row1)
+        orders = []
+        for ro in row1:
+            orders.append(Order(ro))
+        return orders
 
 
     def add_order_end_time(self, orders: list):

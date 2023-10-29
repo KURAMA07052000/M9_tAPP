@@ -41,7 +41,7 @@ class Controller():
         self.VIEW.show_frame(UserHome)
 
     def toReportCar(self):
-        self.VIEW.show_frame(ReportCar)
+        self.VIEW.init_and_show_frame(ReportCar)
 
     def toWallet(self):
         self.MODEL.DATA['wallet'].refresh()

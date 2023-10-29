@@ -1,6 +1,9 @@
+import datetime
 import sys
 import os
-import datetime
+
+from model.Order import Order
+
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from model.init import conn, curr
@@ -11,7 +14,12 @@ import uuid
 
 class DamageReport:
     def __init__(self):
-        pass
+        self.con = conn()
+        self.cur = curr()
+        self.Type = '1'
+        self.Location = None
+        self.Vehicle = None
+        self.VehicleID = None
 
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -21,48 +29,67 @@ class DamageReport:
         cur = curr()
 
         if saftey == 'off':
-            cur.execute('''DROP TABLE IF EXISTS DamageReport''')
+            cur.execute('''DROP TABLE IF EXISTS Vehicle''')
 
-        cur.execute('''CREATE TABLE IF NOT EXISTS DamageReport (
+        cur.execute('''CREATE TABLE IF NOT EXISTS damage_report(
                 damage_id text PRIMARY KEY,
-                vehicle_id text not null,
-                order_id text not null,
-                damage_report text not null,
-                occured_time datetime not null, 
-                fixed_time datetime
+                vehicle_id text,
+                order_id text, 
+                damage_report text, 
+                occured datetime,
+                fixed boolean
                 );''')
+
         con.commit()
 
-    def create_new(self):
+
+    def create_new(self, vehicle_id: str, order_id: str, damage_report: str, occured: datetime, fixed: bool):
+        damage_id = uuid.uuid4()
+        damage_id = str(damage_id)
+        self.cur.execute("""INSERT INTO damage_report (damage_id, vehicle_id, order_id, damage_report, occured, fixed) VALUES(
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            );""", [damage_id, vehicle_id, order_id, damage_report, occured, fixed])
+        self.con.commit()
+
+    def create_new_test(self):
         '''
         create vehicle_id
         '''
-        con, cur = [conn(), curr()]
-
-        order_id = uuid.uuid4()
         vehicle_id = str(uuid.uuid4())
-        damage_id = str(uuid.uuid4())
-
-        order_id = str(order_id)
-        st = datetime.datetime.now()
 
         # w = Wallet()
         # w.create_new(wallet_id, user_id)
 
-        cur.execute("""INSERT INTO DamageReport (damage_id, vehicle_id, order_id, damage_report, occured_time, fixed_time)
-         values (
-         ?,
-         ?,
-         ?, 
-         'broken',
-         ?,
-         null   
-        );""", [damage_id, vehicle_id, order_id, st])
+        self.cur.execute("""insert into damage_report (vehicle_id, order_id, damage_report, occured, fixed) values (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            );""", [vehicle_id, 'order_id', 'damage_report', datetime.datetime.now(), False])
 
-        con.commit()
+        self.con.commit()
+
+
+    def report_from_order(self, order : Order, damage_report : str):
+        # generate damage_id
+        damage_id = str(uuid.uuid4())
+        self.cur.execute("""insert into damage_report (damage_id, vehicle_id, order_id, damage_report, occured, fixed) values (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            );""", [damage_id, order.vehicle_id, order.order_id, damage_report, order.end_time, False])
+        self.con.commit()
 
 
 if __name__ == '__main__':
     u = DamageReport()
     u.CREATE_TABLE()
-    u.create_new()

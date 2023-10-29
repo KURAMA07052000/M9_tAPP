@@ -1,6 +1,7 @@
 from tkinter import PhotoImage
 import os
 
+from model.DamageReport import DamageReport
 from model.OrderHistory import OrderHistory
 from model.Orders import Orders
 from model.User import User
@@ -14,12 +15,14 @@ class Model:
         self.Orders = Orders()
         self.Vehicle = Vehicle()
         self.OrderHistory = OrderHistory()
+        self.DamageReport = DamageReport()
         self.DATA = {
             'wallet': self.Wallet,
             'orderHistory': self.OrderHistory,
             'user': self.User,
             'vehicle': self.Vehicle,
             'orders': self.Orders,
+            'damage_report': self.DamageReport,
             'errors':{'login':''}
         }
         self.User.CREATE_TABLE()
@@ -27,6 +30,7 @@ class Model:
         self.Orders.CREATE_TABLE()
         # Should be off, because we are initializing values each time.
         self.Vehicle.CREATE_TABLE('off')
+        self.DamageReport.CREATE_TABLE()
 
     
     def init_assets(self):

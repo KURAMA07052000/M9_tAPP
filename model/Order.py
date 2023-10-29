@@ -76,8 +76,12 @@ class Order:
     def __init__(self):
         pass
 
+    def __init__(self, order : tuple):
+        self.set_value_from_database(order)
+        pass
+
     def to_string_orderId_and_listId(self):
-        return str(self.order_id[-5:]) + ' ' + str(self.vehicle_id[-5:]) + ' ' +  self.end_time_string
+        return "Order ID: " + str(self.order_id[-5:]) + ' | Vehicle ID: ' + str(self.vehicle_id[-5:]) + ' Drop off: ' +  str(self.dropoff_location)
 
 
 
