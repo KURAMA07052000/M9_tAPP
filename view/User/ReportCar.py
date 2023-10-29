@@ -12,16 +12,10 @@ class ReportCar(tk.Frame):
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
         Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.submit_fn).place(x=520, y=400)
 
-        # TODO: not look good, input will become all T, front end bug
-        self.GLineEdit_821 = tk.Entry(self, width = 369)
-        self.GLineEdit_821["borderwidth"] = "1px"
-        self.GLineEdit_821["font"] = "Microsft YaHei UI Light",23,"bold"
-        self.GLineEdit_821["fg"] = "#333333"
-        self.GLineEdit_821["bg"] = "white"
-        self.GLineEdit_821["justify"] = "left"
-        self.GLineEdit_821["text"] = "Type damage report here....."
-        self.GLineEdit_821.place(x=510, y=80, width=369, height=234)
-        self.GLineEdit_821["show"] = "Type damage report here....."
+       
+        self.GText_821 = tk.Text(self, fg="#333333", bg="white", wrap="word")
+        self.GText_821.insert("1.0", "Type damage report here.....")
+        self.GText_821.place(x=510, y=80, width=369, height=234)
 
 
         # get the order history from the database
