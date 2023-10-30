@@ -36,7 +36,7 @@ class ReturnCar(tk.Frame):
       
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
+        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.confirm).place(x=520, y=400)
     def on_enter(self,element):
         element.delete(0, 'end')
     
@@ -44,6 +44,16 @@ class ReturnCar(tk.Frame):
         name = element.get()
         if name=='':
             element.insert(0,text)
+
+    def confirm(self):
+        '''Update end time and charge then revert to payment page'''
+        from datetime import datetime
+
+        userID = self.CONTROLLER.MODEL.DATA['user'].UserID
+        vehicleID = str(self.vehicle.get())
+        dropoff = self.drop_off_loc.get()
+        if userID!=None and vehicleID!=None and dropoff!=None:
+            self.CONTROLLER.MODEL.DATA['orders'].complete_order(datetime.now(), dropoff, vehicleID, userID)
 
    
 

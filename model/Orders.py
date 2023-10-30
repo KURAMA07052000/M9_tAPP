@@ -201,6 +201,28 @@ class Orders:
         for i in data:
             print(i)
         return data
+    
+
+    '''
+        method: complete_order
+        input: end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str
+        return: boolean
+    '''
+    def complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str):
+        from datetime import datetime
+        self.cur.execute("""SELECT order_id, start_time FROM Orders WHERE vehicle_id = ? AND user_id=?""", [vehicle_id, user_id])
+        data = list(self.cur.fetchone()).copy()
+        order_id, start_date = data
+        start_date = datetime.strptime(start_date,"%Y-%m-%d %H:%M:%S.%f")
+        time_diff = end_time - start_date
+        charge = time_diff.total_seconds()*10
+        self.cur.execute('''UPDATE Orders SET end_time=?, charge=?, dropoff_location=? WHERE order_id=?''',[end_time, charge, dropoff_location, order_id])
+        self.con.commit()
+        self.cur.execute('''SELECT * FROM Orders''')
+        print(self.cur.fetchall())
+        
+
+        
 
 
     def get_vehicles_by_user_id(self, user_id: str):
@@ -209,26 +231,6 @@ class Orders:
         for i in data:
             print(i)
         return data
-
-    '''
-        method: complete_order
-        input: order_id, dropoff_location = None, end_time = None, damage_id = None
-        return: boolean
-    '''
-    def complete_order(self, order_id: str, dropoff_location: str = None, end_time: datetime = None, damage_id: str = None):
-        if self.get_order_by_id(order_id) == False:
-            return False
-        if dropoff_location != None:
-            self.dropoff_location = dropoff_location
-        if end_time != None:
-            self.end_time = end_time
-        if damage_id != None:
-            self.damage_id = damage_id
-        #TODO: calculate charge
-        self.charge = -1
-        self.cur.execute("""UPDATE Orders SET end_time = ?, dropoff_location = ?, charge = ?, damage_id = ? WHERE order_id = ?;""", [self.end_time, self.dropoff_location, self.charge, self.damage_id, self.order_id])
-        self.con.commit()
-        return True
 
 
 
