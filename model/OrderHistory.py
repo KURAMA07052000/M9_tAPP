@@ -100,8 +100,17 @@ class OrderHistory:
         '''
         Get order history for all users
         '''
-        self.cur.execute("""SELECT * FROM Orders;""")
-        row = self.cur.fetchall()
+        self.cur.execute("""SELECT order_id, vehicle_id, start_time, end_time FROM Orders;""")
+        row1 = self.cur.fetchall()
+        row = [list(item) for item in row1]
+        # print(row)
+        for ro in row:
+            ro[2] = datetime.datetime.strptime(ro[2], '%Y-%m-%d %H:%M:%S.%f')
+            # convert type:
+            ro[2] = ro[2].strftime("%d/%m/%Y, %H:%M:%S")
+            if ro[3] != None:
+                ro[3] = datetime.datetime.strptime(ro[3], '%Y-%m-%d %H:%M:%S.%f')
+                ro[3] = ro[3].strftime("%d/%m/%Y, %H:%M:%S")
         return row
 
 

@@ -21,8 +21,19 @@ class OperatorHome(tk.Frame):
         # card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
         # card.pack(pady=20)
 
+        card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=500, relief='solid', bd=4, borderwidth=4,
+                        highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
+        card.pack(pady=10)
+
+        change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION", command=self.CONTROLLER.toChangeLocation)
+        change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
+
+        report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT", command=self.CONTROLLER.toConditionReport)
+        report.grid(row=0, column=1, padx=(160,160))
+
+
         for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_all()):
-            card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4,
+            card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=500, relief='solid', bd=4, borderwidth=4,
                             highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
             card.pack(pady=20)
             # print(entry)
@@ -30,7 +41,7 @@ class OperatorHome(tk.Frame):
             start_time = entry[2]
             end_time = entry[3]
 
-            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index + 1}: s{order_name}")
+            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: Name - {order_name}")
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
 
             modify = tk.Label(card, fg="white", bg="#CD3333", text=f"End Time - {end_time}")
@@ -39,19 +50,11 @@ class OperatorHome(tk.Frame):
             activity = tk.Label(card, fg="white", bg="#CD3333", text=f"Start Time - {start_time}")
             activity.grid(row=0, column=1, padx=(160, 160))
 
-            card.grid_columnconfigure(1, weight=1)
+            # card.grid_columnconfigure(1, weight=1)
 
-        entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order") #delete when implementing for loop
-            # entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: Name - {order_name}")
-        entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
+        # entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order") #delete when implementing for loop
+        #     entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: Name - {order_name}")
 
-        change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION", command=self.CONTROLLER.toChangeLocation)
-        change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
-
-        report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT", command=self.CONTROLLER.toConditionReport)
-        report.grid(row=0, column=1, padx=(160,160))
-
-       
 
         card.grid_columnconfigure(1, weight=1)
 
