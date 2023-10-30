@@ -48,7 +48,8 @@ class Orders:
                 pickup_location text not null,
                 dropoff_location text,
                 charge double(10,2),
-                damage_id text
+                damage_id text,
+                payment_done BOOLEAN DEFAULT False
                 );''')
         self.con.commit()
 
@@ -196,7 +197,18 @@ class Orders:
     '''
     def get_order_by_user_id(self, user_id: str):
         self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
+        data = self.cur.fetchall().copy()
+        for i in data:
+            print(i)
+        return data
 
+
+    def get_vehicles_by_user_id(self, user_id: str):
+        self.cur.execute("""SELECT vehicle_id FROM Orders WHERE user_id = ?;""", [user_id])
+        data = self.cur.fetchall().copy()
+        for i in data:
+            print(i)
+        return data
 
     '''
         method: complete_order
