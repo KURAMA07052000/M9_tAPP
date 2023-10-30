@@ -94,7 +94,7 @@ class RentCar(tk.Frame):
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = None
             self.CONTROLLER.MODEL.DATA['vehicle'].Location = None
         self.CONTROLLER.hardRefreshRentCar()
-        self.CONTROLLER.toWallet()
+        self.CONTROLLER.toUserHome()
         
    
 

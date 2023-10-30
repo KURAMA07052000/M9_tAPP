@@ -16,6 +16,8 @@ class Payment(tk.Frame):
         self.configure(bg='white')
         self.CONTROLLER = controller
 
+
+
         frame1 = tk.Frame(self, width=925, height=500, bg="white")
         frame1.place(x=0, y=0)
 
@@ -65,6 +67,10 @@ class Payment(tk.Frame):
 
         rectangle1 = tk.Button(frame1, width=30, text="PAY", height=3, fg="white", bg="#CD3333", relief="solid", bd=0, )
         rectangle1.place(x=480, y=399)
+
+    def get_data(self):
+        self.order =  self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
+        # algorithm of calculating price
 
 
 

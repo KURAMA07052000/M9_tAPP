@@ -226,13 +226,33 @@ class Orders:
         if(user_id == None):
             print("get_active_order(): user_id not found! ")
             return None
-        self.cur.execute("""SELECT * FROM Orders WHERE charge = 0 and user_id = ?;""", [self.user_id])
+        print(user_id)
+        self.cur.execute("""SELECT * FROM Orders WHERE charge = 0 and user_id = ?;""", [user_id])
         tmp = self.cur.fetchone()
         if(tmp == []):
             return None
-        return Order(self.cur.fetchone()[0])
+        return Order(tmp)
 
+    def get_pending_order(self, user_id : str = None):
+        if(user_id == None):
+            print("get_pending_order(): user_id not found! ")
+            return None
+        self.cur.execute("""SELECT * FROM Orders WHERE charge = -1 and user_id = ?;""", [user_id])
+        tmp = self.cur.fetchone()
+        if(tmp == []):
+            return None
+        return Order(tmp)
 
+    def update(self, order: Order):
+        if(order == None):
+            return False
+        self.cur.execute("""UPDATE Orders SET vehicle_id = ?, user_id = ?, end_time = ?, 
+        start_time = ?, pickup_location = ?, dropoff_location = ?, charge = ?, damage_id = ? 
+        WHERE order_id = ?;""", [order.vehicle_id, order.user_id, order.end_time,
+                                 order.start_time, order.pickup_location, order.dropoff_location,
+                                 order.charge, order.damage_id, order.order_id])
+        self.con.commit()
+        return True
 
 if __name__ == '__main__':
     u = Orders()

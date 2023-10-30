@@ -83,8 +83,14 @@ class Order:
     def to_string_orderId_and_listId(self):
         return "Order ID: " + str(self.order_id[-5:]) + ' | Vehicle ID: ' + str(self.vehicle_id[-5:]) + ' Drop off: ' +  str(self.dropoff_location)
 
-
-
+    def get_order_id(self):
+        return self.order_id
+    '''
+        price calculate part
+    '''
+    def calculate_charge(self):
+        hour = (self.end_time - self.start_time).total_seconds()/3600
+        self.charge = hour * 5.0
 
 if __name__ == '__main__':
     u = Order()

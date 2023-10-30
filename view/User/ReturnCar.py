@@ -1,3 +1,4 @@
+import datetime
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
@@ -11,13 +12,14 @@ class ReturnCar(tk.Frame):
         self.CONTROLLER = controller
 
         # get data
-        self.order = self.get_data()
+        # self.order = self.get_data()
+        self.order = self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
         print(self.order)
         # to string
         if (self.order == None):
             order_str = "No Active Order"
         else:
-            order_str = "Pick Up Loc: " + self.order.pickup_location + "Order ID: " + self.order.getid[-5:]
+            order_str = "Pick Up Loc: " + self.order.pickup_location + " | Order ID: " + self.order.get_order_id()[-5:]
         print(order_str)
         style = ttk.Style()
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
@@ -46,7 +48,7 @@ class ReturnCar(tk.Frame):
       
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
+        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.sumbit).place(x=520, y=400)
     def on_enter(self,element):
         element.delete(0, 'end')
     
@@ -55,11 +57,16 @@ class ReturnCar(tk.Frame):
         if name=='':
             element.insert(0,text)
 
+    def sumbit(self):
+        date = self.pickupd.get()
+        loc = self.drop_off_loc.get()
+        self.order.pickup_location = loc
+        self.order.end_time = datetime.datetime.now()
+        self.order.charge = -1  # switch into pending state
+        self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
+        print("return car success")
+        self.CONTROLLER.toUserHome()
 
-    def get_data(self):
-        return self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
-
-   
 
     
 if __name__=='__main__':
