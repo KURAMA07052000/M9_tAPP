@@ -210,9 +210,17 @@ class Vehicle:
             vehicle_id: str, current_location: str, battery_percentage: int
         return: None            
     '''
-    def return_vehicle(self, vehicle_id: str, current_location: str, battery_percentage: int):
-        self.cur.execute("""UPDATE Vehicle SET is_in_use = false, current_location = ?, battery_percentage = ? WHERE vehicle_id = ?""", [current_location, battery_percentage, vehicle_id])
+    def return_vehicle(self, current_location: str, battery_percentage: int, vehicle_id: str = None):
+        if vehicle_id != None:
+            self.vehicle_id = vehicle_id
+        if self.vehicle_id == None:
+            print("return_vehicle(): vehicle_id not found! ")
+            return False
+        self.cur.execute("""UPDATE Vehicle SET is_in_use = false, current_location = ?, battery_percentage = ? WHERE vehicle_id = ?""", [current_location, battery_percentage, self.vehicle_id])
         self.con.commit()
+
+
+
     '''
         method: set_damage
         input:

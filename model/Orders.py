@@ -215,7 +215,6 @@ class Orders:
             self.end_time = end_time
         if damage_id != None:
             self.damage_id = damage_id
-        #TODO: calculate charge
         self.charge = -1
         self.cur.execute("""UPDATE Orders SET end_time = ?, dropoff_location = ?, charge = ?, damage_id = ? WHERE order_id = ?;""", [self.end_time, self.dropoff_location, self.charge, self.damage_id, self.order_id])
         self.con.commit()

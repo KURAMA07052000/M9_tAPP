@@ -40,11 +40,11 @@ class ReturnCar(tk.Frame):
         date=Label(self,text="Drop-off Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         date.place(x=550, y=120)
        
-        self.pickupd = Entry(self,width=25, fg="black", border=2, bg="white", font=("Microsft YaHei UI Light",11))
-        self.pickupd.place(x=550, y=150)
-        self.pickupd.insert(0,"             DD/MM/YYYY")
-        self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
-        self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
+        self.battery = Entry(self,width=25, fg="black", border=2, bg="white", font=("Microsft YaHei UI Light",11))
+        self.battery.place(x=550, y=150)
+        self.battery.insert(0,"battery percentage")
+        self.battery.bind('<FocusIn>', lambda x: self.on_enter(self.battery))
+        self.battery.bind('<FocusOut>', lambda x: self.on_leave("battery percentage", self.battery))
       
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
@@ -58,14 +58,16 @@ class ReturnCar(tk.Frame):
             element.insert(0,text)
 
     def sumbit(self):
-        date = self.pickupd.get()
+        battery_percentage = self.battery.get()
         loc = self.drop_off_loc.get()
         self.order.pickup_location = loc
         self.order.end_time = datetime.datetime.now()
         self.order.charge = -1  # switch into pending state
         self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
         print("return car success")
-        self.CONTROLLER.toUserHome()
+        # update vehicle status
+        self.CONTROLLER.MODEL.DATA['vehicle'].return_vehicle(current_location=loc, battery_percentage=battery_percentage, vehicle_id=self.order.vehicle_id)
+        self.CONTROLLER.toPayment()
 
 
     

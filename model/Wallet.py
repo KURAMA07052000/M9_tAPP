@@ -22,7 +22,7 @@ class Wallet:
         self.cur.execute('''CREATE TABLE IF NOT EXISTS Wallet(
                 wallet_id text PRIMARY KEY,
                 user_id text UNIQUE NOT NULL,
-                balance INTEGER NOT NULL
+                balance double(10,2) NOT NULL
                 );''')
         self.con.commit()
 
@@ -54,8 +54,8 @@ class Wallet:
         self.cur.execute('''SELECT balance FROM Wallet WHERE wallet_id=? LIMIT 1''', [self.wallet_id])
         self.balance = self.cur.fetchall().copy()[0][0]
 
-    def update_balance(self, val:int):
-        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [int(val),self.wallet_id])
+    def update_balance(self, val:float):
+        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [float(val),self.wallet_id])
         self.con.commit()
         self.refresh()
     '''
@@ -70,11 +70,25 @@ class Wallet:
         self.wallet_id = tmp[0][0]
         self.balance = tmp[0][2]
 
-    def add_balance(self, amount : int):
+    def add_balance(self, amount : float):
         if(self.wallet_id == None):
             print("Wallet: wallet_id not set")
             return False
         self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [amount,self.wallet_id])
+        return True
+
+    def get_balance(self):
+        if(self.wallet_id == None):
+            print("Wallet: wallet_id not set")
+            return False
+        self.cur.execute('''SELECT balance FROM Wallet WHERE wallet_id=?''', [self.wallet_id])
+        return self.cur.fetchall().copy()[0][0]
+
+    def charge(self, amount : float):
+        if(self.wallet_id == None):
+            print("Wallet: wallet_id not set")
+            return False
+        self.cur.execute('''UPDATE Wallet SET balance=balance-? WHERE wallet_id=?''', [amount,self.wallet_id])
         return True
 
 if __name__ == '__main__':
