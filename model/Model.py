@@ -40,6 +40,9 @@ class Model:
             'logoutbutton': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'logout.png')),
             'wallet': PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'wallet.png')),
             'batterybutton' : PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'battery.png')),
+            'evlogoLarge' : PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'EVLOGO.png')),
+            'evlogoMedium' : PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'EVLOGOM.png')),
+            'evlogoSmall' : PhotoImage(file=os.path.join(os.path.join(os.getcwd(),'assets'),'EVLOGOS.png')),
             }
         
     def set_ids(self, UserID:str, WalletID:str, UserType:str):
