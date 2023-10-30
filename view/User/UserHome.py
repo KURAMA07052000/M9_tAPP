@@ -29,7 +29,7 @@ class UserHome(tk.Frame):
         rentACar["justify"] = "center"
 
         def returnACar():
-            self.CONTROLLER.hardRefreshReturnCar()
+            self.CONTROLLER.toReturnCar()
 
         returnACar = Button(frame, text="Return a Car", fg="white", border=0, bg="#CD3333", command=returnACar,
                             width=30, height=2)
