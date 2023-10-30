@@ -68,10 +68,10 @@ class Controller():
         self.VIEW.show_frame(ManagerHome)
 
     def toOperatorHome(self):
-        self.VIEW.show_frame(OperatorHome)
+        self.VIEW.init_and_show_frame(OperatorHome)
 
     def toConditionReport(self):
-        self.VIEW.show_frame(ConditionReport)
+        self.VIEW.init_and_show_frame(ConditionReport)
     
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)

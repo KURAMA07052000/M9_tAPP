@@ -89,6 +89,38 @@ class DamageReport:
             );""", [damage_id, order.vehicle_id, order.order_id, damage_report, order.end_time, False])
         self.con.commit()
 
+    def get_damage_case(self):
+        self.cur.execute("""
+            select damage_id, vehicle_id, damage_report, occured from damage_report where fixed == false
+        """)
+        self.con.commit()
+        case = self.cur.fetchall()
+        if case == []:
+            return None
+        return case[0]
+
+    def fixd_vehicle(self, damage_id):
+        # select current damage case
+        self.cur.execute("""
+            select * from damage_report where damage_id = ?
+        """, [damage_id])
+        case = self.cur.fetchall()
+        print(case)
+        if(case == None):
+            print("fixd_vehicle: No such damage case")
+            return None
+        if(case[0][5]==True):
+            print("fixd_vehicle: Vehicle already fixed")
+            return None
+        self.cur.execute("""
+            update damage_report set fixed = true where damage_id = ?
+        """, [damage_id])
+        self.cur.execute("""
+            update vehicle set is_damaged = false where vehicle_id = ?
+        """, [case[0][1]])
+        self.con.commit()
+
+
 
 if __name__ == '__main__':
     u = DamageReport()
