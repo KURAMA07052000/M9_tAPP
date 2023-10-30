@@ -16,10 +16,12 @@ class SignIn(tk.Frame):
         label.place(x=50,y=50)
         
         frame=tk.Frame(self,width=350,height=350, bg='white')
-        frame.place(x=480, y=70)
+        frame.place(x=480, y=140)
         
-        heading=tk.Label(frame,text="E-VEHICLE", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
-        heading.place(x=100, y=5)
+        heading= Label(self, image = self.CONTROLLER.ASSETS['evlogoMedium'], bg="white", border=0,)
+        heading.place(x=580, y=70)
+        #heading=tk.Label(frame,text="E-VEHICLE", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
+        #heading.place(x=100, y=0)
         
         #username box
         def on_enter(e):

@@ -61,7 +61,7 @@ class RentCar(tk.Frame):
             
         self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
 
-        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome()).place(x=140, y=400)
+        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
         Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.on_submit).place(x=520, y=400)
 
     def choose_type(self, type):
