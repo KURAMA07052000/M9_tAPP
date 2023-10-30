@@ -25,6 +25,9 @@ class Orders:
         self.charge = charge
         self.damage_id = damage_id
 
+    def set_id(self, order_id: str):
+        self.order_id = order_id
+
 
     def __init__(self):
         self.con = conn()
@@ -217,6 +220,17 @@ class Orders:
         self.cur.execute("""UPDATE Orders SET end_time = ?, dropoff_location = ?, charge = ?, damage_id = ? WHERE order_id = ?;""", [self.end_time, self.dropoff_location, self.charge, self.damage_id, self.order_id])
         self.con.commit()
         return True
+
+
+    def get_active_order(self, user_id: str = None):
+        if(user_id == None):
+            print("get_active_order(): user_id not found! ")
+            return None
+        self.cur.execute("""SELECT * FROM Orders WHERE charge = 0 and user_id = ?;""", [self.user_id])
+        tmp = self.cur.fetchone()
+        if(tmp == []):
+            return None
+        return Order(self.cur.fetchone()[0])
 
 
 

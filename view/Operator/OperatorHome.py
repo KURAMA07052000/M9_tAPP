@@ -55,15 +55,15 @@ class OperatorHome(tk.Frame):
             entry_text = f"Vehicle {index+1}: {vehicle_plate} - {battery_percentage}%"
 
             entry_label = tk.Label(card, fg="white", bg="#CD3333", text=entry_text)
-            entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
+            entry_label.grid(row=0, column=0, sticky='w', padx=(120, 0))
 
             change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION",
                                         command=lambda entry_id=entry[0]: self.toChangeLocation(entry_id))
-            change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
+            change_location.grid(row=0, column=2, sticky='e', padx=(0, 120))
 
             report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT",
                                command=lambda entry_id=entry[0]: self.toConditionReport(entry_id))
-            report.grid(row=0, column=1, padx=(160, 160))
+            report.grid(row=0, column=1, padx=(120, 120))
 
     def on_canvas_configure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))

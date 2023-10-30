@@ -8,7 +8,7 @@ class Wallet:
     def __init__(self):
         self.cur = curr()
         self.con = conn()
-        self.WalletID = None
+        self.wallet_id = None
         self.balance = 0
     
     def CREATE_TABLE(self, saftey='on'):
@@ -48,17 +48,34 @@ class Wallet:
             print(i)
 
     def set_id(self, id):
-        self.WalletID = id
+        self.wallet_id = id
 
     def refresh(self):
-        self.cur.execute('''SELECT balance FROM Wallet WHERE wallet_id=? LIMIT 1''', [self.WalletID])
+        self.cur.execute('''SELECT balance FROM Wallet WHERE wallet_id=? LIMIT 1''', [self.wallet_id])
         self.balance = self.cur.fetchall().copy()[0][0]
 
     def update_balance(self, val:int):
-        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [int(val),self.WalletID])
+        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [int(val),self.wallet_id])
         self.con.commit()
         self.refresh()
+    '''
+        fill in data
+    '''
+    def get(self, user_id : str):
+        self.cur.execute('''SELECT * FROM Wallet WHERE user_id=?''', [user_id])
+        tmp = self.cur.fetchall()
+        if(tmp == []):
+            print("Wallet: User not found")
+            return None
+        self.wallet_id = tmp[0][0]
+        self.balance = tmp[0][2]
 
+    def add_balance(self, amount : int):
+        if(self.wallet_id == None):
+            print("Wallet: wallet_id not set")
+            return False
+        self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [amount,self.wallet_id])
+        return True
 
 if __name__ == '__main__':
     u = Wallet()

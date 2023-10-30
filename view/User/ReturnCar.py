@@ -10,6 +10,15 @@ class ReturnCar(tk.Frame):
         
         self.CONTROLLER = controller
 
+        # get data
+        self.order = self.get_data()
+        print(self.order)
+        # to string
+        if (self.order == None):
+            order_str = "No Active Order"
+        else:
+            order_str = "Pick Up Loc: " + self.order.pickup_location + "Order ID: " + self.order.getid[-5:]
+        print(order_str)
         style = ttk.Style()
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
         style.map('Red.TCombobox', background=[('readonly', 'red')])
@@ -17,10 +26,11 @@ class ReturnCar(tk.Frame):
         heading=Label(self, text="Return A Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
         heading.place(x=362, y=16)
 
-        self.vehicle = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.vehicle = ttk.Combobox(self,values=[order_str], style='Red.TCombobox', justify='center')
+
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
-
+        # TODO: location
         self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
         self.drop_off_loc.set("Drop-Off Location")
@@ -44,6 +54,10 @@ class ReturnCar(tk.Frame):
         name = element.get()
         if name=='':
             element.insert(0,text)
+
+
+    def get_data(self):
+        return self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
 
    
 

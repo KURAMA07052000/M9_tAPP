@@ -80,6 +80,7 @@ class RentCar(tk.Frame):
         if name=='':
             element.insert(0,text)
 
+
     def on_submit(self):
         import datetime
         vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID 
