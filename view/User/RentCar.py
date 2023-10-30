@@ -85,8 +85,14 @@ class RentCar(tk.Frame):
         vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID 
         userID = self.CONTROLLER.MODEL.DATA['user'].UserID
         pickuploc = self.CONTROLLER.MODEL.DATA['vehicle'].Location
-        if vehicleID!=None and userID!=None and pickuploc!=None:
+        Vehicle = self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle
+        if vehicleID!=None and userID!=None and pickuploc!=None and Vehicle!=None:
             self.CONTROLLER.MODEL.DATA['orders'].create_new_order(vehicleID, userID, datetime.datetime.now(), None, pickuploc, None) 
+            self.CONTROLLER.MODEL.DATA['vehicle'].use_vehicle()
+            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = None
+            self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = None
+            self.CONTROLLER.MODEL.DATA['vehicle'].Location = None
+        self.CONTROLLER.hardRefreshRentCar()
         self.CONTROLLER.toWallet()
         
    

@@ -12,6 +12,7 @@ class tkinterApp(tk.Tk):
         self.geometry('925x500')
         self.configure(bg='white')
         self.resizable(False,False)
+        self.title('')
         
         self.container = tk.Frame(self)
         self.container.pack(side = "top", fill = "both", expand = True)
