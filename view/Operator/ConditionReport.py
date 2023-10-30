@@ -14,7 +14,7 @@ class ConditionReport(tk.Frame):
         #heading=tk.Label(self,text="Change Vehicle Location", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
         #heading.place(x=100, y=15)
         
-        battery = Button(self, image = self.CONTROLLER.ASSETS['batterybutton'], border=0, bg="white")
+        battery = Button(self, image = self.CONTROLLER.ASSETS['batterybutton'], border=0, bg="white", command=self.charge_battery)
         battery.place(x=850,y=10)
 
         self.case = self.CONTROLLER.MODEL.DATA['damage_report'].get_damage_case(self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_id())
@@ -43,6 +43,10 @@ class ConditionReport(tk.Frame):
 
     def fix_vehicle(self):
         self.CONTROLLER.MODEL.DATA['damage_report'].fixd_vehicle(self.case[0])
+        self.CONTROLLER.toOperatorHome()
+
+    def charge_battery(self):
+        self.CONTROLLER.MODEL.DATA['vehicle'].charge_battery()
         self.CONTROLLER.toOperatorHome()
 
 
