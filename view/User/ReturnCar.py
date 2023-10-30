@@ -33,9 +33,9 @@ class ReturnCar(tk.Frame):
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
         # TODO: location
-        self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_all_location(), style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
-        self.drop_off_loc.set("Drop-Off Location")
+        self.drop_off_loc.set("Battery Percentage at Drop Off")
 
         date=Label(self,text="Drop-off Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         date.place(x=550, y=120)
