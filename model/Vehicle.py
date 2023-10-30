@@ -134,7 +134,7 @@ class Vehicle:
         return data
     
     def get_location_by_type(self):
-        self.cur.execute("""SELECT current_location FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [self.Type])
+        self.cur.execute("""SELECT current_location FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false""", [self.Type])
         data = self.cur.fetchall().copy()
         for i in data:
             print(i)
@@ -160,8 +160,8 @@ class Vehicle:
             vehicle_id: str
         return: None
     '''
-    def use_vehicle(self, vehicle_id: str):
-        self.cur.execute("""UPDATE Vehicle SET is_in_use = true WHERE vehicle_id = ?""", [vehicle_id])
+    def use_vehicle(self):
+        self.cur.execute("""UPDATE Vehicle SET is_in_use = true WHERE vehicle_id = ?""", [self.VehicleID])
         self.con.commit()
     '''
         method: return_vehicle
@@ -181,8 +181,6 @@ class Vehicle:
     def set_damage(self, vehicle_id: str, is_damaged: bool):
         self.cur.execute("""UPDATE Vehicle SET is_damaged = ? WHERE vehicle_id = ?""", [is_damaged, vehicle_id])
         self.con.commit()
-
-
 
 
 
