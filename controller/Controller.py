@@ -35,7 +35,7 @@ class Controller():
         self.VIEW.show_frame(SignIn)
 
     def toChangeLocation(self):
-        self.VIEW.show_frame(ChangeLocation)
+        self.VIEW.init_and_show_frame(ChangeLocation)
 
     def toUserHome(self):
         self.VIEW.show_frame(UserHome)

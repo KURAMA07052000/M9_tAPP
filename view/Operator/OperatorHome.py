@@ -44,9 +44,9 @@ class OperatorHome(tk.Frame):
 
             entry_label = tk.Label(card, fg="white", bg="#CD3333", text=entry_text)
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
-
+            # must use lambda to pass vehicle id
             change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION",
-                                        command=self.CONTROLLER.toChangeLocation)
+                                        command=lambda entry_id=entry[0]: self.toChangeLocation(entry_id))
             change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
 
             report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT",
@@ -62,9 +62,14 @@ class OperatorHome(tk.Frame):
         card.grid_columnconfigure(1, weight=1)
 
     def toConditionReport(self, vehicle_id : str):
-        print("toConditionReport" + vehicle_id)
+        # print("toConditionReport" + vehicle_id)
         self.CONTROLLER.MODEL.DATA['vehicle'].set_vehicle_id(vehicle_id)
         self.CONTROLLER.toConditionReport()
+
+    def toChangeLocation(self, vehicle_id : str):
+        # print("toChangeLocation" + vehicle_id)
+        self.CONTROLLER.MODEL.DATA['vehicle'].set_vehicle_id(vehicle_id)
+        self.CONTROLLER.toChangeLocation()
 
 if __name__=='__main__':
     from controller.Controller import Controller

@@ -16,7 +16,7 @@ class Vehicle:
         self.Type = '1'
         self.Location = None
         self.Vehicle = None
-        self.VehicleID = None
+        self.vehicle_id = None
 
     def CREATE_TABLE(self, saftey='on'):
         '''
@@ -187,6 +187,13 @@ class Vehicle:
         method: get_vehicle_by_id
         return: Vehicle
     '''
+    def get_vehicle_by_id(self, vehicle_id: str = None):
+        if vehicle_id!=None:
+            self.vehicle_id = vehicle_id
+        if self.vehicle_id==None:
+            return None
+        self.cur.execute("""SELECT * FROM Vehicle WHERE vehicle_id = ?""", [self.vehicle_id])
+        return self.cur.fetchall()[0]
 
     '''
         method: use_vehicle
@@ -195,7 +202,7 @@ class Vehicle:
         return: None
     '''
     def use_vehicle(self):
-        self.cur.execute("""UPDATE Vehicle SET is_in_use = true WHERE vehicle_id = ?""", [self.VehicleID])
+        self.cur.execute("""UPDATE Vehicle SET is_in_use = true WHERE vehicle_id = ?""", [self.vehicle_id])
         self.con.commit()
     '''
         method: return_vehicle
@@ -217,7 +224,7 @@ class Vehicle:
         self.con.commit()
 
     def set_vehicle_id(self, vehicle_id: str):
-        self.VehicleID = vehicle_id
+        self.vehicle_id = vehicle_id
 
 
     def vehicle_type(self):
@@ -239,6 +246,14 @@ class Vehicle:
         """)
         return self.cur.fetchall()
 
+    def update_vehicle_location(self, location : str, vehicle_id : str = None):
+        if vehicle_id != None:
+            self.vehicle_id = vehicle_id
+        self.cur.execute("""UPDATE Vehicle SET current_location = ? WHERE vehicle_id = ?""", [location, self.vehicle_id])
+        self.con.commit()
+
+    def get_vehicle_id(self):
+        return self.vehicle_id
 
 
 
