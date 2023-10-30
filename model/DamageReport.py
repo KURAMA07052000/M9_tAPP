@@ -89,12 +89,16 @@ class DamageReport:
             );""", [damage_id, order.vehicle_id, order.order_id, damage_report, order.end_time, False])
         self.con.commit()
 
-    def get_damage_case(self):
+    def get_damage_case(self, vehicle_id : str):
+        if(vehicle_id == None):
+            return None
+        print("get_damage_case: " + vehicle_id)
         self.cur.execute("""
-            select damage_id, vehicle_id, damage_report, occured from damage_report where fixed == false
-        """)
+            select damage_id, vehicle_id, damage_report, occured from damage_report where fixed == false and vehicle_id = ?
+        """, [vehicle_id])
         self.con.commit()
         case = self.cur.fetchall()
+        print(case)
         if case == []:
             return None
         return case[0]

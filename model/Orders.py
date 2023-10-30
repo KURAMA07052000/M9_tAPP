@@ -48,8 +48,7 @@ class Orders:
                 pickup_location text not null,
                 dropoff_location text,
                 charge double(10,2),
-                damage_id text,
-                payment_done BOOLEAN DEFAULT False
+                damage_id text
                 );''')
         self.con.commit()
 

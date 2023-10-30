@@ -21,34 +21,37 @@ class OperatorHome(tk.Frame):
         # card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
         # card.pack(pady=20)
 
-        card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=500, relief='solid', bd=4, borderwidth=4,
-                        highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
-        card.pack(pady=10)
+        # card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=500, relief='solid', bd=4, borderwidth=4,
+        #                 highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
+        # card.pack(pady=10)
+        #
+        # change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION", command=self.CONTROLLER.toChangeLocation)
+        # change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
+        #
+        # report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT", command=self.CONTROLLER.toConditionReport)
+        # report.grid(row=0, column=1, padx=(160,160))
 
-        change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION", command=self.CONTROLLER.toChangeLocation)
-        change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
 
-        report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT", command=self.CONTROLLER.toConditionReport)
-        report.grid(row=0, column=1, padx=(160,160))
-
-
-        for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_all()):
+        for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_list()):
             card = tk.Frame(self, bg='#CD3333', border=2, height=350, width=500, relief='solid', bd=4, borderwidth=4,
                             highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
-            card.pack(pady=20)
+            card.pack(pady=10)
             # print(entry)
-            order_name = entry[0][-5:]
-            start_time = entry[2]
-            end_time = entry[3]
+            vehicle_plate = entry[1]
+            battery_percentage = entry[6]
 
-            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=f"Order {index+1}: Name - {order_name}")
+            entry_text = f"Vehicle {index+1}: {vehicle_plate} - {battery_percentage}%"
+
+            entry_label = tk.Label(card, fg="white", bg="#CD3333", text=entry_text)
             entry_label.grid(row=0, column=0, sticky='w', padx=(160, 0))
 
-            modify = tk.Label(card, fg="white", bg="#CD3333", text=f"End Time - {end_time}")
-            modify.grid(row=0, column=2, sticky='e', padx=(0, 160))
+            change_location = tk.Button(card, fg="#CD3333", bg="white", text="CHANGE LOCATION",
+                                        command=self.CONTROLLER.toChangeLocation)
+            change_location.grid(row=0, column=2, sticky='e', padx=(0, 160))
 
-            activity = tk.Label(card, fg="white", bg="#CD3333", text=f"Start Time - {start_time}")
-            activity.grid(row=0, column=1, padx=(160, 160))
+            report = tk.Button(card, fg="#CD3333", bg="white", text="CONDITION REPORT",
+                               command=lambda entry_id=entry[0]: self.toConditionReport(entry_id))
+            report.grid(row=0, column=1, padx=(160, 160))
 
             # card.grid_columnconfigure(1, weight=1)
 
@@ -58,7 +61,11 @@ class OperatorHome(tk.Frame):
 
         card.grid_columnconfigure(1, weight=1)
 
-        
+    def toConditionReport(self, vehicle_id : str):
+        print("toConditionReport" + vehicle_id)
+        self.CONTROLLER.MODEL.DATA['vehicle'].set_vehicle_id(vehicle_id)
+        self.CONTROLLER.toConditionReport()
+
 if __name__=='__main__':
     from controller.Controller import Controller
 

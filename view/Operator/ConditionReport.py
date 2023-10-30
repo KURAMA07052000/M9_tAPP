@@ -17,9 +17,10 @@ class ConditionReport(tk.Frame):
         battery = Button(self, image = self.CONTROLLER.ASSETS['batterybutton'], border=0, bg="white")
         battery.place(x=850,y=10)
 
-        self.case = self.CONTROLLER.MODEL.DATA['damage_report'].get_damage_case()
+        self.case = self.CONTROLLER.MODEL.DATA['damage_report'].get_damage_case(self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID)
         if(self.case != None):
-            vh_text = "Car: " + self.case[1]
+            print(self.case)
+            vh_text = "Vehivle ID: " + self.case[1]
             vehicle_heading = tk.Label(self, text=vh_text, fg="black", bg="white", font=(
             "Microsft YaHei UI Light", 25, "bold"))  # update this to display vehicle make/ or number
             vehicle_heading.pack(pady=180)
