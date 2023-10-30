@@ -27,15 +27,15 @@ class RentCar(tk.Frame):
         self.radio_button1.place(x=100, y=140)
         self.radio_button2.place(x=100, y=180)
 
-        date=Label(self,text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
-        date.place(x=100, y=260)
+        # date=Label(self,text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
+        # date.place(x=100, y=260)
        
-        self.pickupd = Entry(self, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
-        self.pickupd.place(x=150, y=300)
-        self.pickupd.insert(0,"             DD/MM/YYYY")
-        self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
-        self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
-        Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
+        # self.pickupd = Entry(self, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+        # self.pickupd.place(x=150, y=300)
+        # self.pickupd.insert(0,"             DD/MM/YYYY")
+        # self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
+        # self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
+        # Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
 
         
         self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
