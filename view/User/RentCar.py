@@ -80,6 +80,7 @@ class RentCar(tk.Frame):
         if name=='':
             element.insert(0,text)
 
+
     def on_submit(self):
         import datetime
         vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID 
@@ -93,7 +94,7 @@ class RentCar(tk.Frame):
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = None
             self.CONTROLLER.MODEL.DATA['vehicle'].Location = None
         self.CONTROLLER.hardRefreshRentCar()
-        self.CONTROLLER.toWallet()
+        self.CONTROLLER.toUserHome()
         
    
 

@@ -35,7 +35,7 @@ class Controller():
         self.VIEW.show_frame(SignIn)
 
     def toChangeLocation(self):
-        self.VIEW.show_frame(ChangeLocation)
+        self.VIEW.init_and_show_frame(ChangeLocation)
 
     def toUserHome(self):
         self.VIEW.show_frame(UserHome)
@@ -53,7 +53,7 @@ class Controller():
         self.VIEW.init_and_show_frame(RentCar)
 
     def toReturnCar(self):
-        self.VIEW.show_frame(ReturnCar)
+        self.VIEW.init_and_show_frame(ReturnCar)
 
     def toPayment(self):
         self.VIEW.show_frame(Payment)

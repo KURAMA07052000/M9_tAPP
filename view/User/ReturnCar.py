@@ -1,3 +1,4 @@
+import datetime
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
@@ -10,6 +11,16 @@ class ReturnCar(tk.Frame):
         
         self.CONTROLLER = controller
 
+        # get data
+        # self.order = self.get_data()
+        self.order = self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
+        print(self.order)
+        # to string
+        if (self.order == None):
+            order_str = "No Active Order"
+        else:
+            order_str = "Pick Up Loc: " + self.order.pickup_location + " | Order ID: " + self.order.get_order_id()[-5:]
+        print(order_str)
         style = ttk.Style()
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
         style.map('Red.TCombobox', background=[('readonly', 'red')])
@@ -17,10 +28,11 @@ class ReturnCar(tk.Frame):
         heading=Label(self, text="Return A Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
         heading.place(x=362, y=16)
 
-        self.vehicle = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.vehicle = ttk.Combobox(self,values=[order_str], style='Red.TCombobox', justify='center')
+
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
-
+        # TODO: location
         self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
         self.drop_off_loc.set("Drop-Off Location")
@@ -36,7 +48,7 @@ class ReturnCar(tk.Frame):
       
 
         Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0, command=self.confirm).place(x=520, y=400)
+        Button(self,width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
     def on_enter(self,element):
         element.delete(0, 'end')
     

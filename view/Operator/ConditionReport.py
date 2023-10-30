@@ -14,10 +14,10 @@ class ConditionReport(tk.Frame):
         #heading=tk.Label(self,text="Change Vehicle Location", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
         #heading.place(x=100, y=15)
         
-        battery = Button(self, image = self.CONTROLLER.ASSETS['batterybutton'], border=0, bg="white")
+        battery = Button(self, image = self.CONTROLLER.ASSETS['batterybutton'], border=0, bg="white", command=self.charge_battery)
         battery.place(x=850,y=10)
 
-        self.case = self.CONTROLLER.MODEL.DATA['damage_report'].get_damage_case(self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID)
+        self.case = self.CONTROLLER.MODEL.DATA['damage_report'].get_damage_case(self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_id())
         if(self.case != None):
             print(self.case)
             vh_text = "Vehivle ID: " + self.case[1]
@@ -29,7 +29,7 @@ class ConditionReport(tk.Frame):
                               font=("Microsft YaHei UI Light", 16, "bold"))
             label1.place(x=370, y=250)
         else:
-            vehicle_heading = tk.Label(self, text="All vehicles are good", fg="black", bg="white", font=(
+            vehicle_heading = tk.Label(self, text="This vehicle is good", fg="black", bg="white", font=(
             "Microsft YaHei UI Light", 25, "bold"))  # update this to display vehicle make/ or number
             vehicle_heading.pack(pady=180)
         # vehicle_heading = tk.Label(self, text="Car 1", fg="black", bg="white", font=("Microsft YaHei UI Light",25,"bold")) #update this to display vehicle make/ or number
@@ -38,12 +38,23 @@ class ConditionReport(tk.Frame):
         # label1 = tk.Label(self, text="Current Condition", fg="black", bg="white", font=("Microsft YaHei UI Light",16,"bold"))
         # label1.place(x = 370, y=250)
         
-        Button(self,width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toOperatorHome).place(x=140, y=350)
-        Button(self, width=39,pady=7,text="CAR HAS BEEN FIXED",bg="#CD3333", fg="white", border=0, command=self.fix_vehicle).place(x=520, y=350)
+
+        if(self.case != None):
+            Button(self, width=39, pady=7, text="CANCEL", bg="#CD3333", fg="white", border=0,
+                   command=self.CONTROLLER.toOperatorHome).place(x=140, y=350)
+            Button(self, width=39,pady=7,text="CAR HAS BEEN FIXED",bg="#CD3333", fg="white", border=0, command=self.fix_vehicle).place(x=520, y=350)
+        else:
+            Button(self, width=39, pady=7, text="CANCEL", bg="#CD3333", fg="white", border=0,
+                   command=self.CONTROLLER.toOperatorHome).place(x=330, y=350)
 
     def fix_vehicle(self):
         self.CONTROLLER.MODEL.DATA['damage_report'].fixd_vehicle(self.case[0])
         self.CONTROLLER.toOperatorHome()
+
+    def charge_battery(self):
+        self.CONTROLLER.MODEL.DATA['vehicle'].charge_battery()
+        self.CONTROLLER.toOperatorHome()
+
 
 
 if __name__=='__main__':
