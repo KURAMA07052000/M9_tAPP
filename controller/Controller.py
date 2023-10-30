@@ -54,6 +54,8 @@ class Controller():
 
     def toReturnCar(self):
         self.VIEW.show_frame(ReturnCar)
+    def hardRefreshReturnCar(self):
+        self.VIEW.init_and_show_frame(ReturnCar)
 
     def toPayment(self):
         self.VIEW.show_frame(Payment)

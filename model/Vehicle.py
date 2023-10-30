@@ -140,6 +140,13 @@ class Vehicle:
             print(i)
         return data
 
+    def get_all_location(self):
+        self.cur.execute("""SELECT DISTINCT current_location FROM Vehicle""")
+        data = self.cur.fetchall().copy()
+        for i in data:
+            print(i)
+        return data
+
     '''
         method: get_available_vehicle_by_type_and_location
         return: List of available vehicle in certain type and location

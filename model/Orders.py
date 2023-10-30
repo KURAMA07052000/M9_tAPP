@@ -195,8 +195,17 @@ class Orders:
         return: boolean
     '''
     def get_order_by_user_id(self, user_id: str):
-        self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
+        data = self.cur.execute("""SELECT * FROM Orders WHERE user_id = ?;""", [user_id])
+        print(data.fetchall())
+        return ['m','k', 'c']
 
+
+    def get_vehicles_by_user_id(self, user_id: str):
+        self.cur.execute("""SELECT vehicle_id FROM Orders WHERE user_id = ?;""", [user_id])
+        data = self.cur.fetchall().copy()
+        for i in data:
+            print(i)
+        return data
 
     '''
         method: complete_order

@@ -17,11 +17,11 @@ class ReturnCar(tk.Frame):
         heading=Label(self, text="Return A Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
         heading.place(x=362, y=16)
 
-        self.vehicle = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.vehicle = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['orders'].get_vehicles_by_user_id(self.CONTROLLER.MODEL.DATA['user'].UserID), style='Red.TCombobox', justify='center')
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
 
-        self.drop_off_loc = ttk.Combobox(self,values=["1", "2", "3"], style='Red.TCombobox', justify='center')
+        self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_all_location(), style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
         self.drop_off_loc.set("Drop-Off Location")
 
