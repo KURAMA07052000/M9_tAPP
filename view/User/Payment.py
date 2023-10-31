@@ -36,7 +36,7 @@ class Payment(tk.Frame):
                                       fg="black", bg="white")
         trip_success_label.place(x=411, y=34)
 
-        price_label_1 = tk.Label(frame1, text="£10.00", font=("Inter", 20), fg="black", bg="white")
+        price_label_1 = tk.Label(frame1, text="£50.00", font=("Inter", 20), fg="black", bg="white")
         price_label_1.place(x=714, y=117)
 
         time_fee_label = tk.Label(frame1, text="Time fee", font=("Inter", 20), fg="black", bg="white")
@@ -99,9 +99,9 @@ class Payment(tk.Frame):
                 if pick up location is different from drop off location,
                 then add 10 pounds of Dispatch service fee
             '''
-            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()/3600
+            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()/3600000
             if(self.duration_hour <= 4.0):
-                self.diration_fee = 0.0
+                self.duration_fee = 0.0
             else:
                 self.duration_fee = 7.0 * (self.duration_hour - 4.0)
             # %.2f: round(number, ndigits)
