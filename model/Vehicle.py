@@ -172,15 +172,11 @@ class Vehicle:
         print(vehicle_type)
         self.cur.execute("""SELECT * FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [vehicle_type])
         data = self.cur.fetchall().copy()
-        for i in data:
-            print(i)
         return data
     
     def get_location_by_type(self):
         self.cur.execute("""SELECT DISTINCT current_location FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false""", [self.Type])
         data = self.cur.fetchall().copy()
-        for i in data:
-            print(i)
         return data
     
     def get_all_location(self):
