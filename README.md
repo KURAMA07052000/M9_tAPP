@@ -42,8 +42,9 @@ The directory structure for the project is as follows:
 
 If you have any questions or need assistance, please reach out to the project team.
 
-Team M9:
-Kevin Chika Urama 2908111U
-Harsh Raj Verma 2903432V
-Zhenghao LIN 2872794L
-Haoran Jiang
+### Team M9:
+
+- Kevin Chika Urama - 2908111U
+- Harsh Raj Verma - 2903432V
+- Zhenghao LIN - 2872794L
+- Haoran Jiang
