@@ -74,6 +74,7 @@ class Wallet:
         if(self.wallet_id == None):
             print("Wallet: wallet_id not set")
             return False
+        print(amount)
         self.cur.execute('''UPDATE Wallet SET balance=balance+? WHERE wallet_id=?''', [amount,self.wallet_id])
         return True
 

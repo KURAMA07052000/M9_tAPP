@@ -77,6 +77,7 @@ class Payment(tk.Frame):
             self.CONTROLLER.MODEL.DATA['wallet'].charge(self.total_fee)
             # update order
             self.order.charge = self.total_fee
+            self.order.payment_done = True
             self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
             self.CONTROLLER.toUserHome()
 

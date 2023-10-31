@@ -84,10 +84,27 @@ class Order:
         if self.charge < 0.0:
             return abs(self.charge)
         if self.charge == 0.0:
-            # TODO: calculate Charge
-            if self.end_time != None:
-                self.charge = -1.0
-            return self.charge
+            '''
+                starting_price : 50 and have 4 hours of time
+                then every hour is 7 pounds
+                if pick up location is different from drop off location,
+                then add 10 pounds of Dispatch service fee
+            '''
+            if(self.end_time == None):
+                return 0.0
+            self.duration_hour = (self.end_time - self.start_time).total_seconds() / 3600
+            if (self.duration_hour <= 4.0):
+                self.duration_fee = 0.0
+            else:
+                self.duration_fee = 7.0 * (self.duration_hour - 4.0)
+            # %.2f: round(number, ndigits)
+            if (self.pickup_location != self.dropoff_location):
+                self.dispatch_fee = 10.0
+            else:
+                self.dispatch_fee = 0.0
+            self.starting_price = 50.0
+            self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
+            return self.total_fee
         if self.charge > 0.0:
             return self.charge
 

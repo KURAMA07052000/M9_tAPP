@@ -39,11 +39,11 @@ class Controller():
 
     def toUserHome(self):
         # check if user has order not paid
-        # self.order = self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.MODEL.DATA['user'].UserID)
-        # if self.order!=None:
-        #     self.VIEW.init_and_show_frame(Payment)
-        # else:
-        self.VIEW.show_frame(UserHome)
+        self.order = self.MODEL.DATA['orders'].get_pending_order(self.MODEL.DATA['user'].UserID)
+        if self.order!=None:
+            self.VIEW.init_and_show_frame(Payment)
+        else:
+            self.VIEW.show_frame(UserHome)
 
     def toReportCar(self):
         self.VIEW.init_and_show_frame(ReportCar)
