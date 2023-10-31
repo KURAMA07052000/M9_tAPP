@@ -15,7 +15,7 @@ class Payment(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.configure(bg='white')
         self.CONTROLLER = controller
-        self.refresh()
+        self.get_data()
 
 
 
@@ -81,41 +81,42 @@ class Payment(tk.Frame):
             self.order.charge = self.total_fee
             self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
 
-    def refresh(self):
-        self.order =  self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
+    def get_data(self):
+        self.order =  self.CONTROLLER.MODEL.DATA['orders'].get_pending_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
         if(self.order == None):
             self.duration_hour_str = "£0.00"
             self.duration_fee_str = "£0.00"
             self.dispatch_fee_str = "£0.00"
             self.total_fee_str = "£0.00"
             self.CONTROLLER.toUserHome()
-            return
-
-        # algorithm of calculating price
-
-        '''
-            starting_price : 50 and have 4 hours of time
-            then every hour is 7 pounds
-            if pick up location is different from drop off location,
-            then add 10 pounds of Dispatch service fee
-        '''
-        self.duration_hour = (self.end_time - self.start_time).total_seconds()/3600
-        if(self.duration_hour <= 4.0):
-            self.diration_fee = 0.0
         else:
-            self.duration_fee = 7.0 * (self.duration_hour - 4.0)
-        # %.2f: round(number, ndigits)
-        if(self.order.pickup_location != self.order.dropoff_location):
-            self.dispatch_fee = 10.0
-        else:
-            self.dispatch_fee = 0.0
-        self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
 
-        # string part
-        self.duration_hour_str = "£" + str(round(self.duration_hour, 2))
-        self.duration_fee_str = "£" + str(round(self.duration_fee, 2))
-        self.dispatch_fee_str = "£" + str(round(self.dispatch_fee, 2))
-        self.total_fee_str = "£" + str(round(self.total_fee, 2))
+            # algorithm of calculating price
+
+            '''
+                starting_price : 50 and have 4 hours of time
+                then every hour is 7 pounds
+                if pick up location is different from drop off location,
+                then add 10 pounds of Dispatch service fee
+            '''
+            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()/3600
+            if(self.duration_hour <= 4.0):
+                self.diration_fee = 0.0
+            else:
+                self.duration_fee = 7.0 * (self.duration_hour - 4.0)
+            # %.2f: round(number, ndigits)
+            if(self.order.pickup_location != self.order.dropoff_location):
+                self.dispatch_fee = 10.0
+            else:
+                self.dispatch_fee = 0.0
+            self.starting_price = 50.0
+            self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
+
+            # string part
+            self.duration_hour_str = str(round(self.duration_hour, 2))
+            self.duration_fee_str = "£" + str(round(self.duration_fee, 2))
+            self.dispatch_fee_str = "£" + str(round(self.dispatch_fee, 2))
+            self.total_fee_str = "£" + str(round(self.total_fee, 2))
 
 
 

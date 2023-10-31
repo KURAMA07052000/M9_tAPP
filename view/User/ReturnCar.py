@@ -60,7 +60,7 @@ class ReturnCar(tk.Frame):
     def sumbit(self):
         battery_percentage = self.battery.get()
         loc = self.drop_off_loc.get()
-        self.order.pickup_location = loc
+        self.order.dropoff_location = loc
         self.order.end_time = datetime.datetime.now()
         self.order.charge = -1  # switch into pending state
         self.CONTROLLER.MODEL.DATA['orders'].update(self.order)

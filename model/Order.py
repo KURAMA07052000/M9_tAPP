@@ -15,8 +15,14 @@ class Order:
         self.order_id = order_id
         self.vehicle_id = vehicle_id
         self.user_id = user_id
-        self.end_time = end_time
-        self.start_time = start_time
+        if(start_time != None):
+            self.start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
+        else:
+            self.start_time = None
+        if(end_time != None):
+            self.end_time = datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S.%f')
+        else:
+            self.end_time = None
         self.pickup_location = pickup_location
         self.dropoff_location = dropoff_location
         self.charge = charge
@@ -33,8 +39,19 @@ class Order:
         self.order_id = order[0]
         self.vehicle_id = order[1]
         self.user_id = order[2]
-        self.end_time = order[3]
-        self.start_time = order[4]
+        # self.end_time = datetime(order[3])
+        if(order[4] != None):
+            self.start_time = datetime.datetime.strptime(order[4], '%Y-%m-%d %H:%M:%S.%f')
+            self.start_time_string = str(self.start_time.strftime("%d/%m/%Y, %H:%M:%S"))
+        else:
+            self.start_time = None
+            self.start_time_string = None
+        if(order[3] != None):
+            self.end_time = datetime.datetime.strptime(order[3], '%Y-%m-%d %H:%M:%S.%f')
+            self.end_time_string = str(self.end_time.strftime("%d/%m/%Y, %H:%M:%S"))
+        else:
+            self.end_time = None
+            self.end_time_string = None
         self.pickup_location = order[5]
         self.dropoff_location = order[6]
         self.charge = order[7]
