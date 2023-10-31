@@ -46,7 +46,7 @@ class ChangeLocation(tk.Frame):
         location = tk.Label(self, text=current_location_txt, fg="black", bg="white", font=("Microsft YaHei UI Light",12,"bold")) #update this to display cars location
         location.place(x=320, y=200)
 
-        self.change_location = ttk.Combobox(self, values=["loc 1", "loc2", "loc"])
+        self.change_location = ttk.Combobox(self, values=self.CONTROLLER.MODEL.DATA['vehicle'].get_all_location())
         self.change_location.place(x=100, y=250, width=390)
         
         Button(self,width=25,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toOperatorHome).place(x=100, y=300)
