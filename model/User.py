@@ -74,7 +74,7 @@ class User:
         self.con.commit()
         try:
             ret = list(self.cur.fetchall()).copy()[0]
-            print(ret)
+            print('Login details', ret)
             return ret
         except Exception as e:
             print('Login failed')

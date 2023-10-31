@@ -27,9 +27,9 @@ class Model:
         }
         self.User.CREATE_TABLE()
         self.Wallet.CREATE_TABLE()
-        self.Orders.CREATE_TABLE()
+        self.Orders.CREATE_TABLE('off')
         # Should be off, because we are initializing values each time.
-        self.Vehicle.CREATE_TABLE()
+        self.Vehicle.CREATE_TABLE('off')
         self.DamageReport.CREATE_TABLE()
 
     

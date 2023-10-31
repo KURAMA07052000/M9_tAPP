@@ -169,7 +169,6 @@ class Vehicle:
         return: List of available vehicle in certain type
     '''
     def get_available_vehicle_by_type(self, vehicle_type: str):
-        print(vehicle_type)
         self.cur.execute("""SELECT * FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false AND is_in_use = false""", [vehicle_type])
         data = self.cur.fetchall().copy()
         return data
@@ -177,6 +176,7 @@ class Vehicle:
     def get_location_by_type(self):
         self.cur.execute("""SELECT DISTINCT current_location FROM Vehicle WHERE vehicle_type = ? AND is_damaged = false""", [self.Type])
         data = self.cur.fetchall().copy()
+        print("Locations gotten by type: ", *data)
         return data
     
     def get_all_location(self):
@@ -286,7 +286,7 @@ class Vehicle:
         map = {}
         for vp,vi in data:
             map[vi]=vp
-        print(map)
+        print("Vehicle map: ",map)
         return map
 
 
