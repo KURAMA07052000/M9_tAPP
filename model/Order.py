@@ -36,6 +36,8 @@ class Order:
         return: boolean
     '''
     def set_value_from_database(self, order : tuple):
+        self.con = conn()
+        self.cur = curr()
         if order == None:
             return False
         self.order_id = order[0]
@@ -59,7 +61,20 @@ class Order:
         self.charge = order[7]
         self.damage_id = order[8]
         self.payment_done = order[9]
+        self.vehicle_plate = self.get_vehicle_plate()
         return True
+
+    '''
+        
+    '''
+    def get_vehicle_plate(self):
+        self.cur.execute("""
+            select vehicle_plate_num from vehicle where vehicle_id = ?
+        """, [self.vehicle_id])
+        self.con.commit()
+        plate = self.cur.fetchone()
+        return plate[0]
+
 
     '''
         method: get_charge
@@ -101,7 +116,7 @@ class Order:
         pass
 
     def to_string_orderId_and_listId(self):
-        return "Order ID: " + str(self.order_id[-5:]) + ' | Vehicle ID: ' + str(self.vehicle_id[-5:]) + ' Drop off: ' +  str(self.dropoff_location)
+        return "ID: " + str(self.order_id[-5:]) + ' | ' + str(self.vehicle_plate) + ' | Drop off: ' +  str(self.dropoff_location)
 
     def get_order_id(self):
         return self.order_id

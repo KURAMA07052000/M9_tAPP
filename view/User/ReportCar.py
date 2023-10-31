@@ -20,6 +20,8 @@ class ReportCar(tk.Frame):
 
         # get the order history from the database
         self.orders = self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_user_entity(self.CONTROLLER.MODEL.DATA['user'].UserID)
+
+
         # processing data
         self.display = []
         for order in self.orders:
