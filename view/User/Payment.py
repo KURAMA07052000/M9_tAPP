@@ -17,8 +17,6 @@ class Payment(tk.Frame):
         self.CONTROLLER = controller
         self.get_data()
 
-
-
         frame1 = tk.Frame(self, width=925, height=500, bg="white")
         frame1.place(x=0, y=0)
 
@@ -62,7 +60,7 @@ class Payment(tk.Frame):
                                           fg="#3D3D3D", bg="white")
         start_price_info_label.place(x=439, y=142)
 
-        duration_info_label = tk.Label(frame1, text="Total duration is" + self.duration_hour_str + "hours", font=("Inter", 14), fg="#3D3D3D",
+        duration_info_label = tk.Label(frame1, text="Total duration is " + self.duration_hour_str + "hours", font=("Inter", 14), fg="#3D3D3D",
                                        bg="white")
         duration_info_label.place(x=439, y=213)
 
@@ -80,6 +78,7 @@ class Payment(tk.Frame):
             # update order
             self.order.charge = self.total_fee
             self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
+            self.CONTROLLER.toUserHome()
 
     def get_data(self):
         self.order =  self.CONTROLLER.MODEL.DATA['orders'].get_pending_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
@@ -99,7 +98,7 @@ class Payment(tk.Frame):
                 if pick up location is different from drop off location,
                 then add 10 pounds of Dispatch service fee
             '''
-            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()/3600000
+            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()/3600
             if(self.duration_hour <= 4.0):
                 self.duration_fee = 0.0
             else:

@@ -228,7 +228,7 @@ class Orders:
         print(user_id)
         self.cur.execute("""SELECT * FROM Orders WHERE charge = 0 and user_id = ?;""", [user_id])
         tmp = self.cur.fetchone()
-        if(tmp == []):
+        if(tmp == None):
             return None
         return Order(tmp)
 
