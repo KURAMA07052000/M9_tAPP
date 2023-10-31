@@ -9,6 +9,10 @@ class RentCar(tk.Frame):
         
         self.CONTROLLER = controller
 
+        #Dict of all vehicle id -> vehicle plates
+        self.vehicle_map = self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_map()
+        self.vehicle_map_inv = { y:x for x,y in self.vehicle_map.items()}
+
         style = ttk.Style()
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
         style.map('Red.TCombobox', background=[('readonly', 'red')])
@@ -49,14 +53,18 @@ class RentCar(tk.Frame):
 
         self.pick_up_loc.bind("<<ComboboxSelected>>", choose_location)
 
-        self.vehicle = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_available_vehicle_by_location(), style='Red.TCombobox', justify='center')
+        #Get vehicle list
+        vehicle_id_by_loc = self.CONTROLLER.MODEL.DATA['vehicle'].get_available_vehicle_by_location()
+        vehicle_list = [self.vehicle_map[i] for i in vehicle_id_by_loc]
+
+        self.vehicle = ttk.Combobox(self,values=vehicle_list, style='Red.TCombobox', justify='center')
         self.vehicle.place(x=510, y=200, width=285, height=30)
         self.vehicle.set("-- Chose your vehicle --" if self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle==None else self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle)
 
         def choose_vehicle(event):
             vehicle = self.vehicle.get()
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = vehicle
-            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = "-".join(vehicle.split('-')[1:]).strip()
+            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = self.vehicle_map_inv[vehicle]
             self.CONTROLLER.hardRefreshRentCar()
             
         self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
