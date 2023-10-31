@@ -87,6 +87,11 @@ class DamageReport:
             ?,
             ?
             );""", [damage_id, order.vehicle_id, order.order_id, damage_report, order.end_time, False])
+        # update vehicle table, set is_damage
+        self.cur.execute("""
+            update vehicle set is_damaged = true where vehicle_id = ?
+        """, [order.vehicle_id])
+
         self.con.commit()
 
     def get_damage_case(self, vehicle_id : str):

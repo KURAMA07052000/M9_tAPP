@@ -36,8 +36,10 @@ class ReportCar(tk.Frame):
         # find order
         order = self.orders[self.display.index(self.drop_off_loc.get())]
         print(order)
-        self.CONTROLLER.MODEL.DATA['damage_report'].report_from_order(order, self.GLineEdit_821.get())
-        self.GLineEdit_821.delete(0, 'end')
+        report = self.GText_821.get("1.0", "end")
+        print(report)
+        self.CONTROLLER.MODEL.DATA['damage_report'].report_from_order(order, report)
+        self.GText_821.delete("1.0", "end")
         self.CONTROLLER.toUserHome()
 
 
