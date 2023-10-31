@@ -233,7 +233,7 @@ class Orders:
         if(user_id == None):
             print("get_pending_order(): user_id not found! ")
             return None
-        self.cur.execute("""SELECT * FROM Orders WHERE charge = -1 and user_id = ?;""", [user_id])
+        self.cur.execute("""SELECT * FROM Orders WHERE payment_done = False and user_id = ?;""", [user_id])
         tmp = self.cur.fetchone()
         if(tmp == []):
             return None
