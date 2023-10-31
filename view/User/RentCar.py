@@ -64,7 +64,7 @@ class RentCar(tk.Frame):
         def choose_vehicle(event):
             vehicle = self.vehicle.get()
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = vehicle
-            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = self.vehicle_map_inv[vehicle]
+            self.CONTROLLER.MODEL.DATA['vehicle'].vehicle_id = self.vehicle_map_inv[vehicle]
             self.CONTROLLER.hardRefreshRentCar()
             
         self.vehicle.bind("<<ComboboxSelected>>", choose_vehicle)
@@ -91,14 +91,14 @@ class RentCar(tk.Frame):
 
     def on_submit(self):
         import datetime
-        vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID 
+        vehicleID = self.CONTROLLER.MODEL.DATA['vehicle'].vehicle_id 
         userID = self.CONTROLLER.MODEL.DATA['user'].UserID
         pickuploc = self.CONTROLLER.MODEL.DATA['vehicle'].Location
         Vehicle = self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle
         if vehicleID!=None and userID!=None and pickuploc!=None and Vehicle!=None:
             self.CONTROLLER.MODEL.DATA['orders'].create_new_order(vehicleID, userID, datetime.datetime.now(), None, pickuploc, None) 
             self.CONTROLLER.MODEL.DATA['vehicle'].use_vehicle()
-            self.CONTROLLER.MODEL.DATA['vehicle'].VehicleID = None
+            self.CONTROLLER.MODEL.DATA['vehicle'].vehicle_id = None
             self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle = None
             self.CONTROLLER.MODEL.DATA['vehicle'].Location = None
             self.CONTROLLER.hardRefreshRentCar()
