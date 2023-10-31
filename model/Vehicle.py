@@ -27,6 +27,23 @@ class Vehicle:
 
         if saftey == 'off':
             cur.execute('''DROP TABLE IF EXISTS Vehicle''')
+            cur.execute('''CREATE TABLE Vehicle(
+                vehicle_id text PRIMARY KEY, 
+                vehicle_plate_num text UNIQUE,
+                vehicle_type text,
+                current_location text,
+                is_damaged boolean,
+                is_in_use boolean,
+                battery_percentage integer
+                );''')
+            self.create_new_uuid('ebf12454-4d4e-4a44-bb67-831b858a5de9', '2', 'veh_T2_L4', 'loc4', False, 70, False)
+            self.create_new_uuid('a4692e5f-88c2-4985-b60c-299b7248d734', '1', 'veh_T1_L4', 'loc4', False, 80, False)
+            self.create_new_uuid('996b3832-df7b-4d0d-85bf-09db6421a108', '2', 'veh_T2_L3', 'loc3', False, 90, False)
+            self.create_new_uuid('8a000ab3-281c-44f3-8556-7a52bd7a70b6', '2', 'veh_T2_L2', 'loc2', False, 100, False)
+            self.create_new_uuid('7a521259-1e4d-4419-b980-63e1c3a5229c', '1', 'veh_T1_L1', 'loc1', False, 100, False)
+            self.create_new_uuid('4b8151ac-41af-4843-8306-509bffcdaf5f', '2', 'veh_T2_L1', 'loc1', False, 100, False)
+            self.create_new_uuid('407273d3-32d6-401d-8508-1a408a192db3', '1', 'veh_T1_L2', 'loc2', False, 100, False)
+            self.create_new_uuid('19bed376-7e27-4e92-bbd8-b2cea005e9bd', '1', 'veh_T1_L3', 'loc3', False, 100, False)
 
         cur.execute('''CREATE TABLE IF NOT EXISTS Vehicle(
                 vehicle_id text PRIMARY KEY, 
@@ -51,14 +68,6 @@ class Vehicle:
         19bed376-7e27-4e92-bbd8-b2cea005e9bd,veh_T1_L3,1,loc3,0,0,100
 
         '''
-        self.create_new_uuid('ebf12454-4d4e-4a44-bb67-831b858a5de9', '2', 'veh_T2_L4', 'loc4', False, 70, False)
-        self.create_new_uuid('a4692e5f-88c2-4985-b60c-299b7248d734', '1', 'veh_T1_L4', 'loc4', False, 80, False)
-        self.create_new_uuid('996b3832-df7b-4d0d-85bf-09db6421a108', '2', 'veh_T2_L3', 'loc3', False, 90, False)
-        self.create_new_uuid('8a000ab3-281c-44f3-8556-7a52bd7a70b6', '2', 'veh_T2_L2', 'loc2', False, 100, False)
-        self.create_new_uuid('7a521259-1e4d-4419-b980-63e1c3a5229c', '1', 'veh_T1_L1', 'loc1', False, 100, False)
-        self.create_new_uuid('4b8151ac-41af-4843-8306-509bffcdaf5f', '2', 'veh_T2_L1', 'loc1', False, 100, False)
-        self.create_new_uuid('407273d3-32d6-401d-8508-1a408a192db3', '1', 'veh_T1_L2', 'loc2', False, 100, False)
-        self.create_new_uuid('19bed376-7e27-4e92-bbd8-b2cea005e9bd', '1', 'veh_T1_L3', 'loc3', False, 100, False)
 
 
         # self.create_new('1', 'veh_T1_L1', 'loc1', False, 100, False)
