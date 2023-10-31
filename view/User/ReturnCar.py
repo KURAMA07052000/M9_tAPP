@@ -36,7 +36,7 @@ class ReturnCar(tk.Frame):
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
         self.drop_off_loc.set("Battery Percentage at Drop Off")
 
-        date=Label(self,text="Drop-off Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
+        date=Label(self,text="Battery Percentage:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         date.place(x=550, y=120)
        
         self.battery = Entry(self,width=25, fg="black", border=2, bg="white", font=("Microsft YaHei UI Light",11))
