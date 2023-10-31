@@ -278,6 +278,15 @@ class Vehicle:
         self.cur.execute("""UPDATE Vehicle SET battery_percentage = 100 WHERE vehicle_id = ?""", [self.vehicle_id])
         self.con.commit()
         return True
+    
+    def get_vehicle_map(self):
+        self.cur.execute('''SELECT vehicle_plate_num,vehicle_id FROM Vehicle''')
+        data = list(self.cur.fetchall()).copy()
+        map = {}
+        for vp,vi in data:
+            map[vi]=vp
+        print(map)
+        return map
 
 
 

@@ -11,16 +11,15 @@ class ReturnCar(tk.Frame):
         
         self.CONTROLLER = controller
 
-        # get data
-        # self.order = self.get_data()
-        self.order = self.CONTROLLER.MODEL.DATA['orders'].get_active_order(self.CONTROLLER.MODEL.DATA['user'].UserID)
-        print(self.order)
-        # to string
-        if (self.order == None):
-            order_str = "No Active Order"
-        else:
-            order_str = "Pick Up Loc: " + self.order.pickup_location + " | Order ID: " + self.order.get_order_id()[-5:]
-        print(order_str)
+        #Dict of all vehicle id -> vehicle plates
+        self.vehicle_map = self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_map()
+        self.vehicle_map_inv = { y:x for x,y in self.vehicle_map.items()}
+
+        #Create vechicle plate list and inverse map
+        self.active_orders = self.CONTROLLER.MODEL.DATA['orders'].get_vehicle_ids_by_user_id(self.CONTROLLER.MODEL.DATA['user'].UserID)
+        vehicle_list = [self.vehicle_map[i[0]] for i in self.active_orders]
+        
+        
         style = ttk.Style()
         style.configure('Red.TCombobox', fieldbackground='red', foreground='black')
         style.map('Red.TCombobox', background=[('readonly', 'red')])
@@ -28,7 +27,7 @@ class ReturnCar(tk.Frame):
         heading=Label(self, text="Return A Vehicle", fg="#F08080", bg="white", font=("Microsft YaHei UI Light",19,"bold"))
         heading.place(x=362, y=16)
 
-        self.vehicle = ttk.Combobox(self,values=[order_str], style='Red.TCombobox', justify='center')
+        self.vehicle = ttk.Combobox(self,values=vehicle_list, style='Red.TCombobox', justify='center')
 
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
@@ -58,16 +57,18 @@ class ReturnCar(tk.Frame):
             element.insert(0,text)
 
     def sumbit(self):
+        '''Update end time and charge then revert to payment page'''
+        from datetime import datetime
+
+        userID = self.CONTROLLER.MODEL.DATA['user'].UserID
+        vehicleID = self.vehicle_map_inv[str(self.vehicle.get())]
+        dropoff = self.drop_off_loc.get()
         battery_percentage = self.battery.get()
-        loc = self.drop_off_loc.get()
-        self.order.dropoff_location = loc
-        self.order.end_time = datetime.datetime.now()
-        self.order.charge = -1  # switch into pending state
-        self.CONTROLLER.MODEL.DATA['orders'].update(self.order)
-        print("return car success")
-        # update vehicle status
-        self.CONTROLLER.MODEL.DATA['vehicle'].return_vehicle(current_location=loc, battery_percentage=battery_percentage, vehicle_id=self.order.vehicle_id)
-        self.CONTROLLER.toPayment()
+        if userID!=None and vehicleID!=None and dropoff!=None and battery_percentage!=None:
+            self.CONTROLLER.MODEL.DATA['orders'].complete_order(datetime.now(), dropoff, vehicleID, userID)
+            # update vehicle status
+            self.CONTROLLER.MODEL.DATA['vehicle'].return_vehicle(current_location=dropoff, battery_percentage=battery_percentage, vehicle_id=vehicleID)
+            self.CONTROLLER.toPayment()
 
 
     
