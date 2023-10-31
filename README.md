@@ -17,7 +17,6 @@ The directory structure for the project is as follows:
 - `view/`: Directory containing view files, organized into subdirectories for User, Manager, and Operator views
 - `App.py`: Main application file
 - `assets/`: Directory containing various image assets used in the application
-- `user_database.py`: File containing the user database details
 
 ---
 
@@ -44,7 +43,7 @@ The directory structure for the project is as follows:
 If you have any questions or need assistance, please reach out to the project team.
 
 Team M9:
-Kevin Chika Urama 2908111U,
-Harsh Raj Verma 2903432V, 
-Zhenghao LIN 2872794L,
-Haoran Jiang,  
+Kevin Chika Urama 2908111U
+Harsh Raj Verma 2903432V
+Zhenghao LIN 2872794L
+Haoran Jiang
