@@ -272,7 +272,7 @@ class Orders:
         return True
     
     def get_vehicle_ids_by_user_id(self, user_id):
-        self.cur.execute('''SELECT vehicle_id FROM Orders WHERE user_id=?''',[user_id])
+        self.cur.execute('''SELECT vehicle_id FROM Orders WHERE user_id=? AND charge=0''',[user_id])
         data = list(self.cur.fetchall()).copy()
         return data
 
