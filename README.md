@@ -2,7 +2,7 @@
 
 ## Abstract
 
-The Vehicle Rental Project is a comprehensive software system developed to support an electric vehicle share program. This end-to-end prototype enables customers to reserve and return vehicles, manage payments, and report issues, while operators can track vehicle locations and perform necessary maintenance. Managers can generate reports to analyze system performance. The project is implemented using Python and incorporates a Tkinter-based user interface.
+The Vehicle Rental Project is a comprehensive software system developed to support an electric vehicle share program. This end-to-end prototype enables customers to reserve and return vehicles, manage payments, and report issues, while operators can track vehicle locations and perform necessary maintenance. Managers can generate reports to analyze system performance. The project is implemented using Python and incorporates a Tkinter-based user interface and SQLite3 based data management.
 
 ---
 
