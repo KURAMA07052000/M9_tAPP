@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import *
-
+#from tkcalendar import Calendar 
 import os
 import sys
 sys.path.append(os.getcwd())
@@ -15,6 +15,12 @@ class ManagerHome(tk.Frame):
 
         logout = Button(self, image = self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white", command=self.CONTROLLER.logout)
         logout.place(x=850,y=10)
+
+        
+        #cal = Calendar(self, selectmode="day", year=2023, month=10, day=31)
+        #cal.pack(pady=10)
+
+
         
 if __name__=='__main__':
     from controller.Controller import Controller
