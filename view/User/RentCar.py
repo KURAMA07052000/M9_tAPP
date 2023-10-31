@@ -27,27 +27,27 @@ class RentCar(tk.Frame):
         self.radio_button1.place(x=100, y=140)
         self.radio_button2.place(x=100, y=180)
 
-        date=Label(self,text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
-        date.place(x=100, y=260)
+        # date=Label(self,text="Pick-up Time:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
+        # date.place(x=100, y=260)
        
-        self.pickupd = Entry(self, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
-        self.pickupd.place(x=150, y=300)
-        self.pickupd.insert(0,"             DD/MM/YYYY")
-        self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
-        self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
-        Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
+        # self.pickupd = Entry(self, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
+        # self.pickupd.place(x=150, y=300)
+        # self.pickupd.insert(0,"             DD/MM/YYYY")
+        # self.pickupd.bind('<FocusIn>', lambda x: self.on_enter(self.pickupd))
+        # self.pickupd.bind('<FocusOut>', lambda x: self.on_leave("             DD/MM/YYYY", self.pickupd))
+        # Frame(self, width=195, height=2, bg="black").place(x=150,y=330)
 
         
-        self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
-        self.drop_off_loc.place(x=510, y=100, width=285, height=30)
-        self.drop_off_loc.set("-- Drop-Off Location --" if self.CONTROLLER.MODEL.DATA['vehicle'].Location==None else self.CONTROLLER.MODEL.DATA['vehicle'].Location)
+        self.pick_up_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
+        self.pick_up_loc.place(x=510, y=100, width=285, height=30)
+        self.pick_up_loc.set("-- Pick-Up Location --" if self.CONTROLLER.MODEL.DATA['vehicle'].Location==None else self.CONTROLLER.MODEL.DATA['vehicle'].Location)
 
         def choose_location(event):
-            location = self.drop_off_loc.get()
+            location = self.pick_up_loc.get()
             self.CONTROLLER.MODEL.DATA['vehicle'].Location = location
             self.CONTROLLER.hardRefreshRentCar()
 
-        self.drop_off_loc.bind("<<ComboboxSelected>>", choose_location)
+        self.pick_up_loc.bind("<<ComboboxSelected>>", choose_location)
 
         self.vehicle = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_available_vehicle_by_location(), style='Red.TCombobox', justify='center')
         self.vehicle.place(x=510, y=200, width=285, height=30)
