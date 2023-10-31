@@ -28,6 +28,8 @@ class Order:
         self.charge = charge
         self.damage_id = damage_id
 
+
+
     '''
         method: set_value_from_database
         input: order : tuple
@@ -56,6 +58,7 @@ class Order:
         self.dropoff_location = order[6]
         self.charge = order[7]
         self.damage_id = order[8]
+        self.payment_done = order[9]
         return True
 
     '''

@@ -209,13 +209,34 @@ class Orders:
     '''
     def complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str):
         from datetime import datetime
-        self.cur.execute("""SELECT order_id, start_time FROM Orders WHERE vehicle_id = ? AND user_id=?""", [vehicle_id, user_id])
+        self.cur.execute("""SELECT order_id, start_time, pickup_location FROM Orders WHERE vehicle_id = ? AND user_id=?""", [vehicle_id, user_id])
         data = list(self.cur.fetchone()).copy()
-        order_id, start_date = data
+        order_id, start_date, pickup_location = data
         start_date = datetime.strptime(start_date,"%Y-%m-%d %H:%M:%S.%f")
         time_diff = end_time - start_date
+
+
         charge = time_diff.total_seconds()*10
-        self.cur.execute('''UPDATE Orders SET end_time=?, charge=?, dropoff_location=? WHERE order_id=?''',[end_time, charge, dropoff_location, order_id])
+        '''
+            starting_price : 50 and have 4 hours of time
+            then every hour is 7 pounds
+            if pick up location is different from drop off location,
+            then add 10 pounds of Dispatch service fee
+        '''
+        self.duration_hour = time_diff.total_seconds() / 3600
+        if (self.duration_hour <= 4.0):
+            self.duration_fee = 0.0
+        else:
+            self.duration_fee = 7.0 * (self.duration_hour - 4.0)
+        # %.2f: round(number, ndigits)
+        if (pickup_location != dropoff_location):
+            self.dispatch_fee = 10.0
+        else:
+            self.dispatch_fee = 0.0
+        self.starting_price = 50.0
+        self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
+
+        self.cur.execute('''UPDATE Orders SET end_time=?, charge=?, dropoff_location=? WHERE order_id=?''',[end_time, self.total_fee, dropoff_location, order_id])
 
 
     def get_active_order(self, user_id: str = None):
