@@ -56,7 +56,13 @@ class Controller():
         self.VIEW.show_frame(Wallet)
 
     def toRentCar(self):
-        self.VIEW.show_frame(RentCar)
+        # check if user has already rented a car
+        self.order = self.MODEL.DATA['orders'].get_active_order(self.MODEL.DATA['user'].UserID)
+        if self.order!=None:
+            self.VIEW.init_and_show_frame(ReturnCar)
+        else:
+            self.VIEW.show_frame(RentCar)
+
     def hardRefreshRentCar(self):
         self.VIEW.init_and_show_frame(RentCar)
 

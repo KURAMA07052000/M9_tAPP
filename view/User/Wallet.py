@@ -196,6 +196,7 @@ class Wallet(tk.Frame):
         # print("command")
 
     def refresh(self):
+        self.GLineEdit_515.delete(0, END)
         self.GLabel_211["text"] = f"Current BALANCE: \n $ {self.CONTROLLER.MODEL.DATA['wallet'].balance}"
         self.GLabel_211.place(x=550, y=80, width=306, height=225)
 

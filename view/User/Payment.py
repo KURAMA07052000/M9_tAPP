@@ -96,11 +96,12 @@ class Payment(tk.Frame):
             '''
                 THIS IS CHANGE FOR BETTER PRESENTATION. SO HOUR WILL BECOME SECONDS
                 starting_price : 5 and have 4s of time
-                then every hour is 1 pounds
+                then every seconds is 1 pounds
                 if pick up location is different from drop off location,
                 then add 10 pounds of Dispatch service fee
             '''
             self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()
+            print(self.duration_hour)
             if(self.duration_hour <= 4.0):
                 self.duration_fee = 0.0
             else:
