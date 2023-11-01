@@ -354,11 +354,36 @@ class Orders:
         self.end_date = end_date
 
 
+    def generate_random_orders(self, n=50):
+        import random
+        user_id = 'f4e020a0-3874-4dc0-9c65-2f010fc94005'
+        locations = ['loc1', 'loc2', 'loc3', 'loc4']
+        orders_handler = Orders()
 
+        for _ in range(n):
+            # randomly select vehicle_id
+            self.cur.execute('''SELECT vehicle_id FROM Vehicle''')
+            vehicle_id = random.choice(self.cur.fetchall())[0]
+            print(vehicle_id)
+            # randomly generate start_time and end_time
+            start_time = datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 10))
+            end_time = start_time + datetime.timedelta(hours=random.randint(1, 48))
+            pickup_location = random.choice(locations)
+            dropoff_location = random.choice(locations)
+
+            # Creating new order
+            order_id = orders_handler.create_new_order(vehicle_id, user_id, start_time, end_time, pickup_location,
+                                                       dropoff_location)
+
+            # Completing order
+            orders_handler.complete_order(end_time, dropoff_location, vehicle_id, user_id)
+
+            # setting payment_done to True
+            self.cur.execute('''UPDATE Orders SET payment_done = True WHERE order_id = ?''', [order_id])
 
 if __name__ == '__main__':
     o = Orders()
-    # o.cur.execute('''SELECT * FROM Orders''')
+    # o.cur.execute('''SELECT * FROM Orders'''
     '''
         Generate orders
         user_id:f4e020a0-3874-4dc0-9c65-2f010fc94005
@@ -368,14 +393,11 @@ if __name__ == '__main__':
         pickup_location: random choice from ['loc1','loc2','loc3','loc4']
         dropoff_location: random choice from ['loc1','loc2','loc3','loc4']
         charge: calculated by calling self.complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str)
+        self.order.payment_done = True
+        then update order
         damage_id: None
     '''
-    from random import choice
-    from datetime import datetime, timedelta
-
-
-    for i in range(10):
-        o.creat_new()
+    o.generate_random_orders(50)
 
 
     '''

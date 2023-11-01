@@ -17,6 +17,7 @@ class OrderHistory(tk.Frame):
         
         heading=tk.Label(self,text="Your Order History", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
         heading.pack(pady=10)
+
         #Implement the for loop below passing the order data as an argument when ready yall, added it for now
         for index, entry in enumerate(self.CONTROLLER.MODEL.DATA['orderHistory'].order_history_user(self.CONTROLLER.MODEL.DATA['user'].UserID)):
             card = tk.Frame(self, bg='#CD3333', border=2, height=300, width=800, relief='solid', bd=4, borderwidth=4, highlightthickness=0, highlightcolor="#CD3333", highlightbackground="#CD3333")
@@ -38,8 +39,7 @@ class OrderHistory(tk.Frame):
             card.grid_columnconfigure(1, weight=1)
     
 
-        Button(self, width=39,pady=7,text="CANCEL",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=140, y=400)
-        Button(self, width=39,pady=7,text="CONFIRM",bg="#CD3333", fg="white", border=0).place(x=520, y=400)
+        Button(self, width=22,pady=7,text="RETURN",bg="#CD3333", fg="white", border=0, command=self.CONTROLLER.toUserHome).place(x=750, y=20)
 
 if __name__ == '__main__':
     root = tk.Tk()
