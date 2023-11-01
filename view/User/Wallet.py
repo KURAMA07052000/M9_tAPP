@@ -73,6 +73,8 @@ class Wallet(tk.Frame):
         self.GLineEdit_248["fg"] = "#333333"
         self.GLineEdit_248["justify"] = "left"
         # self.GLineEdit_248["text"] = "Entry"
+        # CVV hidden
+        self.GLineEdit_248.config(show="*")
         self.GLineEdit_248.place(x=310, y=390, width=110, height=40)
         Frame(self,width=110, height=2, bg="black").place(x=310, y=430)
 
@@ -221,6 +223,9 @@ class Wallet(tk.Frame):
         if len(ccv) != 3 or not ccv.isdigit():
             messagebox.showerror("Error", "Invalid CCV! It should be 3 digits.")
             return False
+        if not self.luhn_check(card_number):
+            messagebox.showerror("Error", "Invalid card number, Check again carefully!")
+            return False
         # Identify card type
         if card_number.startswith("4"):
             messagebox.showinfo("Info", "Visa card pay successfully.")
@@ -236,6 +241,31 @@ class Wallet(tk.Frame):
             return False
 
         return True
+
+    def luhn_check(self, card_number):
+        """
+        Check if the provided card number is valid according to the Luhn algorithm.
+
+        :param card_number: A string representation of the card number.
+        :return: True if valid, False otherwise.
+        """
+        # Remove any spaces or hyphens from the card number
+        card_number = card_number.replace(" ", "").replace("-", "")
+
+        # Convert the string to a list of integers
+        numbers = [int(char) for char in card_number]
+
+        # Reverse the order for easier processing
+        numbers.reverse()
+
+        # Double every second digit, starting from the rightmost
+        for i in range(1, len(numbers), 2):
+            numbers[i] *= 2
+            if numbers[i] > 9:
+                numbers[i] -= 9
+
+        # If the sum of the digits is divisible by 10, then the number is valid
+        return sum(numbers) % 10 == 0
 
     def refresh(self):
         self.GLineEdit_515.delete(0, END)
