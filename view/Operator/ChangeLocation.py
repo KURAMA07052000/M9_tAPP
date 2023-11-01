@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 import os
 import sys
@@ -55,8 +55,14 @@ class ChangeLocation(tk.Frame):
 
     def submit_location(self):
         loc = self.change_location.get()
+
+        # check if location is selected
+        if not loc:
+            messagebox.showwarning("Warning", "You don't select a location.")
+            return
+
         print("Change location to: " + loc)
-        self.CONTROLLER.MODEL.DATA['vehicle'].update_vehicle_location(location = loc)
+        self.CONTROLLER.MODEL.DATA['vehicle'].update_vehicle_location(location=loc)
         self.CONTROLLER.toOperatorHome()
 
 if __name__=='__main__':
