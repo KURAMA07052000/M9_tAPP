@@ -1,5 +1,6 @@
 import csv
 import tkinter as tk
+import datetime
 from tkinter import *
 from tkinter import filedialog
 
@@ -34,7 +35,7 @@ class ManagerHome(tk.Frame):
         self.start_date_picker.place(x=320, y=100)
 
         # End Date Label and Picker
-        self.end_label = tk.Label(self, text="End Date (Not included):", bg='white')
+        self.end_label = tk.Label(self, text="End Date (Included):", bg='white')
         self.end_label.place(x=170, y=140)
 
         self.end_date_picker = DateEntry(self)
@@ -54,6 +55,8 @@ class ManagerHome(tk.Frame):
     def export_to_csv(self):
         start_date = self.start_date_picker.get_date()
         end_date = self.end_date_picker.get_date()
+        # end date need +1
+        end_date = end_date + datetime.timedelta(days=1)
         self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
         data = self.CONTROLLER.MODEL.DATA['orders'].get_all_orders_in_select_date()
 
@@ -73,6 +76,8 @@ class ManagerHome(tk.Frame):
     def to_vehicle_usage(self):
         start_date = self.start_date_picker.get_date()
         end_date = self.end_date_picker.get_date()
+        # end date need +1
+        end_date = end_date + datetime.timedelta(days=1)
         print(start_date, end_date)
         self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
         self.CONTROLLER.toVehicleUsage()
@@ -80,6 +85,8 @@ class ManagerHome(tk.Frame):
     def to_location_statistics(self):
         start_date = self.start_date_picker.get_date()
         end_date = self.end_date_picker.get_date()
+        # end date need +1
+        end_date = end_date + datetime.timedelta(days=1)
         print(start_date, end_date)
         self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
         self.CONTROLLER.toLocationStatistics()
