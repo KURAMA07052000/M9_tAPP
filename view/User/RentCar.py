@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter import *
 
 class RentCar(tk.Frame):
@@ -105,6 +105,8 @@ class RentCar(tk.Frame):
             self.CONTROLLER.MODEL.DATA['vehicle'].Location = None
             self.CONTROLLER.hardRefreshRentCar()
             self.CONTROLLER.toUserHome()
+        else:
+            messagebox.showerror("Error", "Please fill in all the fields.")
         
    
 
