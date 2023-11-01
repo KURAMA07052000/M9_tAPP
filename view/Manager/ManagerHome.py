@@ -38,15 +38,26 @@ class ManagerHome(tk.Frame):
         self.end_date_picker.place(x=320, y=140)
 
         # Submit Button
-        self.submit_button = tk.Button(self, text="Show Data", command=self.retrieve_dates)
-        self.submit_button.place(x=320, y=200)
+        self.vehicle_usage_button = tk.Button(self, width=39, pady=7, text="Show Vehicle Usage", bg="#CD3333", fg="white", border=0,
+               command=self.to_vehicle_usage)
+        self.vehicle_usage_button.place(x=320, y=200)
+        self.location_statistics_button = tk.Button(self, width=39, pady=7, text="Show Location Statistics", bg="#CD3333", fg="white", border=0,
+                command=self.to_location_statistics)
+        self.location_statistics_button.place(x=320, y=250)
 
-    def retrieve_dates(self):
+    def to_vehicle_usage(self):
         start_date = self.start_date_picker.get_date()
         end_date = self.end_date_picker.get_date()
         print(start_date, end_date)
         self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
         self.CONTROLLER.toVehicleUsage()
+
+    def to_location_statistics(self):
+        start_date = self.start_date_picker.get_date()
+        end_date = self.end_date_picker.get_date()
+        print(start_date, end_date)
+        self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
+        self.CONTROLLER.toLocationStatistics()
 
 
 

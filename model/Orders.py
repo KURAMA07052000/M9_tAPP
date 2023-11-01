@@ -279,21 +279,6 @@ class Orders:
         return data
 
     '''
-    def get_vehicle_usage_data(self):
-        conn = sqlite3.connect('your_database_path.db')
-        cursor = conn.cursor()
-        
-        cursor.execute("""SELECT v.vehicle_plate_num, COUNT(o.order_id) 
-                          FROM Orders o 
-                          JOIN Vehicle v ON o.vehicle_id = v.vehicle_id
-                          WHERE o.start_time BETWEEN ? AND ?
-                          GROUP BY v.vehicle_plate_num""", 
-                          (self.start_date, self.end_date))
-        
-        data = {vehicle_plate: count for vehicle_plate, count in cursor.fetchall()}
-        
-        conn.close()
-        return data
     '''
     def get_vehicle_usage_data(self):
         if(self.start_date == None or self.end_date == None):
@@ -309,6 +294,34 @@ class Orders:
         data = {vehicle_plate: count for vehicle_plate, count in self.cur.fetchall()}
 
         return data
+
+    '''
+    
+    '''
+    def get_pickup_location_statistics_data(self):
+        if(self.start_date == None or self.end_date == None):
+            return None
+        self.cur.execute("""SELECT pickup_location, COUNT(*) 
+                          FROM Orders
+                          WHERE start_time BETWEEN ? AND ? 
+                          GROUP BY pickup_location""",
+                          (self.start_date, self.end_date))
+        data = {pickup_location: count for pickup_location, count in self.cur.fetchall()}
+        return data
+
+    def get_dropoff_location_statistics_data(self):
+        if(self.start_date == None or self.end_date == None):
+            return None
+        self.cur.execute("""SELECT dropoff_location, COUNT(*) 
+                          FROM Orders
+                          WHERE start_time BETWEEN ? AND ? 
+                          GROUP BY dropoff_location""",
+                          (self.start_date, self.end_date))
+        data = {dropoff_location: count for dropoff_location, count in self.cur.fetchall()}
+        return data
+
+
+
 
     def setDate(self, start_date, end_date):
         self.start_date = start_date

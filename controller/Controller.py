@@ -1,3 +1,4 @@
+from view.Manager.LocationStatistics import LocationStatistics
 from view.Manager.VehicleUsage import VehicleUsage
 from view.User.SignUp import SignUp
 from view.User.SignIn import SignIn
@@ -79,6 +80,9 @@ class Controller():
 
     def toVehicleUsage(self):
         self.VIEW.init_and_show_frame(VehicleUsage)
+
+    def toLocationStatistics(self):
+        self.VIEW.init_and_show_frame(LocationStatistics)
     
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)
