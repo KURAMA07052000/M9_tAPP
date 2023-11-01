@@ -24,7 +24,7 @@ class ChargeStatistics(tk.Frame):
 
         # get Data
         self.get_charge_statistics_data()
-
+        # draw graph
         self.draw_chart()
 
         Button(self, width=25, pady=7, text="RETURN", bg="#CD3333", fg="white", border=0,
@@ -37,13 +37,15 @@ class ChargeStatistics(tk.Frame):
             print(i, self.data[i])
     def draw_chart(self):
         vehicle_plates = list(self.data.keys())
-        charges = list(self.data.values())
+        real_charges = list(self.data.values())
+        total_charge = sum(real_charges)
+        charges = [(charge / total_charge) * 100 for charge in real_charges]
 
         fig, ax = plt.subplots(figsize=(6, 4.5))      # scale smaller
 
-        ax.bar(vehicle_plates, charges, color='pink')
+        ax.bar(vehicle_plates, charges, color='#F08080')
         ax.set_xlabel('Vehicle Plate Number')
-        ax.set_ylabel('Total Charge')
+        ax.set_ylabel('Charge Percentage')
         ax.set_title('Total Charge per Vehicle')
         ax.tick_params(axis='x', rotation=30)  # Rotate x labels for better visualization
         ax.tick_params(axis='x', labelsize=8)
