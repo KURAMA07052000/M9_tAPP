@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import messagebox
 
 import os
 import sys
+
+
+
 sys.path.append(os.getcwd())
 
 class SignIn(tk.Frame):
@@ -44,13 +48,15 @@ class SignIn(tk.Frame):
         def on_leave(e):
             name = self.passcode.get()
             if name=='':
-                self.passcode.insert(0,'Password')
+                self.passcode.insert(0,'')
 
         self.passcode = Entry(frame, width=25, fg="black", border=0, bg="white", font=("Microsft YaHei UI Light",11))
         self.passcode.place(x=30, y=150)
         self.passcode.insert(0,"Password")
         self.passcode.bind('<FocusIn>', on_enter)
         self.passcode.bind('<FocusOut>', on_leave)
+        # hidden passccode
+        self.passcode.config(show="*")
         Frame(frame, width=295, height=2, bg="black").place(x=25,y=177)
         
         Button(frame,command=self.signIn,width=39,pady=7,text="Log in",bg="#CD3333", fg="white", border=0).place(x=35, y=204)
@@ -59,7 +65,9 @@ class SignIn(tk.Frame):
         sign_up.place(x=145, y=270)
         
     def signIn(self):
-        self.CONTROLLER.login(self.emailuser.get(), self.passcode.get())
+        if(self.CONTROLLER.login(self.emailuser.get(), self.passcode.get()) == False):
+            # login fail
+            tk.messagebox.showerror("Login Failed", "Please check your email and password")
 
     def refresh(self):
         self.emailuser.delete(0,END)

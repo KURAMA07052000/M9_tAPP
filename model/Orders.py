@@ -346,7 +346,32 @@ class Orders:
         self.start_date = start_date
         self.end_date = end_date
 
-if __name__ == '__main__':
-    u = Orders()
-    u.cur.execute('''SELECT * FROM Orders''')
 
+
+
+if __name__ == '__main__':
+    o = Orders()
+    # o.cur.execute('''SELECT * FROM Orders''')
+    '''
+        Generate orders
+        user_id:f4e020a0-3874-4dc0-9c65-2f010fc94005
+        vehicle_id: Random choice
+        start_time: Random choice
+        end_time: start_time + random choice
+        pickup_location: random choice from ['loc1','loc2','loc3','loc4']
+        dropoff_location: random choice from ['loc1','loc2','loc3','loc4']
+        charge: calculated by calling self.complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str)
+        damage_id: None
+    '''
+    from random import choice
+    from datetime import datetime, timedelta
+
+
+    for i in range(10):
+        o.creat_new()
+
+
+    '''
+        def get_all_location(self):
+            return ['loc1','loc2','loc3', 'loc4']
+    '''

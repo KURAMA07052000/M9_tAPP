@@ -100,14 +100,18 @@ class Controller():
             self.MODEL.set_ids(self.UserID, self.WalletID, self.UserType)
             if self.UserType=='customer':
                 self.toUserHome()
+                return True
             elif self.UserType=='admin':
                 self.toOperatorHome()
+                return True
             elif self.UserType=='manager':
                 self.toManagerHome()
+                return True
             else:
                 print('Wrong usertype')
-        else:
+                return False
             print('Wrong ui or pass')
+        return False
 
     def signup(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
         self.MODEL.User.create_new(name, email, phone_num, password, user_kind)
