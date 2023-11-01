@@ -43,6 +43,7 @@ class RentCar(tk.Frame):
 
         
         self.pick_up_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_location_by_type(), style='Red.TCombobox', justify='center')
+        self.pick_up_loc['state'] = 'readonly'
         self.pick_up_loc.place(x=510, y=100, width=285, height=30)
         self.pick_up_loc.set("-- Pick-Up Location --" if self.CONTROLLER.MODEL.DATA['vehicle'].Location==None else self.CONTROLLER.MODEL.DATA['vehicle'].Location)
 
@@ -58,6 +59,7 @@ class RentCar(tk.Frame):
         vehicle_list = [self.vehicle_map[i] for i in vehicle_id_by_loc]
 
         self.vehicle = ttk.Combobox(self,values=vehicle_list, style='Red.TCombobox', justify='center')
+        self.vehicle['state'] = 'readonly'
         self.vehicle.place(x=510, y=200, width=285, height=30)
         self.vehicle.set("-- Chose your vehicle --" if self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle==None else self.CONTROLLER.MODEL.DATA['vehicle'].Vehicle)
 

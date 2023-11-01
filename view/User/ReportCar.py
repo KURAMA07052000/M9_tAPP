@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter import *
 
 class ReportCar(tk.Frame):
@@ -29,17 +29,25 @@ class ReportCar(tk.Frame):
 
         self.drop_off_loc = ttk.Combobox(self, values=self.display, style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=120, y=80, width=260, height=30)
+        self.drop_off_loc['state'] = 'readonly'
         # self.drop_off_loc.set("Chose from your ordered vehicles")
         # put orders into the combobox
         print(self.display)
         self.drop_off_loc.set("Chose from your ordered vehicles" if self.display != [] else "No orders found")
 
     def submit_fn(self):
-        # find order
-        order = self.orders[self.display.index(self.drop_off_loc.get())]
-        print(order)
-        report = self.GText_821.get("1.0", "end")
-        print(report)
+        selected_order = self.drop_off_loc.get()
+        report = self.GText_821.get("1.0", "end").strip()
+        # check if the order is empty or still the default value
+        if selected_order == "Chose from your ordered vehicles" or selected_order == "No orders found":
+            messagebox.showerror("Error", "Please select an order.")
+            return
+        # check if the report is empty or still the default value
+        if not report or report == "Type damage report here.....":
+            messagebox.showerror("Error", "Please type a damage report.")
+            return
+
+        order = self.orders[self.display.index(selected_order)]
         self.CONTROLLER.MODEL.DATA['damage_report'].report_from_order(order, report)
         self.GText_821.delete("1.0", "end")
         self.CONTROLLER.toUserHome()

@@ -50,6 +50,7 @@ class SignUp(tk.Frame):
         self.user_type = ttk.Combobox(frame, values=["customer", "admin", "manager"], width=23)
         self.user_type.place(x=30, y=275, width=285)
         self.user_type.set("Select User Type")
+        self.user_type['state'] = 'readonly'
 
         Button(frame,command=self.signUp,width=39,pady=7,text="Sign",bg="#CD3333", fg="white", border=0).place(x=35, y=315)
 
