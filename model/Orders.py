@@ -320,6 +320,12 @@ class Orders:
         data = {dropoff_location: count for dropoff_location, count in self.cur.fetchall()}
         return data
 
+    def get_all_orders_in_select_date(self):
+        if(self.start_date == None or self.end_date == None):
+            return None
+        self.cur.execute("""SELECT * FROM Orders WHERE start_time BETWEEN ? AND ?""", (self.start_date, self.end_date))
+        data = list(self.cur.fetchall()).copy()
+        return data
 
 
 

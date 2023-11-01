@@ -1,5 +1,8 @@
+import csv
 import tkinter as tk
 from tkinter import *
+from tkinter import filedialog
+
 from tkcalendar import DateEntry
 import os
 import sys
@@ -24,15 +27,15 @@ class ManagerHome(tk.Frame):
         logout.place(x=850, y=10)
 
         # Start Date Label and Picker
-        self.start_label = tk.Label(self, text="Start Date:", bg='white')
-        self.start_label.place(x=220, y=100)
+        self.start_label = tk.Label(self, text="Start Date (Included):", bg='white')
+        self.start_label.place(x=170, y=100)
 
         self.start_date_picker = DateEntry(self)
         self.start_date_picker.place(x=320, y=100)
 
         # End Date Label and Picker
-        self.end_label = tk.Label(self, text="End Date:", bg='white')
-        self.end_label.place(x=220, y=140)
+        self.end_label = tk.Label(self, text="End Date (Not included):", bg='white')
+        self.end_label.place(x=170, y=140)
 
         self.end_date_picker = DateEntry(self)
         self.end_date_picker.place(x=320, y=140)
@@ -44,6 +47,28 @@ class ManagerHome(tk.Frame):
         self.location_statistics_button = tk.Button(self, width=39, pady=7, text="Show Location Statistics", bg="#CD3333", fg="white", border=0,
                 command=self.to_location_statistics)
         self.location_statistics_button.place(x=320, y=250)
+        self.export_botton = tk.Button(self, width=39, pady=7, text="Export CSV", bg="#CD3333", fg="white", border=0,
+                command=self.export_to_csv)
+        self.export_botton.place(x=320, y=300)
+
+    def export_to_csv(self):
+        start_date = self.start_date_picker.get_date()
+        end_date = self.end_date_picker.get_date()
+        self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
+        data = self.CONTROLLER.MODEL.DATA['orders'].get_all_orders_in_select_date()
+
+        # Prompt the user for a save location and filename
+        filepath = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+
+        # If a path was selected
+        if filepath:
+            # Write data to the selected CSV file
+            with open(filepath, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(["order_id", "vehicle_id", "user_id", "end_time", "start_time", "pickup_location",
+                                 "dropoff_location", "charge", "damage_id", "payment_done"])  # column headers
+                writer.writerows(data)
+
 
     def to_vehicle_usage(self):
         start_date = self.start_date_picker.get_date()
