@@ -47,7 +47,7 @@ class ManagerHome(tk.Frame):
         self.location_statistics_button = tk.Button(self, width=39, pady=7, text="Show Location Statistics", bg="#CD3333", fg="white", border=0,
                 command=self.to_location_statistics)
         self.location_statistics_button.place(x=320, y=250)
-        self.export_botton = tk.Button(self, width=39, pady=7, text="Export CSV", bg="#CD3333", fg="white", border=0,
+        self.export_botton = tk.Button(self, width=39, pady=7, text="Export Order History to CSV", bg="#CD3333", fg="white", border=0,
                 command=self.export_to_csv)
         self.export_botton.place(x=320, y=300)
 
