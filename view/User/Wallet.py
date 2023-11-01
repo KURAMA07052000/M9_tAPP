@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter import *
 import tkinter.font as tkFont
 
@@ -190,10 +190,52 @@ class Wallet(tk.Frame):
         Add Balance Button
     '''
     def GButton_721_command(self):
+        if(not self.validate_card_info()):
+            return
         amount = int(self.GLineEdit_515.get())
         self.CONTROLLER.MODEL.DATA['wallet'].add_balance(amount)
         self.CONTROLLER.toUserHome()
         # print("command")
+
+    def validate_card_info(self):
+        # get data
+        card_holder = self.GLineEdit_762.get().strip()
+        card_number = self.GLineEdit_346.get().strip()
+        valid_month = self.GLineEdit_48.get().strip()
+        valid_year = self.GLineEdit_24.get().strip()
+        ccv = self.GLineEdit_248.get().strip()
+        amount = self.GLineEdit_515.get().strip()
+        if not card_holder:
+            messagebox.showerror("Error", "Please enter card holder's name!")
+            return False
+        if len(card_number) != 16 or not card_number.isdigit():
+            messagebox.showerror("Error", "Invalid card number! It should be 16 digits.")
+            return False
+        # Checking the valid month and year format
+        if not (valid_month.isdigit() and 1 <= int(valid_month) <= 12):
+            messagebox.showerror("Error", "Invalid valid month!")
+            return False
+        if not (valid_year.isdigit() and 0 <= int(valid_year) <= 99):
+            messagebox.showerror("Error", "Invalid valid year!")
+            return False
+        if len(ccv) != 3 or not ccv.isdigit():
+            messagebox.showerror("Error", "Invalid CCV! It should be 3 digits.")
+            return False
+        # Identify card type
+        if card_number.startswith("4"):
+            messagebox.showinfo("Info", "Visa card pay successfully.")
+        elif card_number.startswith("5"):
+            messagebox.showinfo("Info", "Master card pay successfully.")
+        elif card_number.startswith("62"):
+            messagebox.showinfo("Info", "UnionPay card pay successfully.")
+        else:
+            messagebox.showerror("Error", "Invalid card number")
+            return False
+        if not amount.isdigit():
+            messagebox.showerror("Error", "Invalid amount!")
+            return False
+
+        return True
 
     def refresh(self):
         self.GLineEdit_515.delete(0, END)
