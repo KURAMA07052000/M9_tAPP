@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
+from tkinter import messagebox
 import os
 
 class SignUp(tk.Frame):
@@ -42,6 +43,8 @@ class SignUp(tk.Frame):
         self.passcode.insert(0,"Password")
         self.passcode.bind('<FocusIn>', lambda x: self.on_enter(element=self.passcode))
         self.passcode.bind('<FocusOut>', lambda x: self.on_leave('Password', self.passcode))
+        # hidden passccode
+        self.passcode.config(show="*")
         Frame(frame, width=295, height=2, bg="black").place(x=25,y=267)
 
         self.user_type = ttk.Combobox(frame, values=["customer", "admin", "manager"], width=23)
@@ -60,7 +63,36 @@ class SignUp(tk.Frame):
 
     def signUp(self):
         print(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
-        self.CONTROLLER.signup(self.user.get(), self.emailuser.get(), self.phonenum.get(), self.passcode.get(), self.user_type.get())
+
+        email = self.emailuser.get().strip()
+        fullname = self.user.get().strip()
+        phonenum = self.phonenum.get().strip()
+        password = self.passcode.get().strip()
+        user_type = self.user_type.get().strip()
+
+        # 检查各项输入
+        if not email or "@" not in email:
+            messagebox.showwarning("Warning", "Please enter a valid Email.")
+            return
+        if not fullname:
+            messagebox.showwarning("Warning", "Please enter a Full Name.")
+            return
+        if not phonenum.isdigit():
+            messagebox.showwarning("Warning", "Please enter a valid Phone Number.")
+            return
+        if not password or len(password) < 6:
+            messagebox.showwarning("Warning", "Password must be at least 6 characters.")
+            return
+        if user_type not in ["customer", "admin", "manager"]:
+            messagebox.showwarning("Warning", "Please select a valid User Type.")
+            return
+        # all pass
+        print(email, fullname, phonenum, password, user_type)
+        if(self.CONTROLLER.signup(fullname, email, phonenum, password, user_type) == False):
+            # sign up fail
+            messagebox.showerror("Sign Up Failed", "This email has been registered.")
+            return
+
 
     def refresh(self):
         self.emailuser.delete(0,END)

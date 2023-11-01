@@ -47,6 +47,12 @@ class User:
 
         user_id = str(uuid.uuid4())
         wallet_id = str(uuid.uuid4())
+        # check if email have already been signed
+        self.cur.execute("""SELECT email FROM User WHERE email=?""", (email,))
+        self.con.commit()
+        if len(self.cur.fetchall())!=0:
+            print('Email already exists')
+            return False
 
         self.cur.execute("""INSERT INTO User (user_id, wallet_id, name, email, phone_num, password, user_kind) VALUES(
             ?,
@@ -62,6 +68,7 @@ class User:
         w.create_new(wallet_id, user_id)
 
         self.con.commit()
+        return True
 
         
     

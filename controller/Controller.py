@@ -114,8 +114,13 @@ class Controller():
         return False
 
     def signup(self, name:str, email:str, phone_num:str, password:str, user_kind:str):
-        self.MODEL.User.create_new(name, email, phone_num, password, user_kind)
-        self.toSignIn()
+
+        if(self.MODEL.User.create_new(name, email, phone_num, password, user_kind) == True):
+            self.toSignIn()
+            # sign up success
+            return True
+        return False
+
 
     def logout(self):
         self.UserID, self.WalletID, self.UserType = [None]*3
