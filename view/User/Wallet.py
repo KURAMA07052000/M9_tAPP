@@ -217,15 +217,15 @@ class Wallet(tk.Frame):
         if not (valid_month.isdigit() and 1 <= int(valid_month) <= 12):
             messagebox.showerror("Error", "Invalid valid month!")
             return False
-        if not (valid_year.isdigit() and 0 <= int(valid_year) <= 99):
-            messagebox.showerror("Error", "Invalid valid year!")
+        if not (valid_year.isdigit() and 23 <= int(valid_year) <= 99):
+            messagebox.showerror("Error", "Invalid valid year!, need to be 2 digits and greater than 23.")
             return False
         if len(ccv) != 3 or not ccv.isdigit():
             messagebox.showerror("Error", "Invalid CCV! It should be 3 digits.")
             return False
-        if not self.luhn_check(card_number):
-            messagebox.showerror("Error", "Invalid card number, Check again carefully!")
-            return False
+        # if not self.luhn_check(card_number):
+        #     messagebox.showerror("Error", "Invalid card number, Check again carefully!")
+        #     return False
         # Identify card type
         if card_number.startswith("4"):
             messagebox.showinfo("Info", "Visa card pay successfully.")
@@ -269,6 +269,7 @@ class Wallet(tk.Frame):
 
     def refresh(self):
         self.GLineEdit_515.delete(0, END)
+        self.GLineEdit_248.delete(0, END)
         self.GLabel_211["text"] = f"Current BALANCE: \n $ {self.CONTROLLER.MODEL.DATA['wallet'].balance}"
         self.GLabel_211.place(x=550, y=80, width=306, height=225)
 

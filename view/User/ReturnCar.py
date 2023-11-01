@@ -1,6 +1,6 @@
 import datetime
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter import *
 import os
 
@@ -28,6 +28,8 @@ class ReturnCar(tk.Frame):
         heading.place(x=362, y=16)
 
         self.vehicle = ttk.Combobox(self,values=vehicle_list, style='Red.TCombobox', justify='center')
+        # set combobox to read only
+        self.vehicle['state'] = 'readonly'
 
         self.vehicle.place(x=100, y=120, width=285, height=30)
         self.vehicle.set("Chose your vehicle")
@@ -35,6 +37,7 @@ class ReturnCar(tk.Frame):
         self.drop_off_loc = ttk.Combobox(self,values=self.CONTROLLER.MODEL.DATA['vehicle'].get_all_location(), style='Red.TCombobox', justify='center')
         self.drop_off_loc.place(x=100, y=200, width=285, height=30)
         self.drop_off_loc.set("Drop Off Location")
+        self.drop_off_loc['state'] = 'readonly'
 
         date=Label(self,text="Battery Percentage:", fg="black", bg="white", font=("Microsft YaHei UI Light",12))
         date.place(x=550, y=120)
@@ -57,6 +60,23 @@ class ReturnCar(tk.Frame):
             element.insert(0,text)
 
     def sumbit(self):
+        vehicle_choice = self.vehicle.get()
+        dropoff_choice = self.drop_off_loc.get()
+        battery_percentage = self.battery.get()
+        if vehicle_choice == "Chose your vehicle":
+            messagebox.showerror("Error", "Please choose a vehicle.")
+            return
+        if dropoff_choice == "Drop Off Location":
+            messagebox.showerror("Error", "Please choose a drop off location.")
+            return
+        if battery_percentage.isdigit() == False:
+            messagebox.showerror("Error", "Please enter a valid battery percentage.")
+            return
+        battery_percentage = int(battery_percentage)
+        if battery_percentage < 0 or battery_percentage > 100:
+            messagebox.showerror("Error", "Please enter a valid battery percentage, 0 to 100")
+            return
+
         '''Update end time and charge then revert to payment page'''
         from datetime import datetime
 
