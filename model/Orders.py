@@ -32,6 +32,8 @@ class Orders:
     def __init__(self):
         self.con = conn()
         self.cur = curr()
+        self.start_date = None
+        self.end_date = None
         pass
 
     def CREATE_TABLE(self, saftey='on'):
@@ -275,6 +277,42 @@ class Orders:
         self.cur.execute('''SELECT vehicle_id FROM Orders WHERE user_id=? AND charge=0''',[user_id])
         data = list(self.cur.fetchall()).copy()
         return data
+
+    '''
+    def get_vehicle_usage_data(self):
+        conn = sqlite3.connect('your_database_path.db')
+        cursor = conn.cursor()
+        
+        cursor.execute("""SELECT v.vehicle_plate_num, COUNT(o.order_id) 
+                          FROM Orders o 
+                          JOIN Vehicle v ON o.vehicle_id = v.vehicle_id
+                          WHERE o.start_time BETWEEN ? AND ?
+                          GROUP BY v.vehicle_plate_num""", 
+                          (self.start_date, self.end_date))
+        
+        data = {vehicle_plate: count for vehicle_plate, count in cursor.fetchall()}
+        
+        conn.close()
+        return data
+    '''
+    def get_vehicle_usage_data(self):
+        if(self.start_date == None or self.end_date == None):
+            print("get_vehicle_usage_data(): date not found! ")
+            return None
+        self.cur.execute("""SELECT v.vehicle_plate_num, COUNT(o.order_id) 
+                          FROM Orders o 
+                          JOIN Vehicle v ON o.vehicle_id = v.vehicle_id
+                          WHERE o.start_time BETWEEN ? AND ?
+                          GROUP BY v.vehicle_plate_num""",
+                          (self.start_date, self.end_date))
+
+        data = {vehicle_plate: count for vehicle_plate, count in self.cur.fetchall()}
+
+        return data
+
+    def setDate(self, start_date, end_date):
+        self.start_date = start_date
+        self.end_date = end_date
 
 if __name__ == '__main__':
     u = Orders()

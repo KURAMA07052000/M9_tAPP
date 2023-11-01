@@ -1,3 +1,4 @@
+from view.Manager.VehicleUsage import VehicleUsage
 from view.User.SignUp import SignUp
 from view.User.SignIn import SignIn
 from view.User.UserHome import UserHome
@@ -75,6 +76,9 @@ class Controller():
 
     def toConditionReport(self):
         self.VIEW.init_and_show_frame(ConditionReport)
+
+    def toVehicleUsage(self):
+        self.VIEW.init_and_show_frame(VehicleUsage)
     
     def login(self, email:str, password:str):
         self.UserID, self.WalletID, self.UserType = self.MODEL.User.login(email,password)

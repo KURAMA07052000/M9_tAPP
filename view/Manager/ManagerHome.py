@@ -1,44 +1,72 @@
 import tkinter as tk
 from tkinter import *
-#from tkcalendar import Calendar 
+from tkcalendar import DateEntry
 import os
 import sys
+
 sys.path.append(os.getcwd())
+
 
 class ManagerHome(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.configure(bg='white')
-        self.CONTROLLER = controller      
-        heading=tk.Label(self,text="Manager Home", fg="#F08080", bg="white",font=("Microsft YaHei UI Light",23,"bold"))
-        heading.pack(pady=10)
+        self.CONTROLLER = controller
 
-        logout = Button(self, image = self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white", command=self.CONTROLLER.logout)
-        logout.place(x=850,y=10)
+        # Heading
+        heading = tk.Label(self, text="Manager Home", fg="#F08080", bg="white",
+                           font=("Microsft YaHei UI Light", 23, "bold"))
+        heading.place(x=320, y=20)
 
-        
-        #cal = Calendar(self, selectmode="day", year=2023, month=10, day=31)
-        #cal.pack(pady=10)
+        # Logout button
+        logout = Button(self, image=self.CONTROLLER.ASSETS['logoutbutton'], border=0, bg="white",
+                        command=self.CONTROLLER.logout)
+        logout.place(x=850, y=10)
+
+        # Start Date Label and Picker
+        self.start_label = tk.Label(self, text="Start Date:", bg='white')
+        self.start_label.place(x=220, y=100)
+
+        self.start_date_picker = DateEntry(self)
+        self.start_date_picker.place(x=320, y=100)
+
+        # End Date Label and Picker
+        self.end_label = tk.Label(self, text="End Date:", bg='white')
+        self.end_label.place(x=220, y=140)
+
+        self.end_date_picker = DateEntry(self)
+        self.end_date_picker.place(x=320, y=140)
+
+        # Submit Button
+        self.submit_button = tk.Button(self, text="Show Data", command=self.retrieve_dates)
+        self.submit_button.place(x=320, y=200)
+
+    def retrieve_dates(self):
+        start_date = self.start_date_picker.get_date()
+        end_date = self.end_date_picker.get_date()
+        print(start_date, end_date)
+        self.CONTROLLER.MODEL.DATA['orders'].setDate(start_date, end_date)
+        self.CONTROLLER.toVehicleUsage()
 
 
-        
-if __name__=='__main__':
+
+if __name__ == '__main__':
     from controller.Controller import Controller
 
     root = tk.Tk()
     root.geometry('925x500+300+200')
     root.configure(bg='white')
-    root.resizable(False,False)
+    root.resizable(False, False)
 
     container = tk.Frame(root)
-    container.pack(side = "top", fill = "both", expand = True)    
-    container.grid_rowconfigure(0, weight = 1)
-    container.grid_columnconfigure(0, weight = 1)
+    container.pack(side="top", fill="both", expand=True)
+    container.grid_rowconfigure(0, weight=1)
+    container.grid_columnconfigure(0, weight=1)
 
     controller = Controller()
     controller.setView(root)
 
     pg = ManagerHome(container, controller)
-    pg.grid(row = 0, column = 0, sticky ="nsew")
+    pg.grid(row=0, column=0, sticky="nsew")
 
     root.mainloop()
