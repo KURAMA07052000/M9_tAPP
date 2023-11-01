@@ -326,7 +326,19 @@ class Orders:
         self.cur.execute("""SELECT * FROM Orders WHERE start_time BETWEEN ? AND ?""", (self.start_date, self.end_date))
         data = list(self.cur.fetchall()).copy()
         return data
-
+    '''
+        
+    '''
+    def get_charge_statistics_data(self):
+        self.cur.execute("""
+            SELECT V.vehicle_plate_num, SUM(O.charge) AS total_charge 
+            FROM Orders O
+            JOIN Vehicle V on O.vehicle_id = V.vehicle_id
+            WHERE O.start_time BETWEEN ? AND ?
+            GROUP BY V.vehicle_plate_num
+            """, (self.start_date, self.end_date))
+        data = {vehicle_plate: total_charge for vehicle_plate, total_charge in self.cur.fetchall()}
+        return data
 
 
     def setDate(self, start_date, end_date):
