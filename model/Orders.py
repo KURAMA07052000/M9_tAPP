@@ -214,22 +214,29 @@ class Orders:
         self.cur.execute("""SELECT order_id, start_time, pickup_location FROM Orders WHERE vehicle_id = ? AND user_id=? AND payment_done=False""", [vehicle_id, user_id])
         data = list(self.cur.fetchone()).copy()
         order_id, start_date, pickup_location = data
+        self.cur.execute("""SELECT vehicle_type FROM Vehicle WHERE vehicle_id = ?""", [vehicle_id])
+        self.vehicle_type = self.cur.fetchone()[0]
         start_date = datetime.strptime(start_date,"%Y-%m-%d %H:%M:%S.%f")
         time_diff = end_time - start_date
 
         '''
             THIS IS CHANGE FOR BETTER PRESENTATION. SO HOUR WILL BECOME SECONDS
             starting_price : 5 and have 4s of time
-            then every hour is 1 pounds
+            then every seconds is 1 pounds for type 1 vehicle
+            and 1.5 pounds for type 2 vehicle
             if pick up location is different from drop off location,
             then add 10 pounds of Dispatch service fee
         '''
         self.duration_hour = (time_diff).total_seconds()
-        print(self.duration_hour)
+        # print(self.duration_hour)
+        # find vehicle type
+        self.vehicle_type = int(self.vehicle_type)
         if (self.duration_hour <= 4.0):
             self.duration_fee = 0.0
-        else:
+        elif (self.vehicle_type == 1):
             self.duration_fee = 1.0 * (self.duration_hour - 4.0)
+        elif (self.vehicle_type == 2):
+            self.duration_fee = 1.5 * (self.duration_hour - 4.0)
         # %.2f: round(number, ndigits)
         if (pickup_location != dropoff_location):
             self.dispatch_fee = 10.0

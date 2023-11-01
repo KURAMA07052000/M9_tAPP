@@ -80,34 +80,34 @@ class Order:
         method: get_charge
         return: charge : float
     '''
-    def get_charge(self):
-        if self.charge < 0.0:
-            return abs(self.charge)
-        if self.charge == 0.0:
-            '''
-                THIS IS CHANGE FOR BETTER PRESENTATION. SO HOUR WILL BECOME SECONDS
-                starting_price : 5 and have 4s of time
-                then every hour is 1 pounds
-                if pick up location is different from drop off location,
-                then add 10 pounds of Dispatch service fee
-            '''
-            if(self.end_time == None):
-                return 0.0
-            self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()
-            if(self.duration_hour <= 4.0):
-                self.duration_fee = 0.0
-            else:
-                self.duration_fee = 1.0 * (self.duration_hour - 4.0)
-            # %.2f: round(number, ndigits)
-            if(self.order.pickup_location != self.order.dropoff_location):
-                self.dispatch_fee = 10.0
-            else:
-                self.dispatch_fee = 0.0
-            self.starting_price = 5.0
-            self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
-            return self.total_fee
-        if self.charge > 0.0:
-            return self.charge
+    # def get_charge(self):
+    #     if self.charge < 0.0:
+    #         return abs(self.charge)
+    #     if self.charge == 0.0:
+    #         '''
+    #             THIS IS CHANGE FOR BETTER PRESENTATION. SO HOUR WILL BECOME SECONDS
+    #             starting_price : 5 and have 4s of time
+    #             then every hour is 1 pounds
+    #             if pick up location is different from drop off location,
+    #             then add 10 pounds of Dispatch service fee
+    #         '''
+    #         if(self.end_time == None):
+    #             return 0.0
+    #         self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()
+    #         if(self.duration_hour <= 4.0):
+    #             self.duration_fee = 0.0
+    #         else:
+    #             self.duration_fee = 1.0 * (self.duration_hour - 4.0)
+    #         # %.2f: round(number, ndigits)
+    #         if(self.order.pickup_location != self.order.dropoff_location):
+    #             self.dispatch_fee = 10.0
+    #         else:
+    #             self.dispatch_fee = 0.0
+    #         self.starting_price = 5.0
+    #         self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
+    #         return self.total_fee
+    #     if self.charge > 0.0:
+    #         return self.charge
 
     '''
         method: create_order

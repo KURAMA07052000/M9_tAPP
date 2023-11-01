@@ -289,6 +289,9 @@ class Vehicle:
         print("Vehicle map: ",map)
         return map
 
+    def get_vehicle_type_by_id(self, vehicle_id):
+        self.cur.execute('''SELECT vehicle_type FROM Vehicle WHERE vehicle_id=?''', [vehicle_id])
+        return self.cur.fetchone()[0]
 
 
 if __name__ == '__main__':

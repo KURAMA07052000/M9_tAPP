@@ -60,7 +60,7 @@ class Payment(tk.Frame):
                                           fg="#3D3D3D", bg="white")
         start_price_info_label.place(x=439, y=147)
 
-        duration_info_label = tk.Label(frame1, text="Total duration is " + self.duration_hour_str + " seconds ", font=("Inter", 12), fg="#3D3D3D",
+        duration_info_label = tk.Label(frame1, text="Total duration is " + self.duration_hour_str + "s and " + self.vehicle_type_str, font=("Inter", 12), fg="#3D3D3D",
                                        bg="white")
         duration_info_label.place(x=439, y=218)
 
@@ -88,6 +88,7 @@ class Payment(tk.Frame):
             self.duration_fee_str = "£0.00"
             self.dispatch_fee_str = "£0.00"
             self.total_fee_str = "£0.00"
+            self.vehicle_type_str = ""
             self.CONTROLLER.toUserHome()
         else:
 
@@ -96,16 +97,26 @@ class Payment(tk.Frame):
             '''
                 THIS IS CHANGE FOR BETTER PRESENTATION. SO HOUR WILL BECOME SECONDS
                 starting_price : 5 and have 4s of time
-                then every seconds is 1 pounds
+                then every seconds is 1 pounds for type 1 vehicle
+                and 1.5 pounds for type 2 vehicle
                 if pick up location is different from drop off location,
                 then add 10 pounds of Dispatch service fee
             '''
             self.duration_hour = (self.order.end_time - self.order.start_time).total_seconds()
-            print(self.duration_hour)
+            # print(self.duration_hour)
+            # find vehicle type
+            self.vehicle_type = self.CONTROLLER.MODEL.DATA['vehicle'].get_vehicle_type_by_id(self.order.vehicle_id)
+            self.vehicle_type = int(self.vehicle_type)
+            if(self.vehicle_type == 1):
+                self.vehicle_type_str = "£1.0 per seconds for type 1"
+            elif(self.vehicle_type == 2):
+                self.vehicle_type_str = "£1.5 per seconds for type 2"
             if(self.duration_hour <= 4.0):
                 self.duration_fee = 0.0
-            else:
+            elif(self.vehicle_type == 1):
                 self.duration_fee = 1.0 * (self.duration_hour - 4.0)
+            elif(self.vehicle_type == 2):
+                self.duration_fee = 1.5 * (self.duration_hour - 4.0)
             # %.2f: round(number, ndigits)
             if(self.order.pickup_location != self.order.dropoff_location):
                 self.dispatch_fee = 10.0
