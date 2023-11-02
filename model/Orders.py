@@ -244,6 +244,7 @@ class Orders:
             self.dispatch_fee = 0.0
         self.starting_price = 5.0
         self.total_fee = self.starting_price + self.duration_fee + self.dispatch_fee
+        self.total_fee = round(self.total_fee, 2)
         self.cur.execute('''UPDATE Orders SET end_time=?, charge=?, dropoff_location=? WHERE order_id=?''',[end_time, self.total_fee, dropoff_location, order_id])
         self.con.commit()
         return
@@ -353,7 +354,19 @@ class Orders:
         self.start_date = start_date
         self.end_date = end_date
 
-
+    '''
+        Generate orders
+        user_id:f4e020a0-3874-4dc0-9c65-2f010fc94005
+        vehicle_id: Random choice
+        start_time: Random choice
+        end_time: start_time + random choice
+        pickup_location: random choice from ['loc1','loc2','loc3','loc4']
+        dropoff_location: random choice from ['loc1','loc2','loc3','loc4']
+        charge: calculated by calling self.complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str)
+        self.order.payment_done = True
+        then update order
+        damage_id: None
+    '''
     def generate_random_orders(self, n=50):
         import random
         user_id = 'f4e020a0-3874-4dc0-9c65-2f010fc94005'
@@ -377,26 +390,30 @@ class Orders:
 
             # Completing order
             orders_handler.complete_order(end_time, dropoff_location, vehicle_id, user_id)
+            self.cur.execute('''SELECT * FROM Orders WHERE order_id = ?''', [order_id])
+            if(self.cur.fetchone()[7] == 0):
+                print("Error: order not completed")
+                return False
 
             # setting payment_done to True
             self.cur.execute('''UPDATE Orders SET payment_done = True WHERE order_id = ?''', [order_id])
+            # sleep 0.5s
+            import time
+            # time.sleep(0.5)
+
+    # debug
+    def cal_charge_by_order_id(self):
+        order_id = 'c903603b-c091-49ad-833b-e7c02eb5c85c'
+        self.cur.execute('''SELECT * FROM Orders WHERE order_id = ?''', [order_id])
+        self.order11 = Order(self.cur.fetchone())
+        self.order11.get_charge()
+
+
+
 
 if __name__ == '__main__':
     o = Orders()
     # o.cur.execute('''SELECT * FROM Orders'''
-    '''
-        Generate orders
-        user_id:f4e020a0-3874-4dc0-9c65-2f010fc94005
-        vehicle_id: Random choice
-        start_time: Random choice
-        end_time: start_time + random choice
-        pickup_location: random choice from ['loc1','loc2','loc3','loc4']
-        dropoff_location: random choice from ['loc1','loc2','loc3','loc4']
-        charge: calculated by calling self.complete_order(self, end_time: datetime, dropoff_location: str, vehicle_id: str ,user_id: str)
-        self.order.payment_done = True
-        then update order
-        damage_id: None
-    '''
     o.generate_random_orders(50)
 
 
