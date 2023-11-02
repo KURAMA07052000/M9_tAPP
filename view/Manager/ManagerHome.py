@@ -51,7 +51,7 @@ class ManagerHome(tk.Frame):
         self.export_botton = tk.Button(self, width=39, pady=7, text="Export Order History to CSV", bg="#CD3333", fg="white", border=0,
                 command=self.export_to_csv)
         self.export_botton.place(x=320, y=300)
-        self.charge_statistics_button = tk.Button(self, width=39, pady=7, text="Show Charge Statistics", bg="#CD3333", fg="white", border=0,
+        self.charge_statistics_button = tk.Button(self, width=39, pady=7, text="Show Payment Statistics", bg="#CD3333", fg="white", border=0,
                 command=self.to_charge_statistics)
         self.charge_statistics_button.place(x=320, y=350)
 

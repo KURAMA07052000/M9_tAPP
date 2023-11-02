@@ -15,7 +15,7 @@ class ChargeStatistics(tk.Frame):
         self.CONTROLLER = controller
 
         # Heading
-        heading = tk.Label(self, text="Charge Statistics", fg="#F08080", bg="white", font=("Microsft YaHei UI Light", 23, "bold"))
+        heading = tk.Label(self, text="Payment Statistics", fg="#F08080", bg="white", font=("Microsft YaHei UI Light", 23, "bold"))
         heading.place(x=320, y=20)
 
         # Logout button
@@ -45,8 +45,8 @@ class ChargeStatistics(tk.Frame):
 
         ax.bar(vehicle_plates, charges, color='#F08080')
         ax.set_xlabel('Vehicle Plate Number')
-        ax.set_ylabel('Charge Percentage')
-        ax.set_title('Total Charge per Vehicle')
+        ax.set_ylabel('Proportion of Payment (%)')
+        ax.set_title('Payment per Vehicle')
         ax.tick_params(axis='x', rotation=30)  # Rotate x labels for better visualization
         ax.tick_params(axis='x', labelsize=8)
         canvas = FigureCanvasTkAgg(fig, master=self)
